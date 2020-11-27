@@ -1,18 +1,15 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <!-- <googlePay/> -->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+// import googlePay from '@/components/GooglePay.vue'
 export default {
   name: "Home",
   components: {
-    HelloWorld
+    // googlePay
   }
 };
 </script>
