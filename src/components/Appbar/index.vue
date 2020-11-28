@@ -16,7 +16,7 @@
     <v-btn icon :to="{ name: 'Checkout' }">
       <v-icon>mdi-cart-outline</v-icon>
     </v-btn>
-    <v-btn icon >
+    <v-btn icon :to="{ name: 'Profile' }">
       <v-icon>mdi-account</v-icon>
     </v-btn>
   </v-app-bar>

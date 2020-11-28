@@ -1,5 +1,5 @@
 <template>
-  <v-card class="Profile" elevation="1">
+  <v-card class="Profile" elevation="1" height="100%"> 
       <v-row justify="center">
         <v-card-title>Game Store</v-card-title>
       </v-row>

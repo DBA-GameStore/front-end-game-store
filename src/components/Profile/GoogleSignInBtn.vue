@@ -18,13 +18,13 @@ export default {
     data() {
     return {
         params: {
-            client_id: "xxxxxx"
+            client_id: "784954252883-pa2ldt93uuctvt84f53nrepau4ullh0d.apps.googleusercontent.com"
         },
         // only needed if you want to render the button with the google ui
         renderParams: {
-            width: 250,
+            width: 150,
             height: 50,
-            longtitle: true
+            longtitle: false
         }
     };
   },

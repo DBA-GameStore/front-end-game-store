@@ -1,17 +1,16 @@
 <template>
   <div class="Profile">
-    <h1>Login</h1>
-    <googleSignInBtn />
+    <login />
   </div>
 </template>
 
 <script>
-import googleSignInBtn from '@/components/Profile/GoogleSignInBtn.vue'
+import login from '@/components/Profile/SignIn.vue'
 
 export default {
   name: "Home",
   components: {
-    googleSignInBtn
+      login
   }
 };
 </script>
