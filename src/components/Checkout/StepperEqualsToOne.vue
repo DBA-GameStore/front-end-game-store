@@ -1,7 +1,7 @@
 <template>
   <v-form ref="form" v-model="valid" lazy-validation>
     <v-row v-for="(i, index) in formDatas" :key="index">
-      <v-col cols="5">
+      <v-col cols="6">
         <v-text-field
           outlined
           dense
@@ -11,7 +11,7 @@
         ></v-text-field>
       </v-col>
 
-      <v-col cols="5">
+      <v-col cols="6">
         <v-text-field
           outlined
           dense
