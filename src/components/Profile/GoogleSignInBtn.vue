@@ -1,12 +1,14 @@
 <template>
-  <GoogleLogin
-    :params="params"
-    :renderParams="renderParams"
-    :onSuccess="onSuccess"
-    :onFailure="onFailure"
-  ></GoogleLogin>
-
-  <!-- <GoogleLogin :params="params" :logoutButton="true">Logout</GoogleLogin> -->
+  <div>
+    <GoogleLogin
+      :params="params"
+      :renderParams="renderParams"
+      :onSuccess="onSuccess"
+      :onFailure="onFailure"
+      :logoutButton="isLogined"
+      :onCurrentUser="getCurernt"
+    ></GoogleLogin>
+  </div>
 </template>
 
 <script>
@@ -17,18 +19,22 @@ export default {
     },
     data() {
     return {
+        isLogined: false,
         params: {
             client_id: "784954252883-pa2ldt93uuctvt84f53nrepau4ullh0d.apps.googleusercontent.com"
         },
         // only needed if you want to render the button with the google ui
         renderParams: {
-            width: 150,
-            height: 50,
-            longtitle: false
+            width: 236.16,
+            height: 42,
+            longtitle: true
         }
     };
   },
   methods:{
+    getCurernt(googleUser){
+        this.isLogined = true
+    },
     onSuccess(googleUser) {
         console.log(googleUser);
 
