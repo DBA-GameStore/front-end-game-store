@@ -1,15 +1,15 @@
 <template>
   <div class="home">
-    <!-- <googlePay/> -->
+    <store />
   </div>
 </template>
 
 <script>
-// import googlePay from '@/components/GooglePay.vue'
+import store from '@/components/Store/index.vue'
 export default {
   name: "Home",
   components: {
-    // googlePay
+    store
   }
 };
 </script>

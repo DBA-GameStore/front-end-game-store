@@ -1,6 +1,6 @@
 <template>
   <v-card class="Profile" elevation="1">
-      <v-row justify="center">
+      <v-row justify="center" >
         <v-card-title>Game Store</v-card-title>
       </v-row>
       <v-row justify="center">
