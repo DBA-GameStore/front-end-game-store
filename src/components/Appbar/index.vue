@@ -4,22 +4,26 @@
     class="pa-0"
     elevate-on-scroll
     fixed
-    dense
     app
-    dark
+    color="transparent"
     scroll-target="#scrolling-techniques-7"
   >
     <v-container>
       <v-row>
-        <v-card-title class="secondary--text">
-          <v-btn class="doNotActive" id="no-background-hover" text to="/"
-            >Game Store</v-btn
+        <v-card-title>
+          <v-btn class="doNotActive" id="no-background-hover" icon to="/"
+            ><v-icon> mdi-gamepad-circle-outline</v-icon></v-btn
           >
         </v-card-title>
 
         <v-spacer></v-spacer>
         <v-card-title class="secondary--text">
-          <v-btn icon :to="{ name: 'Checkout' }" id="no-background-hover" v-bind:color="type==='guest' ? 'secondary' : 'primary'">
+          <v-btn
+            icon
+            :to="{ name: 'Checkout' }"
+            id="no-background-hover"
+            v-bind:color="type === 'guest' ? 'secondary' : 'primary'"
+          >
             <v-icon>mdi-cart-outline</v-icon>
           </v-btn>
           <v-btn icon :to="{ name: 'Profile' }" id="no-background-hover">

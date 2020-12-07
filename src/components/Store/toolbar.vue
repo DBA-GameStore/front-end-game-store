@@ -1,16 +1,14 @@
 <template>
-  <v-toolbar elevation="0" color="#424242" class="custom-bar" dense>
+  <v-toolbar elevation="1" dense color="white">
     <v-menu offset-y bottom open-on-hover :close-on-content-click="false">
       <template v-slot:activator="{ on, attrs }">
         <v-btn
-          color="white"
-          dark
           v-bind="attrs"
           v-on="on"
           text
           style="position: relative; left: -15px"
         >
-          <div class="white--text">瀏覽</div>
+          <div>瀏覽</div>
         </v-btn>
       </template>
 
@@ -25,40 +23,54 @@
       </v-list>
     </v-menu>
     <v-btn
-      color="white"
-      dark
       v-bind="attrs"
       v-on="on"
       text
       style="position: relative; left: -15px"
     >
-      <div class="white--text">活動</div>
+      <div>活動</div>
     </v-btn>
     <v-btn
-      color="white"
-      dark
       v-bind="attrs"
       v-on="on"
       text
       style="position: relative; left: -15px"
     >
-      <div class="white--text">遊戲分級</div>
+      <div>遊戲分級</div>
     </v-btn>
     <v-spacer />
-    <v-autocomplete
+    <!-- <v-autocomplete
       v-model="select"
       :loading="loading"
       :items="items"
       :search-input.sync="search"
       cache-items
-      class="mx-4"
       flat
-      color="white"
       hide-no-data
       hide-details
       label="Search for games"
       solo-inverted
-    ></v-autocomplete>
+      dark
+    ></v-autocomplete> -->
+    <v-card elevation="0">
+      <v-autocomplete
+        append-icon="mdi-search"
+        :loading="loading"
+        :filter="(v) => v"
+        :items="items"
+        :search-input.sync="search"
+        v-model="select"
+        flat
+        hide-no-data
+        hide-details
+        rounded
+        color="#efefef"
+        return-object
+        solo
+        placeholder="Search games"
+      >
+      </v-autocomplete>
+    </v-card>
   </v-toolbar>
 </template>
 
@@ -160,9 +172,6 @@ export default {
 </script>
 
 <style>
-.custom-bar {
-  padding: 0, 0, 0, 0;
-}
 .v-select.v-select--is-menu-active .v-input__icon--append .v-icon {
   transform: none;
 }

@@ -1,22 +1,25 @@
 <template>
   <v-app>
-    <v-container>
-      <v-row class="pa-0 ma-0">
-        <storeToolbar />
-      </v-row>
-    </v-container>
-    <v-container>
-      <v-row justify="center" class="pa-0 ma-0">
-        <v-card-text>精選推薦</v-card-text>
-        <storeCarousel />
-      </v-row>
-    </v-container>
-    <v-container v-for="i in titles" :key="i">
-      <v-card-text>{{ i }}</v-card-text>
-      <v-row justify="center" class="pa-0 ma-0">
-        <storeCarouselMultis />
-      </v-row>
-    </v-container>
+    <v-card elevation="0">
+      <v-container>
+        <v-row class="pa-0 ma-0">
+          <storeToolbar />
+        </v-row>
+      </v-container>
+      <v-container>
+        <v-row justify="center" class="pa-0 ma-0">
+          <v-card-text>精選推薦</v-card-text>
+          <storeCarousel />
+        </v-row>
+      </v-container>
+
+      <v-container v-for="i in titles" :key="i">
+        <v-card-text>{{ i }}</v-card-text>
+        <v-row justify="center" class="pa-0 ma-0">
+          <storeCarouselMultis />
+        </v-row>
+      </v-container>
+    </v-card>
   </v-app>
 </template>
 
@@ -46,3 +49,6 @@ export default {
 }
 </script>
 
+
+<style>
+</style>
