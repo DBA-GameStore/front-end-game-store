@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import step1 from "@/components/Checkout/StepperEqualsToOne.vue"
-import step2 from "@/components/Checkout/StepperEqualsToTwo.vue"
-import googlePay from '@/components/Checkout/GooglePay.vue'
+import step1 from "@/components/Checkout/StepperEqualsToOne.vue";
+import step2 from "@/components/Checkout/StepperEqualsToTwo.vue";
+import googlePay from "@/components/Checkout/GooglePay.vue";
 export default {
   name: "Home",
   components: {
@@ -58,10 +58,10 @@ export default {
     step2,
     googlePay
   },
-  data(){
+  data() {
     return {
-        e6: 1
-    }
+      e6: 1
+    };
   }
 };
 </script>

@@ -24,31 +24,23 @@
 </template>
 
 <script>
-import storeToolbar from '@/components/Store/toolbar.vue'
-import storeCarousel from '@/components/Store/carousel.vue'
-import storeCarouselMultis from '@/components/Store/multiIteamCarousel.vue'
+import storeToolbar from "@/components/Store/toolbar.vue";
+import storeCarousel from "@/components/Store/carousel.vue";
+import storeCarouselMultis from "@/components/Store/multiIteamCarousel.vue";
 export default {
-    components: {
-      storeToolbar,
-      storeCarousel,
-      storeCarouselMultis
-    },
-    data () {
-      return {
-        titles:[
-          "熱門遊戲",
-          "特別優化",
-          "社群推薦"
-        ]
-      }
-    },
-    watch: {
-    },
-    methods: {
-    },
-}
+  components: {
+    storeToolbar,
+    storeCarousel,
+    storeCarouselMultis
+  },
+  data() {
+    return {
+      titles: ["熱門遊戲", "特別優惠", "社群推薦"]
+    };
+  },
+  watch: {},
+  methods: {}
+};
 </script>
 
-
-<style>
-</style>
+<style></style>

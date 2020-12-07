@@ -1,4 +1,3 @@
-
 <template>
   <hooper :settings="hooperSettings">
     <slide v-for="i in 5" :key="i">
@@ -15,28 +14,25 @@
 </template>
 
 <script>
-import {
-  Hooper,
-  Slide,
-  Pagination as HooperPagination
-} from 'hooper';
+import { Hooper, Slide, Pagination as HooperPagination } from "hooper";
 
 export default {
-   components: {
-        Hooper, Slide
-    },
-    data() {
-        return {
-            hooperSettings: {
-                infiniteScroll: true,
-                centerMode: true,
-                autoPlay: true,
-                playSpeed: 3500,
-                itemsToShow: 2
-            }   
-        }
-    }
-}
+  components: {
+    Hooper,
+    Slide
+  },
+  data() {
+    return {
+      hooperSettings: {
+        infiniteScroll: true,
+        centerMode: true,
+        autoPlay: true,
+        playSpeed: 3500,
+        itemsToShow: 2
+      }
+    };
+  }
+};
 </script>
 
 <style scoped>

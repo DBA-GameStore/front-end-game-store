@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import googleSignInBtn from '@/components/Profile/GoogleSignInBtn.vue'
-import facebookSignInBtn from '@/components/Profile/FacebookSignInBtn.vue'
+import googleSignInBtn from "@/components/Profile/GoogleSignInBtn.vue";
+import facebookSignInBtn from "@/components/Profile/FacebookSignInBtn.vue";
 
 export default {
   name: "Home",

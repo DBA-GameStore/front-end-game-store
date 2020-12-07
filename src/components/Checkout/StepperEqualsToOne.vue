@@ -26,27 +26,27 @@
 
 <script>
 export default {
-    data() {
-        return{
-        formDatas:[
-            {
-                first: {label: "First name"},
-                second: {label: "Last name"}
-            },
-            {
-                first: {label: "Address Line 1"},
-                second: {label: "Address Line 2"}
-            },
-            {
-                first: {label: "Country"},
-                second: {label: "City"}
-            },
-            {
-                first: {label: "Zip name"},
-                second: {label: "Phone number"}
-            },
-            ]
+  data() {
+    return {
+      formDatas: [
+        {
+          first: { label: "First name" },
+          second: { label: "Last name" }
+        },
+        {
+          first: { label: "Address Line 1" },
+          second: { label: "Address Line 2" }
+        },
+        {
+          first: { label: "Country" },
+          second: { label: "City" }
+        },
+        {
+          first: { label: "Zip name" },
+          second: { label: "Phone number" }
         }
-    }
-}
+      ]
+    };
+  }
+};
 </script>

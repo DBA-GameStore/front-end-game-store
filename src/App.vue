@@ -8,17 +8,16 @@
 </template>
 
 <script>
-import appbar from "@/components/Appbar/index.vue"
+import appbar from "@/components/Appbar/index.vue";
 export default {
   name: "App",
 
   components: {
-    appbar,
+    appbar
   },
 
-data() {
-    return {
-    };
-  },
+  data() {
+    return {};
+  }
 };
 </script>

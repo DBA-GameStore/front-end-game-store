@@ -8,24 +8,24 @@
 </template>
 
 <script>
-  import VFacebookLogin from 'vue-facebook-login-component'
+import VFacebookLogin from "vue-facebook-login-component";
 
-  export default {
-    components: {
-      VFacebookLogin
+export default {
+  components: {
+    VFacebookLogin
+  },
+  data() {
+    return {
+      user: null
+    };
+  },
+  methods: {
+    handleLogin(e) {
+      console.log(e);
     },
-    data() {
-        return {
-            user: null
-        }
-    },
-    methods: {
-        handleLogin(e) {
-            console.log(e);
-        },
-        handleLogout() {
-            console.log("Logout");
-        },
+    handleLogout() {
+      console.log("Logout");
     }
   }
+};
 </script>

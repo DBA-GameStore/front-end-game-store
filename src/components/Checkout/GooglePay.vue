@@ -102,12 +102,12 @@ export default {
         .loadPaymentData(paymentDataRequest)
         .then(paymentData => {
           //this.$emit("payed", paymentData);
-          console.log("success")
+          console.log("success");
         })
         .catch(err => {
           // show error in developer console for debugging
           console.error(err);
-          if (err.statusCode === "CANCELED") console.log("cancel");//this.$emit("cancel");
+          if (err.statusCode === "CANCELED") console.log("cancel"); //this.$emit("cancel");
         });
     }
   }

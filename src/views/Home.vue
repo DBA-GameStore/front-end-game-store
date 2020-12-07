@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import store from '@/components/Store/index.vue'
+import store from "@/components/Store/index.vue";
 export default {
   name: "Home",
   components: {

@@ -18,11 +18,16 @@
 </template>
 
 <script>
-import { Hooper, Slide, Pagination as HooperPagination, Navigation as HooperNavigation } from 'hooper';
-import 'hooper/dist/hooper.css';
+import {
+  Hooper,
+  Slide,
+  Pagination as HooperPagination,
+  Navigation as HooperNavigation
+} from "hooper";
+import "hooper/dist/hooper.css";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Hooper,
     Slide,
@@ -31,14 +36,14 @@ export default {
   },
   data() {
     return {
-        hooperSettings: {
-            centerMode: true,
-            autoPlay: true,
-            playSpeed: 3500,
-            itemsToShow: 1,
-            vertical: true
-        }   
-    }
+      hooperSettings: {
+        centerMode: true,
+        autoPlay: true,
+        playSpeed: 3500,
+        itemsToShow: 1,
+        vertical: true
+      }
+    };
   }
 };
 </script>
