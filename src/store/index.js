@@ -4,8 +4,19 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export default new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    storePageSelector: 0
+  },
+  getters: {
+    getStoreSelector: state => {
+      return state.storePageSelector
+    }
+  },
+  mutations: {
+    storeCheckout(state,n){
+      state.storePageSelector = n
+    }
+  },
   actions: {},
   modules: {}
 });

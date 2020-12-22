@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="0" class="grey--text">
+  <v-card elevation="0">
     <h1>Checkout Order</h1>
     <br />
     <v-row>

@@ -11,19 +11,20 @@
     <v-container>
       <v-row>
         <v-card-title>
-          <v-btn class="doNotActive" id="no-background-hover" icon to="/"
+          <v-btn
+            class="doNotActive"
+            id="no-background-hover"
+            icon
+            @click="checkout"
+            to="/"
             ><v-icon> mdi-gamepad-circle-outline</v-icon></v-btn
           >
         </v-card-title>
 
         <v-spacer></v-spacer>
+        <!-- v-bind:color="type === 'guest' ? 'secondary' : 'primary'" -->
         <v-card-title class="secondary--text">
-          <v-btn
-            icon
-            :to="{ name: 'Checkout' }"
-            id="no-background-hover"
-            v-bind:color="type === 'guest' ? 'secondary' : 'primary'"
-          >
+          <v-btn icon :to="{ name: 'Checkout' }" id="no-background-hover">
             <v-icon>mdi-cart-outline</v-icon>
           </v-btn>
           <v-btn icon :to="{ name: 'Profile' }" id="no-background-hover">
@@ -34,6 +35,16 @@
     </v-container>
   </v-app-bar>
 </template>
+
+<script>
+export default {
+  methods: {
+    checkout() {
+      this.$store.commit("storeCheckout", 0);
+    },
+  },
+};
+</script>
 
 <style>
 .doNotActive.v-btn--active::before {

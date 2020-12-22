@@ -5,7 +5,7 @@
       <v-col cols="6">
         <v-card elevation="0">
           <v-stepper v-model="e6" vertical class="elevation-0">
-            <v-stepper-step :complete="e6 > 1" step="1" color="#1b1b1b">
+            <v-stepper-step :complete="e6 > 1" step="1" color="#0e0b0e">
               Shipping address
               <small>Information of your Shipping</small>
             </v-stepper-step>

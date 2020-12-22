@@ -7,12 +7,13 @@
           v-on="on"
           text
           style="position: relative; left: -15px"
+          @click="checkout(1)"
         >
           <div>瀏覽</div>
         </v-btn>
       </template>
 
-      <v-list>
+      <!-- <v-list>
         <v-list-item v-for="(item, index) in hotSale" :key="index">
           <v-btn text color="white">
             <v-list-item-title class="black--text">{{
@@ -20,7 +21,7 @@
             }}</v-list-item-title>
           </v-btn>
         </v-list-item>
-      </v-list>
+      </v-list> -->
     </v-menu>
     <v-btn
       v-bind="attrs"
@@ -35,6 +36,7 @@
       v-on="on"
       text
       style="position: relative; left: -15px"
+      @click="checkout(3)"
     >
       <div>遊戲分級</div>
     </v-btn>
@@ -56,7 +58,7 @@
       <v-autocomplete
         append-icon="mdi-search"
         :loading="loading"
-        :filter="v => v"
+        :filter="(v) => v"
         :items="items"
         :search-input.sync="search"
         v-model="select"
@@ -68,6 +70,7 @@
         return-object
         solo
         placeholder="Search games"
+        @keydown.enter="searchFun"
       >
       </v-autocomplete>
     </v-card>
@@ -82,7 +85,7 @@ export default {
       hotSale: [
         { title: "免費遊玩" },
         { title: "預購" },
-        { title: "熱門遊戲" }
+        { title: "熱門遊戲" },
       ],
       loading: false,
       items: [],
@@ -147,27 +150,33 @@ export default {
         "Washington",
         "West Virginia",
         "Wisconsin",
-        "Wyoming"
-      ]
+        "Wyoming",
+      ],
     };
   },
   watch: {
     search(val) {
       val && val !== this.select && this.querySelections(val);
-    }
+    },
   },
   methods: {
+    checkout(n) {
+      this.$emit("checkout-page", n);
+    },
+    searchFun() {
+      console.log("search");
+    },
     querySelections(v) {
       this.loading = true;
       // Simulated ajax query
       setTimeout(() => {
-        this.items = this.states.filter(e => {
+        this.items = this.states.filter((e) => {
           return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1;
         });
         this.loading = false;
       }, 500);
-    }
-  }
+    },
+  },
 };
 </script>
 
