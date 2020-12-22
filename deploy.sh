@@ -6,7 +6,7 @@ cd docs
 
 git init
 git add -A
-git commit -m 'deploy'
+git commit -m 'dist'
 
 git push -f https://github.com/DBA-GameStore/front-end-game-store.git master:gh-pages
 
