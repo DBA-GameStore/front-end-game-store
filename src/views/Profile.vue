@@ -6,11 +6,19 @@
           >Game Store</v-card-title
         >
       </v-row>
-      <div v-if="checktLogin != null">
-        <v-btn @click="logout" elevation="0" color="white" text>
-          <span class="black--text">Log out</span>
+      <v-row v-if="checktLogin != null" justify="center">
+        <v-btn
+          @click="logout"
+          elevation="0"
+          color="white"
+          text
+        >
+          <span class="blue--text">Log out</span>
         </v-btn>
-      </div>
+      </v-row>
+      <v-row v-if="checktLogin != null" justify="center">
+        <uploadGame v-if="checkAdmin" />
+      </v-row>
       <firebaseSingn v-else />
       <v-row justify="center" align="center">
         <v-layout justify-space-around column align-center fill-height>
@@ -27,6 +35,7 @@ import firebaseSingn from "@/components/Profile/firebaseGoogle.vue";
 // import googleSignInBtn from "@/components/Profile/GoogleSignInBtn.vue";
 // import facebookSignInBtn from "@/components/Profile/FacebookSignInBtn.vue";
 import { signout } from "@/APIs/signout.js";
+import uploadGame from "@/components/Profile/adminUploadGame";
 
 export default {
   name: "Home",
@@ -34,11 +43,17 @@ export default {
     firebaseSingn,
     // googleSignInBtn,
     // facebookSignInBtn,
+    uploadGame,
   },
   computed: {
     checktLogin: {
       get() {
         return this.$store.getters.getUser;
+      },
+    },
+    checkAdmin: {
+      get() {
+        return this.$store.getters.getAdmin;
       },
     },
   },

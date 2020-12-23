@@ -8,8 +8,13 @@
 import store from "@/components/Store/index.vue";
 export default {
   name: "Home",
+  data() {
+    return {};
+  },
   components: {
-    store
-  }
+    store,
+  },
+  mounted() {
+  },
 };
 </script>

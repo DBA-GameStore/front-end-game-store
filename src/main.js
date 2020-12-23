@@ -6,9 +6,12 @@ import vuetify from "./plugins/vuetify";
 import firebase from "firebase";
 import * as firebaseui from "firebaseui";
 import config from "./firebaseConfig.js";
+import axios from 'axios'
+import VueAxios from 'vue-axios'
 
 import VueCarousel from "vue-carousel";
 Vue.use(VueCarousel);
+Vue.use(VueAxios, axios)
 firebase.initializeApp(config);
 firebase.analytics();
 // var ui = new firebaseui.auth.AuthUI(firebase.auth());

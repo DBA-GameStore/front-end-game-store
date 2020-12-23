@@ -45,7 +45,7 @@ export default {
     storeCarousel,
     storeCarouselMultis,
     tagSearch,
-    ageRating
+    ageRating,
   },
   data() {
     return {
@@ -54,17 +54,20 @@ export default {
   },
   watch: {},
   methods: {
-    checkout(n){
+    checkout(n) {
       this.$store.commit("storeCheckout", n);
-    }
+    },
+  },
+  mounted(){
+    this.selector()
   },
   computed: {
     selector: {
       get() {
-        return this.$store.getters.getStoreSelector
-      }
-    }
-  }
+        return this.$store.getters.getStoreSelector;
+      },
+    },
+  },
 };
 </script>
 

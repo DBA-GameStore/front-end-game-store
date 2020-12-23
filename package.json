@@ -10,19 +10,25 @@
     "start": "nodemon app.js"
   },
   "dependencies": {
+    "axios": "^0.21.1",
+    "cookie": "^0.4.1",
     "core-js": "^3.6.5",
     "firebase": "^8.2.1",
     "firebaseui": "^4.7.1",
     "hooper": "^0.3.4",
+    "js-cookie": "^2.2.1",
+    "secure-ls": "^1.2.6",
     "swiper": "^6.3.5",
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
+    "vue-axios": "^3.2.0",
     "vue-carousel": "^0.18.0",
     "vue-facebook-login-component": "^3.0.0",
     "vue-google-login": "^2.0.5",
     "vue-router": "^3.2.0",
     "vuetify": "^2.2.11",
-    "vuex": "^3.4.0"
+    "vuex": "^3.4.0",
+    "vuex-persistedstate": "^4.0.0-beta.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
