@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="0" class="grey--text">
+  <v-card elevation="0">
     <h1>Checkout Order</h1>
     <br />
     <v-row>
@@ -29,16 +29,16 @@
 
 <script>
 export default {
-    data() {
-        return{
-            shippingList: [
-                {label: "Price", content: "$50000"},
-                {label: "Shipping", content: "$10"},
-                {label: "Tax", content: "$10"},
-            ]
-        }
-    }
-}
+  data() {
+    return {
+      shippingList: [
+        { label: "Price", content: "$50000" },
+        { label: "Shipping", content: "$10" },
+        { label: "Tax", content: "$10" }
+      ]
+    };
+  }
+};
 </script>
 
 <style>

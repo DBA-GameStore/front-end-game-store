@@ -5,7 +5,7 @@
       <v-col cols="6">
         <v-card elevation="0">
           <v-stepper v-model="e6" vertical class="elevation-0">
-            <v-stepper-step :complete="e6 > 1" step="1" color="#1b1b1b">
+            <v-stepper-step :complete="e6 > 1" step="1" color="#0e0b0e">
               Shipping address
               <small>Information of your Shipping</small>
             </v-stepper-step>
@@ -48,9 +48,9 @@
 </template>
 
 <script>
-import step1 from "@/components/Checkout/StepperEqualsToOne.vue"
-import step2 from "@/components/Checkout/StepperEqualsToTwo.vue"
-import googlePay from '@/components/Checkout/GooglePay.vue'
+import step1 from "@/components/Checkout/StepperEqualsToOne.vue";
+import step2 from "@/components/Checkout/StepperEqualsToTwo.vue";
+import googlePay from "@/components/Checkout/GooglePay.vue";
 export default {
   name: "Home",
   components: {
@@ -58,9 +58,21 @@ export default {
     step2,
     googlePay
   },
-  data(){
+  data() {
     return {
-        e6: 1
+      e6: 1
+    };
+  },
+  computed: {
+    checktLogin: {
+      get() {
+        return this.$store.getters.getUser;
+      }
+    }
+  },
+  mounted() {
+    if (this.checktLogin == null) {
+      this.$router.push("/Profile");
     }
   }
 };
