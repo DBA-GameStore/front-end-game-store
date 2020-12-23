@@ -9,17 +9,24 @@
         </v-card>
       </v-container>
     </slide>
+    <hooper-navigation slot="hooper-addons"></hooper-navigation>
   </hooper>
 </template>
 
 <script>
-import { Hooper, Slide, Pagination as HooperPagination } from "hooper";
+import {
+  Hooper,
+  Slide,
+  Pagination,
+  Navigation as HooperNavigation,
+} from "hooper";
 
 export default {
   props: ["games"],
   components: {
     Hooper,
     Slide,
+    HooperNavigation,
   },
   data() {
     return {
@@ -37,9 +44,6 @@ export default {
       console.log(this.games);
       this.$store.commit("gameCheckout", e);
     },
-  },
-  mounted() {
-    console.log(this.games);
   },
 };
 </script>
