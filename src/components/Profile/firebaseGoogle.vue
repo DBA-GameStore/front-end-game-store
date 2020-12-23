@@ -11,13 +11,19 @@ export default {
   name: "auth",
   mounted() {
     var uiConfig = {
-      signInSuccessUrl: "/",
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.GithubAuthProvider.PROVIDER_ID
+        firebase.auth.GithubAuthProvider.PROVIDER_ID,
       ],
       callbacks: {
+        signInSuccess: function(currentUser, credential, redirectUrl) {
+          const userId = currentUser.uid;
+          // Manually redirect.
+          window.location.assign(`/`);
+          // Do not automatically redirect.
+          return false;
+        },
         // signInFailure callback must be provided to handle merge conflicts which
         // occur when an existing credential is linked to an anonymous user.
         signInFailure: function(error) {
@@ -33,14 +39,14 @@ export default {
           // ...
           // Finish sign-in after data is copied.
           return firebase.auth().signInWithCredential(cred);
-        }
-      }
+        },
+      },
     };
     var ui;
     ui =
       firebaseui.auth.AuthUI.getInstance() ||
       new firebaseui.auth.AuthUI(firebase.auth());
     ui.start("#firebaseui-auth-container", uiConfig);
-  }
+  },
 };
 </script>
