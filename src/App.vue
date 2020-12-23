@@ -16,7 +16,7 @@ export default {
   name: "App",
 
   components: {
-    appbar,
+    appbar
   },
 
   data() {
@@ -27,7 +27,7 @@ export default {
       this.axios
         .post("http://10.101.5.218//SQLProject/game/", {
           name: "sab",
-          tagid: "1",
+          tagid: "1"
         })
         .then(function(response) {
           console.log(response);
@@ -36,8 +36,9 @@ export default {
           console.log(error);
         });
     },
-    get(){
-      this.axios.get("http://10.101.5.218//SQLProject/game/")
+    get() {
+      this.axios
+        .get("http://10.101.5.218//SQLProject/game/")
         .then(function(response) {
           console.log(response);
         })
@@ -45,6 +46,6 @@ export default {
           console.log(error);
         });
     }
-  },
+  }
 };
 </script>

@@ -45,16 +45,16 @@ export default {
     tagChips: [
       {
         text: "Music",
-        icon: "mdi-music-box",
+        icon: "mdi-music-box"
       },
       {
         text: "Action",
-        icon: "mdi-sword",
-      },
+        icon: "mdi-sword"
+      }
     ],
     loading: false,
     search: "",
-    selected: [],
+    selected: []
   }),
 
   computed: {
@@ -66,7 +66,7 @@ export default {
 
       if (!search) return this.tagChips;
 
-      return this.tagChips.filter((item) => {
+      return this.tagChips.filter(item => {
         const text = item.text.toLowerCase();
 
         return text.indexOf(search) > -1;
@@ -80,13 +80,13 @@ export default {
       }
 
       return selections;
-    },
+    }
   },
 
   watch: {
     selected() {
       this.search = "";
-    },
+    }
   },
 
   methods: {
@@ -98,7 +98,7 @@ export default {
         this.selected = [];
         this.loading = false;
       }, 2000);
-    },
-  },
+    }
+  }
 };
 </script>

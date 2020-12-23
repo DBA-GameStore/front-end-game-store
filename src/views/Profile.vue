@@ -7,17 +7,14 @@
         >
       </v-row>
       <v-row v-if="checktLogin != null" justify="center">
-        <v-btn
-          @click="logout"
-          elevation="0"
-          color="white"
-          text
-        >
+        <v-btn @click="logout" elevation="0" color="white" text>
           <span class="blue--text">Log out</span>
         </v-btn>
       </v-row>
       <v-row v-if="checktLogin != null" justify="center">
-        <uploadGame v-if="checkAdmin" />
+        <div v-if="checkAdmin">
+          <uploadGame />
+        </div>
       </v-row>
       <firebaseSingn v-else />
       <v-row justify="center" align="center">
@@ -43,25 +40,25 @@ export default {
     firebaseSingn,
     // googleSignInBtn,
     // facebookSignInBtn,
-    uploadGame,
+    uploadGame
   },
   computed: {
     checktLogin: {
       get() {
         return this.$store.getters.getUser;
-      },
+      }
     },
     checkAdmin: {
       get() {
         return this.$store.getters.getAdmin;
-      },
-    },
+      }
+    }
   },
   methods: {
     logout() {
       this.$store.commit("logout");
       signout();
-    },
-  },
+    }
+  }
 };
 </script>

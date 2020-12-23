@@ -3,7 +3,7 @@
     <v-row v-for="(i, index) in formDatas" :key="index">
       <v-col cols="6">
         <v-text-field
-        class="white--text"
+          class="white--text"
           :label="i.first.label"
           required
           outlined
@@ -11,11 +11,7 @@
       </v-col>
 
       <v-col cols="6">
-        <v-text-field
-          :label="i.second.label"
-          required
-          outlined
-        ></v-text-field>
+        <v-text-field :label="i.second.label" required outlined></v-text-field>
       </v-col>
     </v-row>
   </v-form>
@@ -49,10 +45,11 @@ export default {
 </script>
 
 <style>
-.theme--light.v-input input, .theme--light.v-input textarea{
+.theme--light.v-input input,
+.theme--light.v-input textarea {
   color: black;
 }
-label.v-label.theme--light{
+label.v-label.theme--light {
   color: black !important;
 }
 </style>

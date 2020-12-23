@@ -45,29 +45,29 @@ export default {
     storeCarousel,
     storeCarouselMultis,
     tagSearch,
-    ageRating,
+    ageRating
   },
   data() {
     return {
-      titles: ["熱門遊戲", "特別優惠", "社群推薦"],
+      titles: ["熱門遊戲", "特別優惠", "社群推薦"]
     };
   },
   watch: {},
   methods: {
     checkout(n) {
       this.$store.commit("storeCheckout", n);
-    },
+    }
   },
-  mounted(){
-    this.selector()
+  mounted() {
+    this.selector();
   },
   computed: {
     selector: {
       get() {
         return this.$store.getters.getStoreSelector;
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>
 

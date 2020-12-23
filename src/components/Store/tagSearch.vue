@@ -44,43 +44,43 @@ import tagChip from "@/components/Store/tagChip";
 
 export default {
   components: {
-    tagChip,
+    tagChip
   },
   data: () => ({
     games: [
       {
         name: "Hollow Knight",
         img: require(`@/assets/logo.png`),
-        platform: ["mdi-microsoft-windows", "mdi-apple"],
+        platform: ["mdi-microsoft-windows", "mdi-apple"]
       },
       {
         name: "Gris",
         img: require(`@/assets/logo.png`),
-        platform: ["mdi-microsoft-windows", "mdi-apple"],
+        platform: ["mdi-microsoft-windows", "mdi-apple"]
       },
       {
         name: "Speed Runner",
-        img: require(`@/assets/logo.png`),
+        img: require(`@/assets/logo.png`)
       },
       {
         name: "Hollow Knight",
-        img: require(`@/assets/logo.png`),
+        img: require(`@/assets/logo.png`)
       },
       {
         name: "Gris",
-        img: require(`@/assets/logo.png`),
+        img: require(`@/assets/logo.png`)
       },
       {
         name: "Speed Runner",
-        img: require(`@/assets/logo.png`),
-      },
-    ],
+        img: require(`@/assets/logo.png`)
+      }
+    ]
   }),
 
   computed: {},
 
   watch: {},
 
-  methods: {},
+  methods: {}
 };
 </script>

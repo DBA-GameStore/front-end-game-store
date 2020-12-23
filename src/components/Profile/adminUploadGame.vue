@@ -19,11 +19,11 @@
 export default {
   data: () => ({
     rules: [
-      (value) =>
+      value =>
         !value ||
         value.size < 2000000 ||
-        "Avatar size should be less than 2 MB!",
-    ],
-  }),
+        "Avatar size should be less than 2 MB!"
+    ]
+  })
 };
 </script>

@@ -58,7 +58,7 @@
       <v-autocomplete
         append-icon="mdi-search"
         :loading="loading"
-        :filter="(v) => v"
+        :filter="v => v"
         :items="items"
         :search-input.sync="search"
         v-model="select"
@@ -85,7 +85,7 @@ export default {
       hotSale: [
         { title: "免費遊玩" },
         { title: "預購" },
-        { title: "熱門遊戲" },
+        { title: "熱門遊戲" }
       ],
       loading: false,
       items: [],
@@ -150,14 +150,14 @@ export default {
         "Washington",
         "West Virginia",
         "Wisconsin",
-        "Wyoming",
-      ],
+        "Wyoming"
+      ]
     };
   },
   watch: {
     search(val) {
       val && val !== this.select && this.querySelections(val);
-    },
+    }
   },
   methods: {
     checkout(n) {
@@ -170,13 +170,13 @@ export default {
       this.loading = true;
       // Simulated ajax query
       setTimeout(() => {
-        this.items = this.states.filter((e) => {
+        this.items = this.states.filter(e => {
           return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1;
         });
         this.loading = false;
       }, 500);
-    },
-  },
+    }
+  }
 };
 </script>
 

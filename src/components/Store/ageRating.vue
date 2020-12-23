@@ -5,7 +5,7 @@
     <v-row justify="center" align="center">
       <v-col cols="6">
         <v-img :src="require('@/assets/banner_5.jpg')" width="100%"></v-img>
-        <br/>
+        <br />
         <v-img :src="require('@/assets/p_2.jpg')" width="100%"></v-img>
       </v-col>
     </v-row>

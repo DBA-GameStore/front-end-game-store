@@ -12,9 +12,8 @@ export default {
     return {};
   },
   components: {
-    store,
+    store
   },
-  mounted() {
-  },
+  mounted() {}
 };
 </script>

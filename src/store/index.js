@@ -10,32 +10,37 @@ export default new Vuex.Store({
   state: {
     user: null,
     isAdmin: false,
-    storePageSelector: 0,
+    storePageSelector: 0
   },
   plugins: [
     createPersistedState({
-      key: 'userInfo',  //儲存在 localStorage 的 key
+      key: "userInfo", //儲存在 localStorage 的 key
       storage: {
-        getItem: (key) => ls.get(key),
+        getItem: key => ls.get(key),
         setItem: (key, value) => ls.set(key, value),
-        removeItem: (key) => ls.remove(key),
-      },
-    }),
+        removeItem: key => ls.remove(key)
+      }
+    })
   ],
   getters: {
-    getAdmin: (state) => {
+    getAdmin: state => {
       return state.isAdmin;
     },
-    getUser: (state) => {
+    getUser: state => {
       return state.user;
     },
-    getStoreSelector: (state) => {
+    getStoreSelector: state => {
       return state.storePageSelector;
-    },
+    }
   },
   mutations: {
     login(state, e) {
-      if (e.email == "t107590017@ntut.org.tw") state.isAdmin = true;
+      console.log(e.email);
+      if (e.email == "t107590017@ntut.org.tw") {
+        state.isAdmin = true;
+      } else {
+        state.isAdmin = false;
+      }
       state.user = e;
     },
     logout(state) {
@@ -43,8 +48,8 @@ export default new Vuex.Store({
     },
     storeCheckout(state, n) {
       state.storePageSelector = n;
-    },
+    }
   },
   actions: {},
-  modules: {},
+  modules: {}
 });

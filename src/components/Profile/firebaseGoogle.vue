@@ -15,7 +15,7 @@ export default {
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
-        firebase.auth.GithubAuthProvider.PROVIDER_ID,
+        firebase.auth.GithubAuthProvider.PROVIDER_ID
       ],
       callbacks: {
         // signInFailure callback must be provided to handle merge conflicts which
@@ -33,12 +33,14 @@ export default {
           // ...
           // Finish sign-in after data is copied.
           return firebase.auth().signInWithCredential(cred);
-        },
-      },
+        }
+      }
     };
     var ui;
-    ui = firebaseui.auth.AuthUI.getInstance() || new firebaseui.auth.AuthUI(firebase.auth());
+    ui =
+      firebaseui.auth.AuthUI.getInstance() ||
+      new firebaseui.auth.AuthUI(firebase.auth());
     ui.start("#firebaseui-auth-container", uiConfig);
-  },
+  }
 };
 </script>

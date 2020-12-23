@@ -41,8 +41,8 @@ export default {
   methods: {
     checkout() {
       this.$store.commit("storeCheckout", 0);
-    },
-  },
+    }
+  }
 };
 </script>
 
