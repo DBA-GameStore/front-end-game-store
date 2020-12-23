@@ -7,31 +7,33 @@
       <v-col cols="10" md="9" lg="10">
         <v-row class="pa-0 ma-0">
           <v-col cols="4" md="9" lg="4" v-for="(g, i) in games" :key="i">
-            <v-card elevation="0">
-              <div class="d-flex flex-no-wrap justify-space-between">
-                <div>
-                  <v-card-title
-                    class="headline"
-                    style="white-space: nowrap;z-index: 1;position:relative"
-                    v-text="g.name"
-                  ></v-card-title>
-                  <v-card-subtitle>
-                    <v-icon v-for="(platform, j) in g.platform" :key="j">{{
-                      platform
-                    }}</v-icon>
-                  </v-card-subtitle>
-                </div>
+            <router-link :to="{ name: 'Game' }">
+              <v-card elevation="0" @click="select(g)">
+                <div class="d-flex flex-no-wrap justify-space-between">
+                  <div>
+                    <v-card-title
+                      class="headline"
+                      style="white-space: nowrap;z-index: 1;position:relative"
+                      v-text="g.name"
+                    ></v-card-title>
+                    <v-card-subtitle>
+                      <v-icon v-for="(p, j) in platform" :key="j">{{
+                        p
+                      }}</v-icon>
+                    </v-card-subtitle>
+                  </div>
 
-                <v-avatar
-                  class="ma-3"
-                  size="125"
-                  tile
-                  style="position:relative;left:-50px"
-                >
-                  <v-img :src="g.img"></v-img>
-                </v-avatar>
-              </div>
-            </v-card>
+                  <v-avatar
+                    class="ma-3"
+                    size="125"
+                    tile
+                    style="position:relative;left:-50px"
+                  >
+                    <v-img :src="g.url"></v-img>
+                  </v-avatar>
+                </div>
+              </v-card>
+            </router-link>
           </v-col>
         </v-row>
       </v-col>
@@ -44,43 +46,65 @@ import tagChip from "@/components/Store/tagChip";
 
 export default {
   components: {
-    tagChip
+    tagChip,
   },
   data: () => ({
     games: [
       {
+        url: require(`@/assets/logo.png`),
         name: "Hollow Knight",
-        img: require(`@/assets/logo.png`),
-        platform: ["mdi-microsoft-windows", "mdi-apple"]
+        describe: "Metroidvania Game",
+        images: [
+          "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+          "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+        ],
       },
       {
+        url: require(`@/assets/logo.png`),
         name: "Gris",
-        img: require(`@/assets/logo.png`),
-        platform: ["mdi-microsoft-windows", "mdi-apple"]
+        describe: "Game of Art",
+        images: [
+          "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+          "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+        ],
       },
       {
-        name: "Speed Runner",
-        img: require(`@/assets/logo.png`)
+        url: require(`@/assets/logo.png`),
+        name: "Fall Guys",
+        describe: "Party Game",
+        images: [
+          "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+          "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+        ],
       },
       {
-        name: "Hollow Knight",
-        img: require(`@/assets/logo.png`)
+        url: require(`@/assets/logo.png`),
+        name: "Escape!",
+        describe: "Party Game",
+        images: [
+          "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+          "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
+        ],
       },
-      {
-        name: "Gris",
-        img: require(`@/assets/logo.png`)
-      },
-      {
-        name: "Speed Runner",
-        img: require(`@/assets/logo.png`)
-      }
-    ]
+    ],
+    platform: ["mdi-microsoft-windows", "mdi-apple"],
   }),
 
-  computed: {},
+  computed: {
+    selector: {
+      get() {
+        return this.$store.getters.getStoreSelector;
+      },
+    },
+  },
 
   watch: {},
 
-  methods: {}
+  methods: {
+    select(e) {
+      console.log(this.games);
+      this.$store.commit("gameCheckout", e);
+    },
+  },
 };
 </script>

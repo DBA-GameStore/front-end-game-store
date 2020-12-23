@@ -1,12 +1,11 @@
 <template>
   <hooper :settings="hooperSettings">
-    <slide v-for="i in 5" :key="i">
+    <slide v-for="(g, index) in games" :key="index">
       <v-container>
         <v-card color="grey" height="400">
-          <v-img
-            src="https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
-            height="200"
-          />
+          <router-link :to="{ name: 'Game' }">
+            <v-img @click="select(g)" :src="g.url" height="200" />
+          </router-link>
         </v-card>
       </v-container>
     </slide>
@@ -17,9 +16,10 @@
 import { Hooper, Slide, Pagination as HooperPagination } from "hooper";
 
 export default {
+  props: ["games"],
   components: {
     Hooper,
-    Slide
+    Slide,
   },
   data() {
     return {
@@ -28,10 +28,19 @@ export default {
         centerMode: true,
         autoPlay: true,
         playSpeed: 3500,
-        itemsToShow: 2
-      }
+        itemsToShow: 2,
+      },
     };
-  }
+  },
+  methods: {
+    select(e) {
+      console.log(this.games);
+      this.$store.commit("gameCheckout", e);
+    },
+  },
+  mounted() {
+    console.log(this.games);
+  },
 };
 </script>
 

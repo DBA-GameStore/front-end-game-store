@@ -7,7 +7,7 @@ module.exports = {
   pluginOptions: {
     prerenderSpa: {
       registry: undefined,
-      renderRoutes: ["/", "/checkout", "/profile"],
+      renderRoutes: ["/", "/checkout", "/profile", "game"],
       useRenderEvent: true,
       headless: true,
       onlyProduction: true

@@ -21,7 +21,13 @@ const routes = [
     name: "Checkout",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Checkout.vue")
-  }
+  },
+  {
+    path: "/game",
+    name: "Game",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Game.vue")
+  },
 ];
 
 const router = new VueRouter({

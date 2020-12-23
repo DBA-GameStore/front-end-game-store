@@ -10,32 +10,36 @@ export default new Vuex.Store({
   state: {
     user: null,
     isAdmin: false,
-    storePageSelector: 0
+    storePageSelector: 0,
+    gameSelector: null,
   },
   plugins: [
     createPersistedState({
-      key: "userInfo", //儲存在 localStorage 的 key
+      key: "m$$$(@asopfjwoqpfjw1o41-0249-12je921j@pqjfopwqjfopjfopwqjf",
       storage: {
-        getItem: key => ls.get(key),
+        getItem: (key) => ls.get(key),
         setItem: (key, value) => ls.set(key, value),
-        removeItem: key => ls.remove(key)
-      }
-    })
+        removeItem: (key) => ls.remove(key),
+      },
+    }),
   ],
   getters: {
-    getAdmin: state => {
+    getAdmin: (state) => {
       return state.isAdmin;
     },
-    getUser: state => {
+    getUser: (state) => {
       return state.user;
     },
-    getStoreSelector: state => {
+    getStoreSelector: (state) => {
       return state.storePageSelector;
-    }
+    },
+    getGameSelector: (state) => {
+      return state.gameSelector;
+    },
   },
   mutations: {
     login(state, e) {
-      console.log(e.email);
+      console.log(e.uid);
       if (e.email == "t107590017@ntut.org.tw") {
         state.isAdmin = true;
       } else {
@@ -48,8 +52,11 @@ export default new Vuex.Store({
     },
     storeCheckout(state, n) {
       state.storePageSelector = n;
-    }
+    },
+    gameCheckout(state, e) {
+      state.gameSelector = e;
+    },
   },
   actions: {},
-  modules: {}
+  modules: {},
 });

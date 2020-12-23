@@ -1,12 +1,8 @@
 <template>
   <hooper :settings="hooperSettings" style="height: 400px">
-    <slide v-for="j in 3" :key="j">
-      <router-link :to="{ name: 'Checkout' }">
-        <v-img
-          src="https://cdn.vuetifyjs.com/images/carousel/planet.jpg"
-          height="100%"
-        >
-        </v-img>
+    <slide v-for="(g, index) in games" :key="index">
+      <router-link :to="{ name: 'Game' }" >
+        <v-img @click="select(g)" :src="g.url" height="100%"> </v-img>
       </router-link>
     </slide>
     <hooper-pagination slot="hooper-addons"></hooper-pagination>
@@ -22,17 +18,18 @@ import {
   Hooper,
   Slide,
   Pagination as HooperPagination,
-  Navigation as HooperNavigation
+  Navigation as HooperNavigation,
 } from "hooper";
 import "hooper/dist/hooper.css";
 
 export default {
   name: "App",
+  props: ["games"],
   components: {
     Hooper,
     Slide,
     HooperPagination,
-    HooperNavigation
+    HooperNavigation,
   },
   data() {
     return {
@@ -41,9 +38,15 @@ export default {
         autoPlay: true,
         playSpeed: 3500,
         itemsToShow: 1,
-        vertical: true
-      }
+        vertical: true,
+      },
     };
-  }
+  },
+  methods: {
+    select(e) {
+      console.log(this.games);
+      this.$store.commit("gameCheckout", e);
+    },
+  },
 };
 </script>
