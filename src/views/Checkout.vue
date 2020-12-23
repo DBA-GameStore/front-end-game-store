@@ -56,12 +56,24 @@ export default {
   components: {
     step1,
     step2,
-    googlePay
+    googlePay,
   },
   data() {
     return {
-      e6: 1
+      e6: 1,
     };
-  }
+  },
+  computed: {
+    checktLogin: {
+      get() {
+        return this.$store.getters.getUser;
+      },
+    },
+  },
+  mounted() {
+    if (this.checktLogin == null) {
+      this.$router.push("/Profile");
+    }
+  },
 };
 </script>

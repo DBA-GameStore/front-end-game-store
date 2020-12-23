@@ -2,11 +2,11 @@ set -e
 
 npm run build
 
-cd docs
+cd dist
 
 git init
 git add -A
-git commit -m 'dist'
+git commit -m 'deploy'
 
 git push -f https://github.com/DBA-GameStore/front-end-game-store.git master:gh-pages
 
