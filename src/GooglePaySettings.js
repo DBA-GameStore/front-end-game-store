@@ -3,7 +3,7 @@ export default {
   buttonColor: "black",
   baseRequest: {
     apiVersion: 2,
-    apiVersionMinor: 0
+    apiVersionMinor: 0,
   },
   allowedCardNetworks: [
     "AMEX",
@@ -11,25 +11,25 @@ export default {
     "INTERAC",
     "JCB",
     "MASTERCARD",
-    "VISA"
+    "VISA",
   ],
   allowedCardAuthMethods: ["PAN_ONLY", "CRYPTOGRAM_3DS"],
   merchantInfo: {
-    merchantName: "Example Merchant",
-    merchantId: "0123456789"
+    merchantName: "Game Store",
+    merchantId: "0123456789",
   },
   transactionInfo: {
     totalPriceStatus: "FINAL",
     totalPrice: "1.00",
-    currencyCode: "USD",
-    countryCode: "US"
+    countryCode: 'TW',
+    currencyCode: 'TWD',
   },
   tokenizationSpecification: {
     type: "PAYMENT_GATEWAY",
     parameters: {
       gateway: "example",
-      gatewayMerchantId: "exampleGatewayMerchantId"
-    }
+      gatewayMerchantId: "exampleGatewayMerchantId",
+    },
   },
   baseCardPaymentMethod: {
     type: "CARD",
@@ -41,26 +41,26 @@ export default {
         "INTERAC",
         "JCB",
         "MASTERCARD",
-        "VISA"
-      ]
-    }
+        "VISA",
+      ],
+    },
   },
   cardPaymentMethod: null,
   paymentDataRequest: {
     baseRequest: {
       apiVersion: 2,
-      apiVersionMinor: 0
+      apiVersionMinor: 0,
     },
     allowedPaymentMethods: null,
     transactionInfo: {
       totalPriceStatus: "FINAL",
       totalPrice: "1.00",
-      currencyCode: "USD",
-      countryCode: "US"
+      countryCode: "TW",
+      currencyCode: "TWD",
     },
     merchantInfo: {
-      merchantName: "Example Merchant",
-      merchantId: "0123456789"
-    }
-  }
+      merchantName: "Game Store",
+      merchantId: "0123456789",
+    },
+  },
 };

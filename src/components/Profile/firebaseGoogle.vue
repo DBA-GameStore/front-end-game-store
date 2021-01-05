@@ -19,8 +19,9 @@ export default {
       callbacks: {
         signInSuccess: function(currentUser, credential, redirectUrl) {
           const userId = currentUser.uid;
+          this.$store.commit("storeCheckout", 0);
           // Manually redirect.
-          window.location.assign(`/`);
+          window.location.assign('/');
           // Do not automatically redirect.
           return false;
         },

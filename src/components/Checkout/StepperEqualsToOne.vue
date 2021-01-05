@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form" v-model="valid" lazy-validation>
+  <v-form ref="form" lazy-validation>
     <v-row v-for="(i, index) in formDatas" :key="index">
       <v-col cols="6">
         <v-text-field
@@ -23,24 +23,29 @@ export default {
     return {
       formDatas: [
         {
-          first: { label: "First name" },
-          second: { label: "Last name" }
+          first: { label: "姓氏" },
+          second: { label: "名字" }
         },
         {
-          first: { label: "Address Line 1" },
-          second: { label: "Address Line 2" }
+          first: { label: "地址一" },
+          second: { label: "地址二" }
         },
         {
-          first: { label: "Country" },
-          second: { label: "City" }
+          first: { label: "國家" },
+          second: { label: "城市" }
         },
         {
-          first: { label: "Zip name" },
-          second: { label: "Phone number" }
+          first: { label: "Zip Code" },
+          second: { label: "聯絡電話" }
         }
       ]
     };
-  }
+  },
+  methods:{
+    validate () {
+        this.$refs.form.validate()
+      },
+  },
 };
 </script>
 

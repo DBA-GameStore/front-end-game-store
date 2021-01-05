@@ -36,10 +36,12 @@ export default new Vuex.Store({
     getGameSelector: (state) => {
       return state.gameSelector;
     },
+    getShoppingCart: (state) => {
+      return state.shoppingCart;
+    },
   },
   mutations: {
     login(state, e) {
-      console.log(e.uid);
       if (e.email == "t107590017@ntut.org.tw") {
         state.isAdmin = true;
       } else {
@@ -55,7 +57,7 @@ export default new Vuex.Store({
     },
     gameCheckout(state, e) {
       state.gameSelector = e;
-    },
+    }
   },
   actions: {},
   modules: {},

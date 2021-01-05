@@ -30,6 +30,14 @@
           <v-btn icon :to="{ name: 'Profile' }" id="no-background-hover">
             <v-icon>mdi-account</v-icon>
           </v-btn>
+          <v-btn
+            v-if="checkAdmin && checktLogin"
+            icon
+            :to="{ name: 'UploadGame' }"
+            id="no-background-hover"
+          >
+            <v-icon>mdi-upload</v-icon>
+          </v-btn>
         </v-card-title>
       </v-row>
     </v-container>
@@ -41,8 +49,20 @@ export default {
   methods: {
     checkout() {
       this.$store.commit("storeCheckout", 0);
-    }
-  }
+    },
+  },
+  computed: {
+    checktLogin: {
+      get() {
+        return this.$store.getters.getUser;
+      },
+    },
+    checkAdmin: {
+      get() {
+        return this.$store.getters.getAdmin;
+      },
+    },
+  },
 };
 </script>
 

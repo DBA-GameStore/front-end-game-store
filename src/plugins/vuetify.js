@@ -10,7 +10,7 @@ export default new Vuetify({
         primary: "#ffffff",
         secondary: "#263238",
         tertiary: "#eceff1",
-        quaternary: "#212121",
+        quaternary: "#002f6c",
         quinary: "#ffffff",
         btnColor: "#1565c0"
       },

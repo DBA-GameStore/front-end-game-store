@@ -102,6 +102,7 @@ export default {
         .loadPaymentData(paymentDataRequest)
         .then(paymentData => {
           //this.$emit("payed", paymentData);
+          console.log(paymentData)
           console.log("success");
         })
         .catch(err => {

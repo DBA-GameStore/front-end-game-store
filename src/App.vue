@@ -3,8 +3,8 @@
     <appbar></appbar>
 
     <v-main style="height: 100vh; max-height: 100%">
-      <!-- <v-btn @click="post">Post</v-btn>
-      <v-btn @click="get">Get</v-btn> -->
+      <!-- <v-btn @click="post">Post</v-btn> -->
+      <!-- <v-btn @click="get">Get</v-btn> -->
       <router-view></router-view>
     </v-main>
   </v-app>
@@ -25,7 +25,7 @@ export default {
   methods: {
     post() {
       this.axios
-        .post("http://10.101.5.218//SQLProject/game/", {
+        .post("http://127.0.0.1/sqlproject/game", {
           name: "sab",
           tagid: "1"
         })
@@ -38,14 +38,14 @@ export default {
     },
     get() {
       this.axios
-        .get("http://10.101.5.218//SQLProject/game/")
+        .get("http://127.0.0.1/sqlproject/game")
         .then(function(response) {
-          console.log(response);
+          console.log("getter: ",response);
         })
         .catch(function(error) {
           console.log(error);
         });
     }
-  }
+  },
 };
 </script>

@@ -1,7 +1,11 @@
 <template>
-  <div>
+  <v-form>
+    <v-text-field placeholder="ID"></v-text-field>
     <v-text-field placeholder="Name"></v-text-field>
-    <v-text-field placeholder="Describe"></v-text-field>
+    <v-text-field placeholder="Description"></v-text-field>
+    <v-text-field placeholder="soldOutNumber"></v-text-field>
+    <v-text-field placeholder="Price"></v-text-field>
+    <v-text-field placeholder="TagID"></v-text-field>
     <v-file-input
       :rules="rules"
       accept="image/png, image/jpeg, image/bmp"
@@ -12,7 +16,7 @@
     <v-btn text>
       Upload
     </v-btn>
-  </div>
+  </v-form>
 </template>
 
 <script>

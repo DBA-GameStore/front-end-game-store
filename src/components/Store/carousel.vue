@@ -1,8 +1,9 @@
 <template>
   <hooper :settings="hooperSettings" style="height: 400px">
     <slide v-for="(g, index) in games" :key="index">
-      <router-link :to="{ name: 'Game' }" >
-        <v-img @click="select(g)" :src="g.url" height="100%"> </v-img>
+      <router-link :to="{ name: 'Game' }">
+        <v-img @click="select(g)" :src="g.picture" height="100%"> </v-img>
+        <v-card-title>{{ g.name }}</v-card-title>
       </router-link>
     </slide>
     <hooper-pagination slot="hooper-addons"></hooper-pagination>
@@ -42,6 +43,9 @@ export default {
       },
     };
   },
+
+  mounted() {},
+  
   methods: {
     select(e) {
       console.log(this.games);

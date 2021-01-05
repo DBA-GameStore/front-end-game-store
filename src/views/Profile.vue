@@ -11,18 +11,7 @@
           <span class="blue--text">Log out</span>
         </v-btn>
       </v-row>
-      <v-row v-if="checktLogin != null" justify="center">
-        <div v-if="checkAdmin">
-          <uploadGame />
-        </div>
-      </v-row>
       <firebaseSingn v-else />
-      <v-row justify="center" align="center">
-        <v-layout justify-space-around column align-center fill-height>
-          <!-- <googleSignInBtn class="elevation-0" />
-          <facebookSignInBtn style="position: relative; top: 10px" /> -->
-        </v-layout>
-      </v-row>
     </v-layout>
   </v-card>
 </template>
@@ -32,7 +21,6 @@ import firebaseSingn from "@/components/Profile/firebaseGoogle.vue";
 // import googleSignInBtn from "@/components/Profile/GoogleSignInBtn.vue";
 // import facebookSignInBtn from "@/components/Profile/FacebookSignInBtn.vue";
 import { signout } from "@/APIs/signout.js";
-import uploadGame from "@/components/Profile/adminUploadGame";
 
 export default {
   name: "Home",
@@ -40,25 +28,24 @@ export default {
     firebaseSingn,
     // googleSignInBtn,
     // facebookSignInBtn,
-    uploadGame
   },
   computed: {
     checktLogin: {
       get() {
         return this.$store.getters.getUser;
-      }
+      },
     },
     checkAdmin: {
       get() {
         return this.$store.getters.getAdmin;
-      }
-    }
+      },
+    },
   },
   methods: {
     logout() {
       this.$store.commit("logout");
       signout();
-    }
-  }
+    },
+  },
 };
 </script>
