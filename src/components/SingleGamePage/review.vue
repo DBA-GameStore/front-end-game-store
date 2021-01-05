@@ -9,18 +9,23 @@
             </v-btn>
           </v-card-title>
           <v-card-subtitle
-            >Thanks for being so honest with me about how this is impacting
+            >Thanks for being so honest with us about how this is impacting
             you.</v-card-subtitle
           >
 
           <v-card-actions>
-            <v-btn text>
+            <v-btn text @click="dowrite">
               撰寫評論
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-col></v-row
     >
+    <v-row justify="center" v-if="writeToggle" id="writeCommentId">
+      <v-col cols="9">
+        <writeComment />
+      </v-col>
+    </v-row>
     <v-row justify="center" v-for="(item, index) in comments" :key="index">
       <v-col cols="9">
         <comment :data="item" />
@@ -30,15 +35,18 @@
 </template>
 
 <script>
+import writeComment from "@/components/SingleGamePage/writeCard.vue";
 import comment from "@/components/SingleGamePage/comment.vue";
 
 export default {
   components: {
+    writeComment,
     comment,
   },
 
   data() {
     return {
+      writeToggle: false,
       comments: [
         {
           name: "RGBGamer",
@@ -70,6 +78,13 @@ export default {
         },
       ],
     };
+  },
+
+  methods:{
+      dowrite(){
+          this.writeToggle = true;
+          this.$vuetify.goTo('#writeCommentId')
+      }
   },
 };
 </script>

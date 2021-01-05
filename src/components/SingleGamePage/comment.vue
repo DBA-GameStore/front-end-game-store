@@ -24,9 +24,6 @@
         </v-card-title>
       </v-col>
       <v-col cols="6">
-        <v-card-subtitle>
-          {{ data.comment }}
-        </v-card-subtitle>
         <v-card-actions>
           <v-icon
             v-for="i in 5"
@@ -36,6 +33,9 @@
             mdi-dice-{{ i }}
           </v-icon>
         </v-card-actions>
+        <v-card-subtitle>
+          {{ data.comment }}
+        </v-card-subtitle>
         <br />
         <reply :reply="data.reply" />
       </v-col>

@@ -2,7 +2,7 @@
   <v-container v-if="getCurrentGame">
     <v-row justify="center">
       <v-col cols="5">
-        <v-card-title>{{ getCurrentGame.name }}</v-card-title>
+        <h1 class="text-align: center">{{ getCurrentGame.name }}</h1>
         <slide :images="getCurrentGame.picture" />
       </v-col>
       <v-col cols="4" style="position:relative;top:50px">

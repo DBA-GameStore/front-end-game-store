@@ -5,12 +5,14 @@
         <v-list-item-title>回覆 ({{ counts }})</v-list-item-title>
       </v-list-item-content>
     </template>
-    <v-list-item v-if="getAuthority">
+    <v-list-item v-if="checkAdmin">
       <v-text-field
         label="回覆"
-        v-model="reply"
+        v-model="msg"
         single-line
         messages
+        color="black"
+        placeholder="回覆"
         class="pa-0 comment-message"
       ></v-text-field>
       <v-btn icon fab class="comment-message" @click="doReply">
@@ -55,11 +57,27 @@ export default {
   data() {
     return {
       counts: 0,
+      msg: "",
     };
   },
   components: {},
-  methods: {},
-  computed: {},
+  methods: {
+    doReply() {
+        
+    },
+  },
+  computed: {
+    checktLogin: {
+      get() {
+        return this.$store.getters.getUser;
+      },
+    },
+    checkAdmin: {
+      get() {
+        return this.$store.getters.getAdmin;
+      },
+    },
+  },
   mounted() {
     this.counts = this.reply.length > 0 ? this.reply.length : 0;
   },
