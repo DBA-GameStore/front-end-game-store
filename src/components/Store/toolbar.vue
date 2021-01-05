@@ -61,6 +61,8 @@
         :loading="loading"
         :filter="(v) => v"
         :items="items"
+        item-text="name"
+        item-value="name"
         :search-input.sync="search"
         v-model="select"
         flat
@@ -70,8 +72,8 @@
         color="#efefef"
         return-object
         solo
-        placeholder="Search games"
-        @keydown.enter="searchFun"
+        placeholder="搜尋"
+        @keydown.enter="searchFun(select)"
       >
       </v-autocomplete>
     </v-card>
@@ -92,68 +94,11 @@ export default {
       items: [],
       search: null,
       select: null,
-      states: [
-        "Alabama",
-        "Alaska",
-        "American Samoa",
-        "Arizona",
-        "Arkansas",
-        "California",
-        "Colorado",
-        "Connecticut",
-        "Delaware",
-        "District of Columbia",
-        "Federated States of Micronesia",
-        "Florida",
-        "Georgia",
-        "Guam",
-        "Hawaii",
-        "Idaho",
-        "Illinois",
-        "Indiana",
-        "Iowa",
-        "Kansas",
-        "Kentucky",
-        "Louisiana",
-        "Maine",
-        "Marshall Islands",
-        "Maryland",
-        "Massachusetts",
-        "Michigan",
-        "Minnesota",
-        "Mississippi",
-        "Missouri",
-        "Montana",
-        "Nebraska",
-        "Nevada",
-        "New Hampshire",
-        "New Jersey",
-        "New Mexico",
-        "New York",
-        "North Carolina",
-        "North Dakota",
-        "Northern Mariana Islands",
-        "Ohio",
-        "Oklahoma",
-        "Oregon",
-        "Palau",
-        "Pennsylvania",
-        "Puerto Rico",
-        "Rhode Island",
-        "South Carolina",
-        "South Dakota",
-        "Tennessee",
-        "Texas",
-        "Utah",
-        "Vermont",
-        "Virgin Island",
-        "Virginia",
-        "Washington",
-        "West Virginia",
-        "Wisconsin",
-        "Wyoming",
-      ],
+      states: [],
     };
+  },
+  mounted() {
+    this.updateGames();
   },
   watch: {
     search(val) {
@@ -164,18 +109,44 @@ export default {
     checkout(n) {
       this.$emit("checkout-page", n);
     },
-    searchFun() {
-      console.log("search");
+    searchFun(e) {
+      console.log(e);
+
+      this.$store.commit("gameCheckout", e);
+      this.$router.push({ name: "Game" });
     },
     querySelections(v) {
       this.loading = true;
       // Simulated ajax query
       setTimeout(() => {
+        let newFilter = [];
         this.items = this.states.filter((e) => {
-          return (e || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1;
+          return (
+            (e.name || "").toLowerCase().indexOf((v.name || "").toLowerCase()) >
+            -1
+          );
         });
         this.loading = false;
       }, 500);
+    },
+    async updateGames() {
+      let vm = this;
+      let doc = await this.retrive("game");
+      this.games = doc.data;
+      this.games.forEach((element) => {
+        this.states.push(element);
+      });
+    },
+    async retrive(collection) {
+      const snapshot = await this.axios
+        .get("http://127.0.0.1/sqlproject/" + collection)
+        .then(function(response) {
+          return response;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      return snapshot;
     },
   },
 };
