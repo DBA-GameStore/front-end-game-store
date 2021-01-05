@@ -1,11 +1,11 @@
 <template>
   <v-form>
-    <v-text-field placeholder="ID"></v-text-field>
-    <v-text-field placeholder="Name"></v-text-field>
-    <v-text-field placeholder="Description"></v-text-field>
-    <v-text-field placeholder="soldOutNumber"></v-text-field>
-    <v-text-field placeholder="Price"></v-text-field>
-    <v-text-field placeholder="TagID"></v-text-field>
+    <v-text-field outlined placeholder="ID"></v-text-field>
+    <v-text-field outlined placeholder="Name"></v-text-field>
+    <v-text-field outlined placeholder="Description"></v-text-field>
+    <v-text-field outlined placeholder="soldOutNumber"></v-text-field>
+    <v-text-field outlined placeholder="Price"></v-text-field>
+    <v-text-field outlined placeholder="TagID"></v-text-field>
     <v-file-input
       :rules="rules"
       accept="image/png, image/jpeg, image/bmp"

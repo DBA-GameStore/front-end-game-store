@@ -3,7 +3,10 @@
     <v-row justify="center">
       <v-col cols="2"></v-col>
       <v-col cols="8">
-        <h2>Game</h2>
+        <h2>
+          <u>Upload New Product</u>
+        </h2>
+        <br />
         <uploadGame />
       </v-col>
       <v-col cols="2"></v-col>

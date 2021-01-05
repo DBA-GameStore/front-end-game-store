@@ -13,14 +13,14 @@
           >
 
           <v-card-actions>
-            <v-btn text disabled>
-              Listen Your Voice Now
+            <v-btn text>
+              撰寫評論
             </v-btn>
           </v-card-actions>
         </v-card>
       </v-col></v-row
     >
-    <v-row justify="center">
+    <v-row justify="center" v-for="i in 10" :key="i">
       <v-col cols="9">
         <comment />
       </v-col>
