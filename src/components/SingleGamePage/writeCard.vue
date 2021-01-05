@@ -18,11 +18,13 @@
             class="mx-2"
             rows="1"
             height="150"
+            v-model="msg"
             prepend-icon="mdi-comment"
             outlined
           ></v-textarea>
         </v-card-actions>
         <v-toolbar elevation="0" color="#fafafa">
+          <v-card-subtitle>評分</v-card-subtitle>
           <v-spacer />
           <v-btn
             icon
@@ -37,28 +39,17 @@
             </v-icon>
           </v-btn>
           <v-spacer />
+          <v-btn @click="dowrite" elevation="0">
+            <span>
+              發布評論 -
+            </span>
+            <v-icon>
+              mdi-send
+            </v-icon>
+          </v-btn>
         </v-toolbar>
       </v-col>
     </v-row>
-    <v-toolbar
-      elevation="0"
-      color="#fafafa"
-      style="position:relative;margin-top:-20px"
-    >
-      <v-spacer />
-      <v-btn
-        @click="doComment"
-        elevation="0"
-        style="position:relative;top:-55px;"
-      >
-        <span>
-          發布評論 -
-        </span>
-        <v-icon>
-          mdi-send
-        </v-icon>
-      </v-btn>
-    </v-toolbar>
   </v-card>
 </template>
 
@@ -79,11 +70,18 @@ export default {
   },
   data() {
     return {
+      msg: "",
       rating: 0,
     };
   },
   mounted() {
     console.log(this.checktLogin);
+  },
+  methods: {
+    dowrite() {
+      console.log(this.msg);
+      console.log(this.rating);
+    },
   },
   components: {
     reply,
