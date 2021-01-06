@@ -6,6 +6,8 @@ var ls = new SecureLS({ isCompression: false });
 
 Vue.use(Vuex);
 
+import { postLogin } from "@/APIs/post.js";
+
 export default new Vuex.Store({
   state: {
     user: null,
@@ -42,6 +44,7 @@ export default new Vuex.Store({
   },
   mutations: {
     login(state, e) {
+      postLogin(e);
       if (e.email == "t107590017@ntut.org.tw") {
         state.isAdmin = true;
       } else {
@@ -57,7 +60,7 @@ export default new Vuex.Store({
     },
     gameCheckout(state, e) {
       state.gameSelector = e;
-    }
+    },
   },
   actions: {},
   modules: {},

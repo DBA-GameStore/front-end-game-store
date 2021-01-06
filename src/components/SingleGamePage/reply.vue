@@ -5,7 +5,7 @@
         <v-list-item-title>回覆 ({{ counts }})</v-list-item-title>
       </v-list-item-content>
     </template>
-    <v-list-item v-if="checkAdmin">
+    <v-list-item v-if="checkAdmin && checktLogin">
       <v-text-field
         label="回覆"
         v-model="msg"
@@ -35,17 +35,17 @@
           </v-col>
         </v-row>
       </v-list-item-content>
-      <v-btn
+      <!-- <v-btn
         icon
         fab
         class="btn-delete-comment"
         @click="deleteComment(item, index)"
-        v-if="getAuthority"
+        v-if="checkAdmin"
       >
         <v-icon>
           mdi-delete
         </v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-list-item>
   </v-list-group>
 </template>
@@ -62,9 +62,7 @@ export default {
   },
   components: {},
   methods: {
-    doReply() {
-        
-    },
+    doReply() {},
   },
   computed: {
     checktLogin: {
@@ -79,7 +77,7 @@ export default {
     },
   },
   mounted() {
-    this.counts = this.reply.length > 0 ? this.reply.length : 0;
+    this.counts =  (this.reply).length > 0 ? (this.reply).length : 0;
   },
 };
 </script>

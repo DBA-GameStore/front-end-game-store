@@ -24,27 +24,27 @@ export default {
       formDatas: [
         {
           first: { label: "姓氏" },
-          second: { label: "名字" }
+          second: { label: "名字" },
         },
         {
           first: { label: "地址一" },
-          second: { label: "地址二" }
+          second: { label: "地址二" },
         },
         {
           first: { label: "國家" },
-          second: { label: "城市" }
+          second: { label: "城市" },
         },
         {
           first: { label: "Zip Code" },
-          second: { label: "聯絡電話" }
-        }
-      ]
+          second: { label: "聯絡電話" },
+        },
+      ],
     };
   },
-  methods:{
-    validate () {
-        this.$refs.form.validate()
-      },
+  methods: {
+    validate() {
+      this.$refs.form.validate();
+    },
   },
 };
 </script>
@@ -54,7 +54,7 @@ export default {
 .theme--light.v-input textarea {
   color: black;
 }
-label.v-label.theme--light {
+.v-label.theme--light {
   color: black !important;
 }
 </style>

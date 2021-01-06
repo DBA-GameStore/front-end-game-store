@@ -1,17 +1,16 @@
 <template>
   <v-form>
-    <v-text-field outlined placeholder="ID"></v-text-field>
-    <v-text-field outlined placeholder="Name"></v-text-field>
-    <v-text-field outlined placeholder="Description"></v-text-field>
-    <v-text-field outlined placeholder="soldOutNumber"></v-text-field>
-    <v-text-field outlined placeholder="Price"></v-text-field>
-    <v-text-field outlined placeholder="TagID"></v-text-field>
+    <v-text-field outlined label="ID"></v-text-field>
+    <v-text-field outlined label="Name"></v-text-field>
+    <v-text-field outlined label="Description"></v-text-field>
+    <v-text-field outlined label="soldOutNumber"></v-text-field>
+    <v-text-field outlined label="Price"></v-text-field>
+    <v-text-field outlined label="TagID"></v-text-field>
     <v-file-input
       :rules="rules"
       accept="image/png, image/jpeg, image/bmp"
-      placeholder="Pick an avatar"
+      label="Pick an avatar"
       prepend-icon="mdi-camera"
-      label="Avatar"
     ></v-file-input>
     <v-btn text>
       Upload
@@ -31,3 +30,10 @@ export default {
   })
 };
 </script>
+
+<style>
+.v-label.theme--light {
+  color: black !important;
+}
+</style>
+

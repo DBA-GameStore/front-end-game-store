@@ -37,7 +37,7 @@
           {{ data.comment }}
         </v-card-subtitle>
         <br />
-        <reply :reply="data.reply" />
+        <reply :reply="data.reply" v-if="checkAdmin" />
       </v-col>
     </v-row>
   </v-card>
@@ -49,6 +49,18 @@ export default {
   props: ["data"],
   components: {
     reply,
+  },
+  computed: {
+    checktLogin: {
+      get() {
+        return this.$store.getters.getUser;
+      },
+    },
+    checkAdmin: {
+      get() {
+        return this.$store.getters.getAdmin;
+      },
+    },
   },
 };
 </script>
