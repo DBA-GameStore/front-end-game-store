@@ -60,7 +60,36 @@ export default {
   data() {
     return {
       writeToggle: false,
-      comments: [],
+      comments: [
+        // {
+        //   name: "RGBGamer",
+        //   comment: "commentcommentcommentcommentcommentcomment",
+        //   avatarImg:
+        //     "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/2c/2c861f6ccfed7dd404d284137d848bf17c6ebec1_medium.jpg",
+        //   gift: 0,
+        //   thumbup: 0,
+        //   thumbdown: 0,
+        //   rating: 5,
+        //   reply: [
+        //     {
+        //       avatarImg:
+        //         "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/a8/a844c3685e9401ceffc5c41f218ee51ce54342ce_medium.jpg",
+        //       comment: "Thank you for your comment!",
+        //       postBy: "Admin",
+        //     },
+        //   ],
+        // },
+        // {
+        //   name: "火山大隊長",
+        //   comment: "昨天我撿到100塊 我的心情很好 雖然這干遊戲沒有關係",
+        //   avatarImg:
+        //     "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/4e/4e2a656f1d9fb8f0ef9e5ccd9a377601bb42d7f5_medium.jpg",
+        //   gift: 0,
+        //   thumbup: 0,
+        //   thumbdown: 0,
+        //   rating: 1,
+        // },
+      ],
     };
   },
 
@@ -106,32 +135,4 @@ export default {
     },
   },
 };
-// [{
-//           name: "RGBGamer",
-//           comment: "commentcommentcommentcommentcommentcomment",
-//           avatarImg:
-//             "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/2c/2c861f6ccfed7dd404d284137d848bf17c6ebec1_medium.jpg",
-//           gift: 0,
-//           thumbup: 0,
-//           thumbdown: 0,
-//           rating: 5,
-//           reply: [
-//             {
-//               avatarImg:
-//                 "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/a8/a844c3685e9401ceffc5c41f218ee51ce54342ce_medium.jpg",
-//               comment: "Thank you for your comment!",
-//               postBy: "Admin",
-//             },
-//           ],
-//         },
-//         {
-//           name: "火山大隊長",
-//           comment: "昨天我撿到100塊 我的心情很好 雖然這干遊戲沒有關係",
-//           avatarImg:
-//             "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/4e/4e2a656f1d9fb8f0ef9e5ccd9a377601bb42d7f5_medium.jpg",
-//           gift: 0,
-//           thumbup: 0,
-//           thumbdown: 0,
-//           rating: 1,
-//         },]
 </script>

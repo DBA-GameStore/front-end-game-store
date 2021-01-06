@@ -96,7 +96,7 @@
 import step1 from "@/components/Checkout/StepperEqualsToOne.vue";
 import step2 from "@/components/Checkout/StepperEqualsToTwo.vue";
 import googlePay from "@/components/Checkout/GooglePay.vue";
-import replyVue from '../components/SingleGamePage/reply.vue';
+import replyVue from "../components/SingleGamePage/reply.vue";
 export default {
   name: "Home",
   components: {
@@ -118,7 +118,6 @@ export default {
     },
   },
   mounted() {
-    console.log("cart");
     if (this.checktLogin == null) {
       this.$router.push("/Profile");
     }
@@ -126,7 +125,6 @@ export default {
   },
   methods: {
     remove(e) {
-      console.log(e);
       this.cart = this.cart.filter((item) => item != e);
       this.axios
         .delete("http://127.0.0.1/sqlproject/shoppinglist/cart/" + e.id)
@@ -140,22 +138,23 @@ export default {
     },
     async updateCart() {
       let vm = this;
-      let doc = await this.retrive("shoppinglist/cart");
-      this.cart = doc.data;
-    },
-    async retrive(collection) {
-      const snapshot = await this.axios
-        .get("http://127.0.0.1/sqlproject/" + collection)
+
+      let config = {
+        method: "get",
+        url: "api/shoppinglist/cart",
+        headers: { uid: this.checktLogin.uid },
+      };
+      console.log(config.headers);
+      let doc = await this.axios(config)
         .then(function(response) {
-          console.log("response")
+          console.log(response);
           return response;
         })
         .catch(function(error) {
-          let empty = [];
           console.log(error);
-          return empty;
+          return this.cart;
         });
-      return snapshot;
+      this.cart = doc.data;
     },
   },
 };

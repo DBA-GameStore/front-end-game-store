@@ -80,14 +80,16 @@ export default {
       });
     },
     async post() {
-      this.axios
-        .post("http://127.0.0.1/sqlproject/shoppinglist/cart", {
-          quantity: 1,
-          gameId: this.getCurrentGame.id,
-        })
+      console.log(this.getCurrentGame.id);
+      let config = {
+        method: "post",
+        url: "api/shoppinglist/cart",
+        headers: { uid: this.checktLogin.uid },
+        data: { quantity: 1, gameId: this.getCurrentGame.id },
+      };
+      this.axios(config)
         .then(function(response) {
           console.log(response);
-          return;
         })
         .catch(function(error) {
           console.log(error);
