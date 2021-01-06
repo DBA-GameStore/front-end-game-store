@@ -23,6 +23,7 @@
     "vue": "^2.6.11",
     "vue-awesome-swiper": "^4.1.1",
     "vue-axios": "^3.2.0",
+    "vue-axios-cors": "^1.0.1",
     "vue-carousel": "^0.18.0",
     "vue-facebook-login-component": "^3.0.0",
     "vue-google-login": "^2.0.5",

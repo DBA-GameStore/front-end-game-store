@@ -8,10 +8,12 @@ import * as firebaseui from "firebaseui";
 import config from "./firebaseConfig.js";
 import axios from "axios";
 import VueAxios from "vue-axios";
+import AxiosPlugin from 'vue-axios-cors';
 
 import VueCarousel from "vue-carousel";
 Vue.use(VueCarousel);
 Vue.use(VueAxios, axios);
+Vue.use(AxiosPlugin)
 firebase.initializeApp(config);
 firebase.analytics();
 // var ui = new firebaseui.auth.AuthUI(firebase.auth());

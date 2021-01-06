@@ -156,7 +156,7 @@ export default {
           return response;
         })
         .catch(function(error) {
-          console.log(error);
+          return [];
         });
       return snapshot;
     },

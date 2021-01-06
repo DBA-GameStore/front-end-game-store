@@ -14,23 +14,8 @@ module.exports = {
     },
   },
 
-  devServer: {
-    proxy: {
-      "/V1": {
-        target: "http://localhost:8080",
-        changeOrigin: true,
-        pathRewrite: {
-          "^/V1": "",
-        },
-      },
-      "/V2": {
-        target: "http://127.0.0.1/sqlproject/",
-        changeOrigin: true,
-        pathRewrite: {
-          "^/V2": "",
-        },
-      },
-    },
+  dev: {
+    proxy: "http://localhost:8080",
   },
 
   publicPath:
