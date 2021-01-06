@@ -9,7 +9,7 @@ export default {
     return {
       ...props,
       cardPaymentMethod: null,
-      paymentsClient: null
+      paymentsClient: null,
     };
   },
   async mounted() {
@@ -36,20 +36,20 @@ export default {
     },
     async initPaymentsVars() {
       this.cardPaymentMethod = Object.assign({}, this.baseCardPaymentMethod, {
-        tokenizationSpecification: this.tokenizationSpecification
+        tokenizationSpecification: this.tokenizationSpecification,
       });
       return await this.$nextTick();
     },
     getGoogleIsReadyToPayRequest() {
       return Object.assign({}, this.baseRequest, {
-        allowedPaymentMethods: [this.baseCardPaymentMethod]
+        allowedPaymentMethods: [this.baseCardPaymentMethod],
       });
     },
     getGooglePaymentsClient() {
       if (this.paymentsClient === null) {
         // eslint-disable-next-line
         this.paymentsClient = new google.payments.api.PaymentsClient({
-          environment: this.environment
+          environment: this.environment,
         });
       }
       return this.paymentsClient;
@@ -58,7 +58,7 @@ export default {
       const button = this.paymentsClient.createButton({
         onClick: () => this.googlePayButtonClick(),
         buttonColor: this.buttonColor,
-        buttonType: "short"
+        buttonType: "short",
       });
       document.getElementById("container").appendChild(button);
     },
@@ -68,14 +68,14 @@ export default {
         const paymentsClient = this.getGooglePaymentsClient();
         paymentsClient
           .isReadyToPay(this.getGoogleIsReadyToPayRequest())
-          .then(response => {
+          .then((response) => {
             if (response.result) {
               this.addGooglePayButton();
               // @todo prefetch payment data to improve performance after confirming site functionality
               // prefetchGooglePaymentData();
             }
           })
-          .catch(err => {
+          .catch((err) => {
             // show error in developer console for debugging
             console.error(err);
           });
@@ -89,7 +89,7 @@ export default {
         // @todo a merchant ID is available for a production environment after approval by Google
         // See {@link https://developers.google.com/pay/api/web/guides/test-and-deploy/integration-checklist|Integration checklist}
         merchantId: this.merchantInfo.merchantId,
-        merchantName: this.merchantInfo.merchantName
+        merchantName: this.merchantInfo.merchantName,
       };
       return paymentDataRequest;
     },
@@ -100,17 +100,44 @@ export default {
       const paymentsClient = this.getGooglePaymentsClient();
       paymentsClient
         .loadPaymentData(paymentDataRequest)
-        .then(paymentData => {
+        .then((paymentData) => {
           //this.$emit("payed", paymentData);
-          console.log(paymentData)
+          console.log(paymentData);
           console.log("success");
         })
-        .catch(err => {
+        .catch((err) => {
           // show error in developer console for debugging
           console.error(err);
           if (err.statusCode === "CANCELED") console.log("cancel"); //this.$emit("cancel");
         });
-    }
-  }
+    },
+  },
+  async buy() {
+    let sCart = await retrive("shoppinglist/cart")
+    this.axios
+      .post("http://127.0.0.1/sqlproject/shoppinglist", {
+        id: sCart,
+      })
+      .then(function(response) {
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  },
+  async retrive(collection) {
+      const snapshot = await this.axios
+        .get("http://127.0.0.1/sqlproject/" + collection)
+        .then(function(response) {
+          console.log("response")
+          return response;
+        })
+        .catch(function(error) {
+          let empty = [];
+          console.log(error);
+          return empty;
+        });
+      return snapshot;
+    },
 };
 </script>

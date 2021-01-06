@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "cookie": "^0.4.1",
     "core-js": "^3.6.5",
+    "cors": "^2.8.5",
     "firebase": "^8.2.1",
     "firebaseui": "^4.7.1",
     "hooper": "^0.3.4",

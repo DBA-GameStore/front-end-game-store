@@ -71,7 +71,7 @@ export default {
         });
       } else {
         await this.post();
-        this.pushToCheckout();
+        // this.pushToCheckout();
       }
     },
     pushToCheckout() {

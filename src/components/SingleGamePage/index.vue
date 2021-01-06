@@ -1,20 +1,20 @@
 <template>
-  <v-container v-if="getCurrentGame" >
+  <v-container v-if="getCurrentGame">
     <game />
-    <review/>
+    <review />
   </v-container>
 </template>
 
 <script>
 import slide from "@/components/SingleGamePage/imageSlide.vue";
 import game from "@/components/SingleGamePage/game.vue";
-import review from '@/components/SingleGamePage/review.vue';
+import review from "@/components/SingleGamePage/review.vue";
 
 export default {
   components: {
     slide,
     game,
-    review
+    review,
   },
   computed: {
     getCurrentGame: {
@@ -30,37 +30,5 @@ export default {
   },
 
   mounted() {},
-
-  methods: {
-    async addToCart() {
-      if (this.checktLogin == null) {
-        this.$router.push({
-          name: "Profile",
-        });
-      } else {
-        await this.post();
-        this.pushToCheckout();
-      }
-    },
-    pushToCheckout() {
-      this.$router.push({
-        name: "Checkout",
-      });
-    },
-    async post() {
-      this.axios
-        .post("http://127.0.0.1/sqlproject/shoppinglist/cart", {
-          quantity: 1,
-          gameId: this.getCurrentGame.id,
-        })
-        .then(function(response) {
-          console.log(response);
-          return;
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-    },
-  },
 };
 </script>

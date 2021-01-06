@@ -96,6 +96,7 @@
 import step1 from "@/components/Checkout/StepperEqualsToOne.vue";
 import step2 from "@/components/Checkout/StepperEqualsToTwo.vue";
 import googlePay from "@/components/Checkout/GooglePay.vue";
+import replyVue from '../components/SingleGamePage/reply.vue';
 export default {
   name: "Home",
   components: {
@@ -117,6 +118,7 @@ export default {
     },
   },
   mounted() {
+    console.log("cart");
     if (this.checktLogin == null) {
       this.$router.push("/Profile");
     }
@@ -145,10 +147,13 @@ export default {
       const snapshot = await this.axios
         .get("http://127.0.0.1/sqlproject/" + collection)
         .then(function(response) {
+          console.log("response")
           return response;
         })
         .catch(function(error) {
+          let empty = [];
           console.log(error);
+          return empty;
         });
       return snapshot;
     },
