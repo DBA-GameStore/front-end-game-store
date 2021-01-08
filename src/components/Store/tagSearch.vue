@@ -6,7 +6,7 @@
       </v-col> -->
       <v-col cols="12" md="4" xl="4" lg="4" v-for="(g, i) in games" :key="i">
         <v-card elevation="0" @click.native="select(g)">
-          <v-hover v-slot="{ hover }" open-delay="500" @click="hover = false">
+          <v-hover v-slot="{ hover }" open-delay="300" @click="hover = false">
             <v-row class="pa-0 ma-0">
               <v-col cols="6">
                 <v-overlay :absolute="true" :value="hover" :z-index="100">

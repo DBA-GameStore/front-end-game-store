@@ -14,7 +14,11 @@
           >
 
           <v-card-actions>
-            <v-btn text @click="dowrite" :disabled="checktLogin == null">
+            <v-btn
+              text
+              @click="dowrite"
+              :disabled="checktLogin == null && reviewedBefore"
+            >
               撰寫評論
             </v-btn>
           </v-card-actions>
@@ -82,6 +86,7 @@ export default {
   data() {
     return {
       writeToggle: false,
+      reviewedBefore: false,
       comments: [
         // {
         //   name: "RGBGamer",
@@ -118,7 +123,6 @@ export default {
   methods: {
     dowrite() {
       this.writeToggle = true;
-      //   this.$vuetify.goTo("#writeCommentId");
     },
     async updateComment() {
       let vm = this;
@@ -128,12 +132,17 @@ export default {
       };
       this.comments = await this.axios(config)
         .then(function(response) {
+          console.log(response);
           return response.data;
         })
         .catch(function(error) {
           console.log(error);
           return [];
         });
+        
+    },
+    hasReviewAlready() {
+      //   this.comments.forEach((element) => {});
     },
   },
 };

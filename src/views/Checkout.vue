@@ -180,7 +180,7 @@ export default {
   },
   mounted() {
     if (this.checktLogin == null) {
-      this.$router.push("/Profile");
+      this.$router.push({ name: "Profile" });
     }
     this.updateCart();
   },

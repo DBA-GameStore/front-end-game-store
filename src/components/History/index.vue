@@ -10,35 +10,12 @@
         :key="index0"
       >
         <v-card>
-          <v-card-title> 訂單編號 {{ i }} </v-card-title>
-          <v-list-group no-action>
-            <template v-slot:activator>
-              <v-list-item-content>
-                <v-toolbar elevation="0" color="transparent">
-                  <v-list-item-title>購買內容</v-list-item-title>
-                  <v-spacer />
-                  <v-card-subtitle style="white-space: nowrap;">
-                    總金額： NT$ 1000
-                  </v-card-subtitle>
-                </v-toolbar>
-              </v-list-item-content>
-            </template>
-            <v-list-item class="pa-0" v-for="(j, index) in games" :key="index">
-              <v-list-item-content class="pa-0 list-comment">
-                <v-row justify="center" align="center">
-                  <v-col cols="3"></v-col>
-                  <v-col cols="4">
-                    <v-img :src="j.picture" max-width="100%"> </v-img>
-                  </v-col>
-                  <v-col cols="3"></v-col>
-                  <v-col cols="4">
-                    <p class="p-comment-title">{{ j.name }}</p>
-                    <p class="p-comment-title">NT$ {{ j.price }}</p>
-                  </v-col>
-                </v-row>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list-group>
+          <v-toolbar elevation="0" color="transparent">
+            <v-card-title> 訂單編號 {{ i.id }} </v-card-title>
+            <v-spacer />
+            <v-card-subtitle>{{ i.buyDatetime }}</v-card-subtitle>
+          </v-toolbar>
+          <listgame :listid="i.id" />
         </v-card>
       </v-col>
     </v-row>
@@ -46,12 +23,14 @@
 </template>
 
 <script>
+import listgame from "@/components/History/listgames.vue";
 export default {
-  components: {},
+  components: {
+    listgame,
+  },
   data() {
     return {
       history: [],
-      games: [],
     };
   },
   mounted() {
@@ -74,9 +53,8 @@ export default {
       };
       this.history = await this.axios(config)
         .then(function(response) {
-          console.log(12333);
           console.log(response);
-          return response;
+          return response.data;
         })
         .catch(function(error) {
           console.log(error);

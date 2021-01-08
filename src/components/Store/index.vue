@@ -20,16 +20,16 @@
         <v-container>
           <v-row justify="center" class="pa-0 ma-0">
             <v-card-text>精選推薦</v-card-text>
-            <storeCarousel :games="top" />
+            <storeCarousel :games="games" />
           </v-row>
         </v-container>
 
-        <!-- <v-container v-for="(t, index) in titles" :key="index">
+        <v-container v-for="(t, index) in titles" :key="index">
           <v-card-text>{{ t.tag }}</v-card-text>
           <v-row justify="center" class="pa-0 ma-0">
             <storeCarouselMultis :games="t.games" />
           </v-row>
-        </v-container> -->
+        </v-container>
       </div>
     </v-card>
   </v-app>
@@ -100,6 +100,7 @@ export default {
       //   },
       // ],
       top: [],
+      titles: [],
       // top: [
       //   {
       //     url: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
@@ -125,6 +126,13 @@ export default {
       let vm = this;
       let doc = await this.retrive("game");
       this.games = doc.data;
+      let test = [
+        {
+          tag: "熱門遊戲",
+          games: this.games,
+        },
+      ];
+      this.titles = test;
     },
     async retrive(collection) {
       const snapshot = await this.axios

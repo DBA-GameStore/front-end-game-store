@@ -4,7 +4,7 @@
       <v-container>
         <v-card color="grey" height="400">
           <router-link :to="{ name: 'Game' }">
-            <v-img @click="select(g)" :src="g.url" height="200" />
+            <v-img @click="select(g)" :src="g.picture" height="200" />
           </router-link>
         </v-card>
       </v-container>
