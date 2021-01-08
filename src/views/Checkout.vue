@@ -252,4 +252,7 @@ export default {
 .v-label.theme--light {
   color: black !important;
 }
+.v-list-item__title {
+  color: black !important;
+}
 </style>
