@@ -23,34 +23,56 @@
     >
     <v-row justify="center" v-if="writeToggle">
       <v-col cols="9">
-        <writeComment />
+        <writeComment @updateToggle="writeToggle = false" />
       </v-col>
     </v-row>
-    <v-row justify="center" v-for="(item, index) in comments" :key="index">
-      <v-col cols="9">
-        <comment :data="item" />
-      </v-col>
-    </v-row>
-    <v-row justify="center" align="center">
-      <v-col cols="9" md="9" sm="9" lg="9" xl="9">
-        <v-card-title>
-          <span class="text--center">
-            暫無評論
-          </span>
-        </v-card-title>
-      </v-col>
-    </v-row>
+    <div v-if="comments">
+      <v-row justify="center" v-for="(item, index) in comments" :key="index">
+        <v-col cols="9">
+          <comment :data="index" />
+        </v-col>
+      </v-row>
+    </div>
+    <div v-else>
+      <v-row justify="center" align="center" v-if="(comments = [])">
+        <v-col cols="9" md="9" sm="9" lg="9" xl="9">
+          <v-card-title>
+            <span class="text--center">
+              暫無評論
+            </span>
+          </v-card-title>
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 
 <script>
 import writeComment from "@/components/SingleGamePage/writeCard.vue";
 import comment from "@/components/SingleGamePage/comment.vue";
+import replyVue from "./reply.vue";
 
 export default {
   components: {
     writeComment,
     comment,
+  },
+  computed: {
+    getCurrentGame: {
+      get() {
+        return this.$store.getters.getGameSelector;
+      },
+    },
+    checktLogin: {
+      get() {
+        return this.$store.getters.getUser;
+      },
+    },
+    checkAdmin: {
+      get() {
+        return this.$store.getters.getAdmin;
+      },
+    },
   },
 
   mounted() {
@@ -100,38 +122,18 @@ export default {
     },
     async updateComment() {
       let vm = this;
-      let doc = await this.retrive("review/gameid/" + this.getCurrentGame.id);
-      this.comments = doc;
-    },
-    async retrive(collection) {
-      const snapshot = await this.axios
-        .get("http://127.0.0.1/sqlproject/" + collection)
+      let config = {
+        method: "get",
+        url: "api/review/gameid/" + this.getCurrentGame.id,
+      };
+      this.comments = await this.axios(config)
         .then(function(response) {
-          return response;
+          return response.data;
         })
         .catch(function(error) {
           console.log(error);
           return [];
         });
-      return snapshot;
-    },
-  },
-
-  computed: {
-    checktLogin: {
-      get() {
-        return this.$store.getters.getUser;
-      },
-    },
-    checkAdmin: {
-      get() {
-        return this.$store.getters.getAdmin;
-      },
-    },
-    getCurrentGame: {
-      get() {
-        return this.$store.getters.getGameSelector;
-      },
     },
   },
 };

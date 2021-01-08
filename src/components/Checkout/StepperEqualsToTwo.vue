@@ -11,7 +11,7 @@
       </v-col>
       <v-col cols="2"> </v-col>
     </v-row>
-    <v-row v-for="(item, index) in cart" :key="index">
+    <v-row v-for="(item, index) in updateCart" :key="index">
       <v-col cols="2">
         <v-divider class="mx-4" vertical style="display: inline"></v-divider>
       </v-col>
@@ -35,6 +35,20 @@
         <h4>{{ shipping }}</h4>
       </v-col>
     </v-row>
+    <v-row>
+      <v-col cols="12">
+        <v-select
+          :items="coupon"
+          append-icon="mdi-ticket"
+          label="優惠券"
+          :placeholder="coupon == [] ? '暫無優惠券' : '選擇優惠券'"
+          v-model="coupon"
+          outlined
+          dense
+          :disabled="coupn == []"
+        ></v-select>
+      </v-col>
+    </v-row>
   </v-card>
 </template>
 
@@ -44,45 +58,36 @@ export default {
   props: ["shipping"],
   data() {
     return {
-      totalPrice: 0,
+      
     };
   },
-  mounted() {
-    this.caculate();
-  },
-  methods: {
-    async caculate() {
-      await this.updateCart();
-      this.cart.forEach((element) => {
-        this.totalPrice += parseInt(element.price);
-      });
-      this.totalPrice += parseInt(this.shipping);
-      props.transactionInfo.totalPrice = this.totalPrice.toString();
-      props.paymentDataRequest.transactionInfo.totalPrice = this.totalPrice.toString();
+  mounted() {},
+  computed: {
+    checktLogin: {
+      get() {
+        return this.$store.getters.getUser;
+      },
     },
-    async updateCart() {
-      let vm = this;
-      let doc = await this.retrive("shoppinglist/cart");
-      this.cart = doc.data;
-    },
-    async retrive(collection) {
-      const snapshot = await this.axios
-        .get("http://127.0.0.1/sqlproject/" + collection)
+    updateCart() {
+      let config = {
+        method: "get",
+        url: "api/shoppinglist/cart",
+        headers: { uid: this.checktLogin.uid },
+      };
+      return this.axios(config)
         .then(function(response) {
+          console.log(response);
           return response;
         })
         .catch(function(error) {
           console.log(error);
+          return [];
         });
-      return snapshot;
     },
+  },
+  methods: {
+    
   },
 };
 </script>
 
-<style>
-.Half-Grey {
-  background: linear-gradient(to top, #bbdefb 50%, transparent 50%);
-  border-radius: 0;
-}
-</style>

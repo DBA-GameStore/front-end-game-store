@@ -34,6 +34,12 @@ const routes = [
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/UploadGame.vue")
   },
+  {
+    path: "/history",
+    name: "History",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/History.vue")
+  },
 ];
 
 const router = new VueRouter({

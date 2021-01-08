@@ -102,7 +102,7 @@ export default {
         .loadPaymentData(paymentDataRequest)
         .then((paymentData) => {
           //this.$emit("payed", paymentData);
-          console.log(paymentData);
+          this.buy();
           console.log("success");
         })
         .catch((err) => {
@@ -111,33 +111,54 @@ export default {
           if (err.statusCode === "CANCELED") console.log("cancel"); //this.$emit("cancel");
         });
     },
-  },
-  async buy() {
-    let sCart = await retrive("shoppinglist/cart")
-    this.axios
-      .post("http://127.0.0.1/sqlproject/shoppinglist", {
-        id: sCart,
-      })
-      .then(function(response) {
-        console.log(response);
-      })
-      .catch(function(error) {
-        console.log(error);
-      });
-  },
-  async retrive(collection) {
-      const snapshot = await this.axios
-        .get("http://127.0.0.1/sqlproject/" + collection)
+    async buy() {
+      let sCart = await this.getCart();
+      let config = {
+        method: "patch",
+        url: "api/shoppinglist/finish",
+        headers: { uid: this.checktLogin.uid },
+      };
+      let _rp = await this.axios(config)
         .then(function(response) {
-          console.log("response")
+          return 1;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return -1;
+        });
+      if (_rp == 1) {
+        this.dopush();
+      }
+    },
+    dopush() {
+      alert("購買成功");
+      this.$router.push({
+        name: "History",
+      });
+    },
+    async getCart() {
+      let config = {
+        method: "get",
+        url: "api/shoppinglist/cart",
+        headers: { uid: this.checktLogin.uid },
+      };
+      let doc = await this.axios(config)
+        .then(function(response) {
+          console.log(response);
           return response;
         })
         .catch(function(error) {
-          let empty = [];
           console.log(error);
-          return empty;
+          return this.cart;
         });
-      return snapshot;
     },
+  },
+  computed: {
+    checktLogin: {
+      get() {
+        return this.$store.getters.getUser;
+      },
+    },
+  },
 };
 </script>

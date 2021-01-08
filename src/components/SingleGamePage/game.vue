@@ -71,7 +71,7 @@ export default {
         });
       } else {
         await this.post();
-        // this.pushToCheckout();
+        this.pushToCheckout();
       }
     },
     pushToCheckout() {
@@ -80,7 +80,6 @@ export default {
       });
     },
     async post() {
-      console.log(this.getCurrentGame.id);
       let config = {
         method: "post",
         url: "api/shoppinglist/cart",

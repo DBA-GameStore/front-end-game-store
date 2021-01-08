@@ -34,6 +34,7 @@
           <v-text-field
             outlined
             label="姓名"
+            disabled
             :value="checktLogin.displayName"
           ></v-text-field>
           <v-text-field outlined label="地址一"></v-text-field>

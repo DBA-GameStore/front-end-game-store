@@ -90,19 +90,30 @@ export default {
       console.log(this.rating);
       this.post();
     },
-    post() {
-      this.axios
-        .post("http://127.0.0.1/sqlproject//review/request", {
+    async post() {
+      this.$emit("updateToggle");
+      let config = {
+        method: "post",
+        url: "api/review/request",
+        headers: { uid: this.getCurrentUser.uid },
+        data: {
           gameid: this.getCurrentGame.id,
           star: this.rating,
           context: this.msg,
-        })
+        },
+      };
+      let rep = await this.axios(config)
         .then(function(response) {
           console.log(response);
+          return 1;
         })
         .catch(function(error) {
           console.log(error);
+          return -1;
         });
+      if (rep == 1) {
+        this.$router.go(this.$router.currentRoute);
+      }
     },
   },
   components: {},

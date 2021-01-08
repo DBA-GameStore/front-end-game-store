@@ -24,11 +24,14 @@
         <v-spacer></v-spacer>
         <!-- v-bind:color="type === 'guest' ? 'secondary' : 'primary'" -->
         <v-card-title class="secondary--text">
+          <v-btn icon :to="{ name: 'Profile' }" id="no-background-hover">
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
           <v-btn icon :to="{ name: 'Checkout' }" id="no-background-hover">
             <v-icon>mdi-cart-outline</v-icon>
           </v-btn>
-          <v-btn icon :to="{ name: 'Profile' }" id="no-background-hover">
-            <v-icon>mdi-account</v-icon>
+          <v-btn icon :to="{ name: 'History' }" id="no-background-hover">
+            <v-icon>mdi-shopping</v-icon>
           </v-btn>
           <v-btn
             v-if="checkAdmin && checktLogin"

@@ -5,68 +5,64 @@
         <tagChip />
       </v-col> -->
       <v-col cols="12" md="4" xl="4" lg="4" v-for="(g, i) in games" :key="i">
-        <v-hover v-slot="{ hover }" open-delay="1500" @click="hover = false">
-          <v-row class="pa-0 ma-0">
-            <v-col cols="6">
-              <v-overlay :absolute="true" :value="hover" :z-index="100">
-                <router-link @click.native="select(g)" :to="{ name: 'Game' }">
+        <v-card elevation="0" @click.native="select(g)">
+          <v-hover v-slot="{ hover }" open-delay="500" @click="hover = false">
+            <v-row class="pa-0 ma-0">
+              <v-col cols="6">
+                <v-overlay :absolute="true" :value="hover" :z-index="100">
                   <v-img style="position:relative;z-index:100" :src="g.picture">
                   </v-img>
-                </router-link>
-              </v-overlay>
-              <router-link
-                @click.native="select(g)"
-                :to="{ name: 'Game' }"
-                class="white"
-                style="text-decoration: none; color: inherit;position:relative;left:20%"
-              >
-                <br />
-                <br />
+                </v-overlay>
+                <div
+                  class="white"
+                  style="text-decoration: none; color: inherit;position:relative;left:10%"
+                >
+                  <br />
+                  <br />
 
-                <v-card elevation="0">
-                  <span
-                    class="d-inline-block text-truncate"
-                    style="position:relative;top:20px;max-width: 150px;font-size:10px"
-                    >{{ g.description }}</span
-                  >
-                  <div class="d-flex flex-no-wrap justify-space-between">
-                    <v-card-title
-                      class="headline"
-                      style="white-space: nowrap;z-index: 1;position:relative"
+                  <v-card elevation="0">
+                    <span
+                      class="d-inline-block text-truncate"
+                      style="position:relative;top:20px;max-width: 150px;font-size:10px"
+                      >{{ g.description }}</span
                     >
-                      <h3>{{ g.name }}</h3>
-                    </v-card-title>
-                  </div>
-                </v-card>
-                <v-card-subtitle
-                  style="white-space: nowrap;z-index: 1;position:relative"
+                    <div class="d-flex flex-no-wrap justify-space-between">
+                      <v-card-title
+                        class="headline"
+                        style="white-space: nowrap;z-index: 1;position:relative"
+                      >
+                        <h3>{{ g.name }}</h3>
+                      </v-card-title>
+                    </div>
+                  </v-card>
+                  <v-card-subtitle
+                    style="white-space: nowrap;z-index: 1;position:relative"
+                  >
+                    <v-icon v-for="(p, j) in platform" :key="j">{{ p }}</v-icon>
+                  </v-card-subtitle>
+                  <v-card-subtitle style="position:relative;top:-20px">
+                    $ {{ g.price }}
+                  </v-card-subtitle>
+                </div>
+                <br />
+              </v-col>
+              <v-col cols="4">
+                <div
+                  class="white"
+                  style="text-decoration: none; color: inherit;"
                 >
-                  <v-icon v-for="(p, j) in platform" :key="j">{{ p }}</v-icon>
-                </v-card-subtitle>
-                <v-card-subtitle style="position:relative;top:-20px">
-                  $ {{ g.price }}
-                </v-card-subtitle>
-              </router-link>
-              <br />
-            </v-col>
-            <v-col cols="4">
-              <router-link
-                @click.native="select(g)"
-                :to="{ name: 'Game' }"
-                class="white"
-                style="text-decoration: none; color: inherit;"
-              >
-                <v-avatar
-                  class="ma-3"
-                  size="150"
-                  style="position:relative;left:-30%;top:100px"
-                >
-                  <v-img :src="g.picture"></v-img>
-                </v-avatar>
-              </router-link>
-            </v-col>
-          </v-row>
-        </v-hover>
+                  <v-avatar
+                    class="ma-3"
+                    size="150"
+                    style="position:relative;left:-20%;top:100px"
+                  >
+                    <v-img :src="g.picture"></v-img>
+                  </v-avatar>
+                </div>
+              </v-col>
+            </v-row>
+          </v-hover>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -140,6 +136,7 @@ export default {
   methods: {
     select(e) {
       this.$store.commit("gameCheckout", e);
+      this.$router.push({ name: "Game" });
     },
     async updateGames() {
       let vm = this;
@@ -149,7 +146,7 @@ export default {
       };
       let doc = await this.axios(config)
         .then(function(response) {
-          console.log(response);
+          // console.log(response);
           return response;
         })
         .catch(function(error) {

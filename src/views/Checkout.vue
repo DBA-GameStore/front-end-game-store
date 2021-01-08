@@ -57,7 +57,7 @@
             <v-stepper-content step="2">
               <step1 />
               <v-row>
-                <v-btn @click="e6 = 3" text color="white">
+                <v-btn @click="caculate" text color="white">
                   <span class="black--text"> 下一步 </span>
                 </v-btn>
                 <v-spacer />
@@ -73,7 +73,65 @@
             </v-stepper-step>
 
             <v-stepper-content step="3">
-              <step2 :cart="cart" shipping="100" />
+              <v-card elevation="0">
+                <h1>Checkout Order</h1>
+                <br />
+                <v-row>
+                  <v-col cols="5">
+                    <h2 class="Half-Grey">Total Price:</h2>
+                  </v-col>
+                  <v-col cols="4">
+                    <h3 class="pa-0 ma-0">${{ totalPrice }}</h3>
+                  </v-col>
+                  <v-col cols="2"> </v-col>
+                </v-row>
+                <v-row v-for="(item, index) in cart" :key="index">
+                  <v-col cols="2">
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                      style="display: inline"
+                    ></v-divider>
+                  </v-col>
+                  <v-col cols="7">
+                    <h4>{{ item.name }}</h4>
+                  </v-col>
+                  <v-spacer />
+                  <v-col cols="2" style="left: -10px">
+                    <h4>{{ item.price }}</h4>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="2">
+                    <v-divider
+                      class="mx-4"
+                      vertical
+                      style="display: inline"
+                    ></v-divider>
+                  </v-col>
+                  <v-col cols="7">
+                    <h4>運費</h4>
+                  </v-col>
+                  <v-spacer />
+                  <v-col cols="2" style="left: -10px">
+                    <h4>{{ shipping }}</h4>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12">
+                    <v-select
+                      :items="coupon"
+                      append-icon="mdi-ticket"
+                      label="優惠券"
+                      :placeholder="coupon == [] ? '暫無優惠券' : '選擇優惠券'"
+                      v-model="coupon"
+                      outlined
+                      dense
+                      :disabled="coupon == []"
+                    ></v-select>
+                  </v-col>
+                </v-row>
+              </v-card>
               <v-row>
                 <googlePay />
                 <v-divider
@@ -94,20 +152,23 @@
 
 <script>
 import step1 from "@/components/Checkout/StepperEqualsToOne.vue";
-import step2 from "@/components/Checkout/StepperEqualsToTwo.vue";
 import googlePay from "@/components/Checkout/GooglePay.vue";
 import replyVue from "../components/SingleGamePage/reply.vue";
+import googleprops from "@/GooglePaySettings";
+
 export default {
   name: "Home",
   components: {
     step1,
-    step2,
     googlePay,
   },
   data() {
     return {
       e6: 1,
       cart: [],
+      shipping: 100,
+      totalPrice: 0,
+      coupon: ["滿千折百"],
     };
   },
   computed: {
@@ -125,26 +186,26 @@ export default {
   },
   methods: {
     remove(e) {
-      this.cart = this.cart.filter((item) => item != e);
-      this.axios
-        .delete("http://127.0.0.1/sqlproject/shoppinglist/cart/" + e.id)
+      let config = {
+        method: "delete",
+        url: "api/shoppinglist/cart/" + e.id,
+        headers: { uid: this.checktLogin.uid },
+      };
+      this.axios(config)
         .then(function(response) {
           console.log(response);
-          return response;
         })
         .catch(function(error) {
-          console.log(error);
+          return this.cart;
         });
+      this.cart = this.cart.filter((item) => item != e);
     },
     async updateCart() {
-      let vm = this;
-
       let config = {
         method: "get",
         url: "api/shoppinglist/cart",
         headers: { uid: this.checktLogin.uid },
       };
-      console.log(config.headers);
       let doc = await this.axios(config)
         .then(function(response) {
           console.log(response);
@@ -156,6 +217,29 @@ export default {
         });
       this.cart = doc.data;
     },
+    async caculate() {
+      this.totalPrice = 0;
+      this.cart.forEach((element) => {
+        this.totalPrice += parseInt(element.price);
+      });
+      this.totalPrice += parseInt(this.shipping);
+      googleprops.transactionInfo.totalPrice = this.totalPrice.toString();
+      googleprops.paymentDataRequest.transactionInfo.totalPrice = this.totalPrice.toString();
+      this.e6 = 3;
+    },
   },
 };
 </script>
+
+<style>
+.Half-Grey {
+  background: linear-gradient(to top, #bbdefb 50%, transparent 50%);
+  border-radius: 0;
+}
+.v-label.theme--light {
+  color: black !important;
+}
+.v-icon.theme--light {
+  color: black !important;
+}
+</style>
