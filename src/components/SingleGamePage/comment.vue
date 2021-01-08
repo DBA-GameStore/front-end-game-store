@@ -1,12 +1,12 @@
 <template>
   <v-card color="#fafafa">
-    <v-row v-if="selfComment != [] && selfComment != null">
+    <v-row v-if="selfComment">
       <v-col cols="4">
         <v-card-title class="headline">
           <v-avatar>
-            <!-- <img :src="selfComment[data].avatarImg" alt="John" /> -->
+            <!-- <img :src="selfComment.picture" alt="John" /> -->
           </v-avatar>
-          <!-- <v-card-subtitle>{{ selfComment[data].name }}</v-card-subtitle> -->
+          <!-- <v-card-subtitle>{{ selfComment.name }}</v-card-subtitle> -->
         </v-card-title>
       </v-col>
       <v-col cols="6">
@@ -14,20 +14,20 @@
           <v-icon
             v-for="i in 5"
             :key="i"
-            :color="i < selfComment[data].star + 1 ? '#fdd835' : '#000000'"
+            :color="i < star + 1 ? '#fdd835' : '#000000'"
           >
             mdi-dice-{{ i }}
           </v-icon>
         </v-card-actions>
         <v-card-subtitle>
-          {{ selfComment[data].context }}
+          {{ selfComment.context }}
         </v-card-subtitle>
         <br />
-        <!-- <reply :reply="selfComment[data].reply" v-if="checkAdmin" /> -->
+        <!-- <reply :reply="selfComment.reply" v-if="checkAdmin" /> -->
       </v-col>
       <v-toolbar elevation="0" color="transparent">
         <v-spacer />
-        <v-card-subtitle>{{ selfComment[data].datetime }}</v-card-subtitle>
+        <v-card-subtitle>{{ selfComment.datetime }}</v-card-subtitle>
       </v-toolbar>
     </v-row>
 
@@ -51,6 +51,7 @@ export default {
   data() {
     return {
       selfComment: null,
+      star: 3,
     };
   },
   computed: {
@@ -88,7 +89,8 @@ export default {
           console.log(error);
           return [];
         });
-      console.log(this.selfComment);
+      this.selfComment = this.selfComment[this.data];
+      this.star = parseInt(this.selfComment.star);
     },
   },
 };

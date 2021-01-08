@@ -239,7 +239,4 @@ export default {
 .v-label.theme--light {
   color: black !important;
 }
-.v-icon.theme--light {
-  color: black !important;
-}
 </style>

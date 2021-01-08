@@ -52,6 +52,9 @@ export default new Vuex.Store({
       }
       state.user = e;
     },
+    setAdmin(state) {
+      state.isAdmin = true;
+    },
     logout(state) {
       state.user = null;
     },
