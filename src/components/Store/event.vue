@@ -1,5 +1,9 @@
 <template>
   <v-container>
-    <v-card-title>No event now</v-card-title>
+    <v-card-title>
+      <u>
+        尚未開始
+      </u>
+    </v-card-title>
   </v-container>
 </template>

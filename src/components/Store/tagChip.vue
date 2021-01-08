@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" max-width="500">
+  <v-card class="mx-auto" max-width="500" elevation="0">
     <v-container class="py-0">
       <v-row align="center" justify="start">
         <v-col

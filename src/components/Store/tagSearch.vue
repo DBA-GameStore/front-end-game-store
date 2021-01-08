@@ -1,68 +1,81 @@
 <template>
   <v-container>
-    <v-row justify="center" align="center">
-      <!-- <v-col cols="2" md="3" lg="2">
-        <tagChip />
-      </v-col> -->
-      <v-col cols="12" md="4" xl="4" lg="4" v-for="(g, i) in games" :key="i">
-        <v-card elevation="0" @click.native="select(g)">
-          <v-hover v-slot="{ hover }" open-delay="300" @click="hover = false">
-            <v-row class="pa-0 ma-0">
-              <v-col cols="6">
-                <v-overlay :absolute="true" :value="hover" :z-index="100">
-                  <v-img style="position:relative;z-index:100" :src="g.picture">
-                  </v-img>
-                </v-overlay>
-                <div
-                  class="white"
-                  style="text-decoration: none; color: inherit;position:relative;left:10%"
-                >
-                  <br />
-                  <br />
-
-                  <v-card elevation="0">
-                    <span
-                      class="d-inline-block text-truncate"
-                      style="position:relative;top:20px;max-width: 150px;font-size:10px"
-                      >{{ g.description }}</span
+    <v-row justify="center" >
+      <v-col cols="2">
+        <tagChip  style="position:relative;top:80px"/>
+      </v-col>
+      <v-col cols="10">
+        <v-row justify="center">
+          <v-col cols="6" v-for="(g, i) in games" :key="i">
+            <v-card elevation="0" @click.native="select(g)">
+              <v-hover
+                v-slot="{ hover }"
+                open-delay="300"
+                @click="hover = false"
+              >
+                <v-row class="pa-0 ma-0">
+                  <v-col cols="6">
+                    <v-overlay :absolute="true" :value="hover" :z-index="100">
+                      <v-img
+                        style="position:relative;z-index:100"
+                        :src="g.picture"
+                      >
+                      </v-img>
+                    </v-overlay>
+                    <div
+                      class="white"
+                      style="text-decoration: none; color: inherit;position:relative;left:10%"
                     >
-                    <div class="d-flex flex-no-wrap justify-space-between">
-                      <v-card-title
-                        class="headline"
+                      <br />
+                      <br />
+
+                      <v-card elevation="0">
+                        <span
+                          class="d-inline-block text-truncate"
+                          style="position:relative;top:20px;max-width: 150px;font-size:10px"
+                          >{{ g.description }}</span
+                        >
+                        <div class="d-flex flex-no-wrap justify-space-between">
+                          <v-card-title
+                            class="headline"
+                            style="white-space: nowrap;z-index: 1;position:relative"
+                          >
+                            <h3>{{ g.name }}</h3>
+                          </v-card-title>
+                        </div>
+                      </v-card>
+                      <v-card-subtitle
                         style="white-space: nowrap;z-index: 1;position:relative"
                       >
-                        <h3>{{ g.name }}</h3>
-                      </v-card-title>
+                        <v-icon v-for="(p, j) in platform" :key="j">{{
+                          p
+                        }}</v-icon>
+                      </v-card-subtitle>
+                      <v-card-subtitle style="position:relative;top:-20px">
+                        $ {{ g.price }}
+                      </v-card-subtitle>
                     </div>
-                  </v-card>
-                  <v-card-subtitle
-                    style="white-space: nowrap;z-index: 1;position:relative"
-                  >
-                    <v-icon v-for="(p, j) in platform" :key="j">{{ p }}</v-icon>
-                  </v-card-subtitle>
-                  <v-card-subtitle style="position:relative;top:-20px">
-                    $ {{ g.price }}
-                  </v-card-subtitle>
-                </div>
-                <br />
-              </v-col>
-              <v-col cols="4">
-                <div
-                  class="white"
-                  style="text-decoration: none; color: inherit;"
-                >
-                  <v-avatar
-                    class="ma-3"
-                    size="150"
-                    style="position:relative;left:-20%;top:100px"
-                  >
-                    <v-img :src="g.picture"></v-img>
-                  </v-avatar>
-                </div>
-              </v-col>
-            </v-row>
-          </v-hover>
-        </v-card>
+                    <br />
+                  </v-col>
+                  <v-col cols="4">
+                    <div
+                      class="white"
+                      style="text-decoration: none; color: inherit;"
+                    >
+                      <v-avatar
+                        class="ma-3"
+                        size="150"
+                        style="position:relative;left:-20%;top:100px"
+                      >
+                        <v-img :src="g.picture"></v-img>
+                      </v-avatar>
+                    </div>
+                  </v-col>
+                </v-row>
+              </v-hover>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-col>
     </v-row>
   </v-container>
