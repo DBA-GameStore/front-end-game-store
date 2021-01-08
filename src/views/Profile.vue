@@ -90,9 +90,11 @@
                 <v-row>
                   <v-col cols="1"> </v-col>
                   <v-col>
-                    <v-card-subtitle>
-                      現有優惠券
-                    </v-card-subtitle>
+                    <v-card-title>
+                      <u>
+                        現有優惠券
+                      </u>
+                    </v-card-title>
                   </v-col>
                 </v-row>
                 <v-row v-for="(item, index) in coupons" :key="index">
@@ -152,7 +154,7 @@ export default {
     return {
       length: 2,
       window: 0,
-      coupons: ["滿千折百", "滿一送醫"],
+      coupons: ["滿千折百", "買一送醫"],
     };
   },
   components: {
