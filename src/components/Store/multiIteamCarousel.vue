@@ -1,13 +1,15 @@
 <template>
   <hooper :settings="hooperSettings">
     <slide v-for="(g, index) in games" :key="index">
-      <v-container>
-        <v-card color="grey" height="400">
-          <router-link :to="{ name: 'Game' }">
-            <v-img @click="select(g)" :src="g.picture" height="200" />
-          </router-link>
-        </v-card>
-      </v-container>
+      <v-row justify="center" align="center" class="pa-0 ma-0" style="position:relative;left:-20px;">
+        <v-col cols="10">
+          <v-card color="white" elevation="0">
+            <router-link :to="{ name: 'Game' }">
+              <v-img @click="select(g)" :src="g.picture" />
+            </router-link>
+          </v-card>
+        </v-col>
+      </v-row>
     </slide>
     <hooper-navigation slot="hooper-addons"></hooper-navigation>
   </hooper>
@@ -34,8 +36,8 @@ export default {
         infiniteScroll: true,
         centerMode: true,
         autoPlay: true,
-        playSpeed: 3500,
-        itemsToShow: 2,
+        playSpeed: 5000,
+        itemsToShow: 3,
       },
     };
   },
