@@ -1,11 +1,10 @@
 <template>
   <v-container>
     <!-- <tagChip style="position:relative;top:80px" /> -->
-
     <v-row justify="center">
       <v-col cols="10">
         <v-row justify="center">
-          <v-col cols="4" v-for="(g, i) in games" :key="i">
+          <v-col cols="4" v-for="(g, i) in limitby" :key="i">
             <v-card elevation="0" @click.native="select(g)">
               <v-hover
                 v-slot="{ hover }"
@@ -75,6 +74,8 @@
             </v-card>
           </v-col>
         </v-row>
+        <v-pagination v-model="page" :length="pageLength" circle>
+        </v-pagination>
       </v-col>
     </v-row>
   </v-container>
@@ -89,7 +90,9 @@ export default {
   },
   data: () => ({
     expand: [],
-    games: null,
+    games: [],
+    pageLength: 1,
+    page: 1,
     // games: [
     //   {
     //     url: require(`@/assets/logo.png`),
@@ -137,6 +140,11 @@ export default {
         return this.$store.getters.getGames;
       },
     },
+    limitby() {
+      let start = (this.page - 1) * 9;
+      let end = start + 9;
+      return this.games.slice(start, end);
+    },
   },
 
   watch: {},
@@ -169,7 +177,21 @@ export default {
       this.games.forEach((element) => {
         this.expand.push(false);
       });
+      this.pageLength = parseInt(this.games.length / 8);
+      if (this.pageLength == 0) this.pageLength++;
     },
+  },
+  filteredStart() {
+    return this.pageLength;
+  },
+  filteredEnd() {
+    return this.pageLength + 9;
   },
 };
 </script>
+
+<style>
+.theme--light.v-pagination .v-pagination__item--active {
+  color: grey !important;
+}
+</style>
