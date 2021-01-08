@@ -168,7 +168,7 @@ export default {
       cart: [],
       shipping: 100,
       totalPrice: 0,
-      coupon: ["不使用優惠券","滿千折百"],
+      coupon: [],
       selectCoupon: null,
     };
   },
@@ -184,6 +184,7 @@ export default {
       this.$router.push({ name: "Profile" });
     }
     this.updateCart();
+    this.updateCoupon();
   },
   methods: {
     remove(e) {
@@ -217,6 +218,17 @@ export default {
           return this.cart;
         });
       this.cart = doc.data;
+    },
+    async updateCoupon() {
+      let c = [];
+      c.push("滿千折百");
+      // ....
+      if (c.length > 0) {
+        this.coupon = c;
+        this.coupon.unshift("不使用優惠券");
+        this.selectCoupon = this.coupon[0];
+        console.log(this.coupon);
+      }
     },
     async caculate() {
       this.totalPrice = 0;
