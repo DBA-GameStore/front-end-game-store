@@ -1,7 +1,12 @@
 <template>
   <hooper :settings="hooperSettings">
     <slide v-for="(g, index) in games" :key="index">
-      <v-row justify="center" align="center" class="pa-0 ma-0" style="position:relative;left:-20px;">
+      <v-row
+        justify="center"
+        align="center"
+        class="pa-0 ma-0"
+        style="position:relative;left:-20px;"
+      >
         <v-col cols="10">
           <v-card color="white" elevation="0">
             <router-link :to="{ name: 'Game' }">
@@ -30,6 +35,7 @@ export default {
     Slide,
     HooperNavigation,
   },
+  mounted() {},
   data() {
     return {
       hooperSettings: {

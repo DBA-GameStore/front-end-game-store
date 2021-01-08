@@ -30,7 +30,7 @@
         <writeComment @updateToggle="writeToggle = false" />
       </v-col>
     </v-row>
-    <div v-if="comments">
+    <div v-if="hasComments">
       <v-row justify="center" v-for="(item, index) in comments" :key="index">
         <v-col cols="9">
           <comment :data="index" />
@@ -139,10 +139,12 @@ export default {
           console.log(error);
           return [];
         });
-        
     },
     hasReviewAlready() {
       //   this.comments.forEach((element) => {});
+    },
+    hasComments() {
+      return this.comments.length > 0 ? true : false;
     },
   },
 };

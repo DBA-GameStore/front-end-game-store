@@ -1,12 +1,11 @@
 <template>
   <v-container>
-    <v-row justify="center" >
-      <v-col cols="2">
-        <tagChip  style="position:relative;top:80px"/>
-      </v-col>
+    <!-- <tagChip style="position:relative;top:80px" /> -->
+
+    <v-row justify="center">
       <v-col cols="10">
         <v-row justify="center">
-          <v-col cols="6" v-for="(g, i) in games" :key="i">
+          <v-col cols="4" v-for="(g, i) in games" :key="i">
             <v-card elevation="0" @click.native="select(g)">
               <v-hover
                 v-slot="{ hover }"
