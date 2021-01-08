@@ -124,10 +124,10 @@
                       append-icon="mdi-ticket"
                       label="優惠券"
                       :placeholder="coupon == [] ? '暫無優惠券' : '選擇優惠券'"
-                      v-model="coupon"
                       outlined
                       dense
                       :disabled="coupon == []"
+                      v-model="selectCoupon"
                     ></v-select>
                   </v-col>
                 </v-row>
@@ -168,7 +168,8 @@ export default {
       cart: [],
       shipping: 100,
       totalPrice: 0,
-      coupon: ["滿千折百"],
+      coupon: ["不使用優惠券","滿千折百"],
+      selectCoupon: null,
     };
   },
   computed: {

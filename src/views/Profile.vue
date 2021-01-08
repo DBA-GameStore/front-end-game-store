@@ -32,7 +32,6 @@
                         <v-card-title>
                           Game Store
                         </v-card-title>
-                        <v-icon>mdi-account</v-icon>
                         <v-spacer />
                         <v-btn @click="logout" elevation="0" color="white" text>
                           <span class="blue--text">Log out</span>
@@ -80,7 +79,6 @@
                     <v-card-title>
                       Game Store
                     </v-card-title>
-                    <v-icon>mdi-account</v-icon>
                     <v-spacer />
                     <v-btn @click="logout" elevation="0" color="white" text>
                       <span class="blue--text">Log out</span>
