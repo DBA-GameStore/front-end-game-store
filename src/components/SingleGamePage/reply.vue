@@ -5,7 +5,7 @@
         <v-list-item-title>回覆 ({{ counts }})</v-list-item-title>
       </v-list-item-content>
     </template>
-    <v-list-item v-if="checkAdmin && checktLogin">
+    <v-list-item v-if="getAdmin && getLogin">
       <v-text-field
         label="回覆"
         v-model="msg"
@@ -21,7 +21,7 @@
         </v-icon>
       </v-btn>
     </v-list-item>
-    <v-list-item v-for="(item, index) in reply" :key="index" class="pa-0">
+    <v-list-item v-for="(item, index) in replys" :key="index" class="pa-0">
       <v-list-item-content class="pa-0 list-comment">
         <v-row align="center" justify="center">
           <v-col cols="2">
@@ -35,49 +35,84 @@
           </v-col>
         </v-row>
       </v-list-item-content>
-      <!-- <v-btn
-        icon
-        fab
-        class="btn-delete-comment"
-        @click="deleteComment(item, index)"
-        v-if="checkAdmin"
-      >
+      <v-btn icon fab class="btn-delete-comment" v-if="getAdmin">
         <v-icon>
           mdi-delete
         </v-icon>
-      </v-btn> -->
+      </v-btn>
     </v-list-item>
   </v-list-group>
 </template>
 
 <script>
 export default {
-  name: "comments",
-  props: ["reply"],
+  props: ["replyid"],
   data() {
     return {
       counts: 0,
       msg: "",
+      replys: [],
     };
   },
-  components: {},
   methods: {
-    doReply() {},
+    async updateReply() {
+      let config = {
+        method: "get",
+        url: "api/reply/" + this.replyid,
+        headers: { uid: this.getLogin.uid },
+      };
+      this.replys = await this.axios(config)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
+      console.log(this.replys);
+    },
+    async doReply() {
+      let config = {
+        method: "post",
+        url: "api/reply/",
+        headers: { uid: this.getLogin.uid },
+        data: {
+          gameid: this.getCurrentGame.id,
+          context: this.msg,
+        },
+      };
+      let result = await this.axios(config)
+        .then(function(response) {
+          alert("回覆成功");
+          return 1;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return -1;
+        });
+      if (result == 1) this.updateReply();
+    },
   },
   computed: {
-    checktLogin: {
+    getCurrentGame: {
+      get() {
+        return this.$store.getters.getGameSelector;
+      },
+    },
+    getLogin: {
       get() {
         return this.$store.getters.getUser;
       },
     },
-    checkAdmin: {
+    getAdmin: {
       get() {
         return this.$store.getters.getAdmin;
       },
     },
   },
   mounted() {
-    this.counts =  (this.reply).length > 0 ? (this.reply).length : 0;
+    this.counts = this.replys.length > 0 ? this.reply.length : 0;
+    this.updateReply();
   },
 };
 </script>

@@ -137,7 +137,6 @@ export default {
       };
       let doc = await this.axios(config)
         .then(function(response) {
-          console.log(response);
           return response;
         })
         .catch(function(error) {

@@ -14,33 +14,62 @@
           >
 
           <v-card-actions>
-            <v-btn text @click="dowrite" :disabled="checktLogin == null">
+            <v-btn text @click="dowrite" :disabled="getLogin == null">
               撰寫評論
             </v-btn>
           </v-card-actions>
         </v-card>
-      </v-col></v-row
-    >
-    <v-row justify="center" v-if="writeToggle">
-      <v-col cols="9">
-        <writeComment @updateToggle="writeToggle = false" />
       </v-col>
     </v-row>
-    <div v-if="hasComments">
+
+    <v-row justify="center">
+      <v-col cols="9">
+        <write v-if="toggle" />
+      </v-col>
+    </v-row>
+    <div>
       <v-row justify="center" v-for="(item, index) in comments" :key="index">
         <v-col cols="9">
-          <comment :data="index" />
-        </v-col>
-      </v-row>
-    </div>
-    <div v-else>
-      <v-row justify="center" align="center" v-if="(comments = [])">
-        <v-col cols="9" md="9" sm="9" lg="9" xl="9">
-          <v-card-title>
-            <span class="text--center">
-              暫無評論
-            </span>
-          </v-card-title>
+          <v-card color="#fafafa">
+            <v-row v-if="item">
+              <v-col cols="4">
+                <v-card-title class="headline">
+                  <v-avatar>
+                    <img :src="item.picture" alt="John" />
+                  </v-avatar>
+                  <v-card-subtitle>{{ item.name }}</v-card-subtitle>
+                </v-card-title>
+              </v-col>
+              <v-col cols="6">
+                <v-card-actions>
+                  <v-icon
+                    v-for="i in 5"
+                    :key="i"
+                    :color="i < toint(item.star) + 1 ? '#fdd835' : '#000000'"
+                  >
+                    mdi-dice-{{ i }}
+                  </v-icon>
+                </v-card-actions>
+                <v-card-subtitle>
+                  {{ item.context }}
+                </v-card-subtitle>
+                <br />
+                <reply :replyid="item.replyid" />
+              </v-col>
+              <v-toolbar elevation="0" color="transparent">
+                <v-spacer />
+                <v-card-subtitle>{{ item.datetime }}</v-card-subtitle>
+              </v-toolbar>
+            </v-row>
+
+            <v-sheet class="pa-3" v-else>
+              <v-skeleton-loader
+                class="mx-auto"
+                max-width="300"
+                type="card"
+              ></v-skeleton-loader>
+            </v-sheet>
+          </v-card>
         </v-col>
       </v-row>
     </div>
@@ -48,14 +77,20 @@
 </template>
 
 <script>
-import writeComment from "@/components/SingleGamePage/writeCard.vue";
-import comment from "@/components/SingleGamePage/comment.vue";
-import replyVue from "./reply.vue";
+import write from "@/components/SingleGamePage/writeCard.vue";
+import reply from "@/components/SingleGamePage/reply.vue";
 
 export default {
   components: {
-    writeComment,
-    comment,
+    write,
+    reply,
+  },
+  data() {
+    return {
+      comments: [],
+      users: [],
+      toggle: false,
+    };
   },
   computed: {
     getCurrentGame: {
@@ -63,65 +98,21 @@ export default {
         return this.$store.getters.getGameSelector;
       },
     },
-    checktLogin: {
+    getLogin: {
       get() {
         return this.$store.getters.getUser;
       },
     },
-    checkAdmin: {
+    getAdmin: {
       get() {
         return this.$store.getters.getAdmin;
       },
     },
   },
-
   mounted() {
     this.updateComment();
   },
-
-  data() {
-    return {
-      writeToggle: false,
-      reviewedBefore: false,
-      hasComments: false,
-      hasGame: false,
-      comments: [
-        // {
-        //   name: "RGBGamer",
-        //   comment: "commentcommentcommentcommentcommentcomment",
-        //   avatarImg:
-        //     "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/2c/2c861f6ccfed7dd404d284137d848bf17c6ebec1_medium.jpg",
-        //   gift: 0,
-        //   thumbup: 0,
-        //   thumbdown: 0,
-        //   rating: 5,
-        //   reply: [
-        //     {
-        //       avatarImg:
-        //         "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/a8/a844c3685e9401ceffc5c41f218ee51ce54342ce_medium.jpg",
-        //       comment: "Thank you for your comment!",
-        //       postBy: "Admin",
-        //     },
-        //   ],
-        // },
-        // {
-        //   name: "火山大隊長",
-        //   comment: "昨天我撿到100塊 我的心情很好 雖然這干遊戲沒有關係",
-        //   avatarImg:
-        //     "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/avatars/4e/4e2a656f1d9fb8f0ef9e5ccd9a377601bb42d7f5_medium.jpg",
-        //   gift: 0,
-        //   thumbup: 0,
-        //   thumbdown: 0,
-        //   rating: 1,
-        // },
-      ],
-    };
-  },
-
   methods: {
-    dowrite() {
-      this.writeToggle = true;
-    },
     async updateComment() {
       let config = {
         method: "get",
@@ -135,9 +126,32 @@ export default {
           console.log(error);
           return [];
         });
+      this.comments.filter((item) => (item.star = parseInt(item.star)));
+      this.updateUser();
     },
-    hasReviewAlready() {
-      //   this.comments.forEach((element) => {});
+    async updateUser() {
+      this.comments.forEach(async (u) => {
+        let config = {
+          method: "get",
+          url: "api/member/" + u.memberid,
+        };
+        this.user = await this.axios(config)
+          .then(function(response) {
+            return response.data;
+          })
+          .catch(function(error) {
+            console.log(error);
+            return [];
+          });
+        this.users.push(user);
+        console.log(this.users);
+      });
+    },
+    dowrite() {
+      this.toggle = !this.toggle;
+    },
+    toint(e) {
+      return parseInt(e);
     },
   },
 };

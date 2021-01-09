@@ -6,13 +6,11 @@
 </template>
 
 <script>
-import slide from "@/components/SingleGamePage/imageSlide.vue";
 import game from "@/components/SingleGamePage/game.vue";
 import review from "@/components/SingleGamePage/review.vue";
 
 export default {
   components: {
-    slide,
     game,
     review,
   },

@@ -101,6 +101,8 @@ export default {
       // ],
       top: [],
       titles: [],
+      hot: [],
+      star: [],
       // top: [
       //   {
       //     url: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
@@ -132,7 +134,6 @@ export default {
       let t = [];
       let docHot = await this.axios(configHot)
         .then(function(response) {
-          console.log(response.data);
           return response.data;
         })
         .catch(function(error) {
@@ -141,7 +142,7 @@ export default {
         });
       t.push({
         tag: "熱門遊戲",
-        games: this.docHot,
+        games: docHot,
       });
       let configStar = {
         method: "get",
@@ -149,7 +150,6 @@ export default {
       };
       let docStar = await this.axios(configStar)
         .then(function(response) {
-          console.log(response.data);
           return response.data;
         })
         .catch(function(error) {
@@ -158,10 +158,11 @@ export default {
         });
       t.push({
         tag: "玩家好評",
-        games: this.docStar
-      })
+        games: docStar,
+      });
       this.titles = t;
     },
+    async updateHot() {},
     async retrive(collection) {
       const snapshot = await this.axios
         .get("http://127.0.0.1/sqlproject/" + collection)
