@@ -131,22 +131,20 @@ export default {
     },
     async updateGames() {
       let vm = this;
-      let doc = await this.retrive("game");
-      this.games = doc.data;
-      this.games.forEach((element) => {
-        this.states.push(element);
-      });
-    },
-    async retrive(collection) {
-      const snapshot = await this.axios
-        .get("http://127.0.0.1/sqlproject/" + collection)
+      let config = {
+        method: "get",
+        url: "api/game",
+      };
+      let doc = await this.axios(config)
         .then(function(response) {
+          console.log(response);
           return response;
         })
         .catch(function(error) {
           console.log(error);
+          return this.cart;
         });
-      return snapshot;
+      this.games = doc.data;
     },
   },
 };

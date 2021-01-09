@@ -41,18 +41,35 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="item in games" :key="item.name">
+                  <tr v-for="(item, index) in games" :key="index">
                     <td>
                       <v-card-subtitle @click="select(item)">
                         {{ item.name }}
                       </v-card-subtitle>
                     </td>
                     <td>
-                      <v-checkbox v-model="item.recommend"></v-checkbox>
+                      <v-checkbox
+                        v-model="item.recommend"
+                        @change="selectRecommend(item, $event)"
+                        class="text-center"
+                      ></v-checkbox>
                     </td>
-                    <td style="white-space: nowrap;">NT$ {{ item.price }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.soldOutNum }}</td>
+                    <td style="white-space: nowrap;">
+                      <v-text-field
+                        prefix="NT$"
+                        :value="item.price"
+                        v-model="item.price"
+                        full-width
+                        dense
+                        style="width:70px"
+                        @keydown.enter="changePrice(item, item.price)"
+                      >
+                      </v-text-field>
+                    </td>
+                    <td>
+                      {{ item.description }}
+                    </td>
+                    <td>{{ item.soldOutNumber }}</td>
                     <td>
                       <v-btn icon @click="deleteGame(item)">
                         <v-icon>
@@ -117,7 +134,7 @@ export default {
       };
       let doc = await this.axios(config)
         .then(function(response) {
-          // console.log(response);
+          console.log(response);
           return response;
         })
         .catch(function(error) {
@@ -127,7 +144,6 @@ export default {
       this.games = doc.data;
     },
     async deleteGame(e) {
-      let vm = this;
       let config = {
         method: "delete",
         url: "api/game/" + e.id,
@@ -145,6 +161,44 @@ export default {
         this.updateGames();
       }
     },
+    async selectRecommend(e, e1) {
+      let config = {
+        method: "patch",
+        url: "api/game/" + e.id,
+        data: {
+          recommend: e1 == true ? 1 : 0,
+        },
+      };
+      let res = await this.axios(config)
+        .then(function(response) {
+          alert("推薦遊戲!");
+          return 1;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return -1;
+        });
+      if (res == 1) this.updateGames();
+    },
+    async changePrice(e, e1) {
+      let config = {
+        method: "patch",
+        url: "api/game/" + e.id,
+        data: {
+          price: e1,
+        },
+      };
+      let res = await this.axios(config)
+        .then(function(response) {
+          alert("價錢更改");
+          return 1;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return -1;
+        });
+      if (res == 1) this.updateGames();
+    },
   },
   computed: {
     checktLogin: {
@@ -155,6 +209,11 @@ export default {
     checkAdmin: {
       get() {
         return this.$store.getters.getAdmin;
+      },
+    },
+    isRecommend: {
+      get() {
+        return 1;
       },
     },
   },

@@ -55,7 +55,19 @@
               <small>Shipping address</small>
             </v-stepper-step>
             <v-stepper-content step="2">
-              <step1 />
+              <v-form ref="form" v-model="validate" lazy-validation>
+                <v-row v-for="(data, index) in formDatas" :key="index">
+                  <v-col cols="12">
+                    <v-text-field
+                      class="white--text"
+                      :label="data.label"
+                      :rules="[(v) => !!v || '請輸入' + data.label]"
+                      required
+                      outlined
+                    ></v-text-field>
+                  </v-col>
+                </v-row>
+              </v-form>
               <v-row>
                 <v-btn @click="caculate" text color="white">
                   <span class="black--text"> 下一步 </span>
@@ -109,6 +121,7 @@
                       placeholder="輸入折扣碼"
                       outlined
                       dense
+                      @keydown.enter="checkCoupon"
                       v-model="selectCoupon"
                     ></v-text-field>
                   </v-col>
@@ -133,7 +146,6 @@
 </template>
 
 <script>
-import step1 from "@/components/Checkout/StepperEqualsToOne.vue";
 import googlePay from "@/components/Checkout/GooglePay.vue";
 import replyVue from "../components/SingleGamePage/reply.vue";
 import googleprops from "@/GooglePaySettings";
@@ -141,7 +153,6 @@ import googleprops from "@/GooglePaySettings";
 export default {
   name: "Home",
   components: {
-    step1,
     googlePay,
   },
   data() {
@@ -150,6 +161,8 @@ export default {
       cart: [],
       totalPrice: 0,
       selectCoupon: "",
+      validate: false,
+      formDatas: [{ label: "姓名" }, { label: "地址" }, { label: "電話" }],
     };
   },
   computed: {
@@ -199,9 +212,10 @@ export default {
         });
       this.cart = doc.data;
     },
-    async updateCoupon() {
-    },
+    async updateCoupon() {},
     async caculate() {
+      this.$refs.form.validate();
+      if (this.$refs.form.validate() == false) return;
       this.totalPrice = 0;
       this.cart.forEach((element) => {
         this.totalPrice += parseInt(element.price);
@@ -209,6 +223,27 @@ export default {
       googleprops.transactionInfo.totalPrice = this.totalPrice.toString();
       googleprops.paymentDataRequest.transactionInfo.totalPrice = this.totalPrice.toString();
       this.e6 = 3;
+    },
+    async checkCoupon() {
+      console.log(213218094);
+      let config = {
+        method: "get",
+        url:
+          "api//havecoupon/" +
+          this.selectCoupon +
+          "/" +
+          this.checktLogin.id +
+          "/",
+        headers: { uid: this.checktLogin.uid },
+      };
+      // let doc = await this.axios(config)
+      //   .then(function(response) {
+      //     console.log(response);
+      //     return response;
+      //   })
+      //   .catch(function(error) {
+      //     console.log(error);
+      //   });
     },
   },
 };
@@ -223,6 +258,13 @@ export default {
   color: black !important;
 }
 .v-list-item__title {
+  color: black !important;
+}
+.theme--light.v-input input,
+.theme--light.v-input textarea {
+  color: black;
+}
+.v-label.theme--light {
   color: black !important;
 }
 </style>

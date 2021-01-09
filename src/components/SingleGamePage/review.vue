@@ -14,11 +14,7 @@
           >
 
           <v-card-actions>
-            <v-btn
-              text
-              @click="dowrite"
-              :disabled="checktLogin == null && reviewedBefore"
-            >
+            <v-btn text @click="dowrite" :disabled="checktLogin == null">
               撰寫評論
             </v-btn>
           </v-card-actions>
@@ -87,6 +83,8 @@ export default {
     return {
       writeToggle: false,
       reviewedBefore: false,
+      hasComments: false,
+      hasGame: false,
       comments: [
         // {
         //   name: "RGBGamer",
@@ -125,14 +123,12 @@ export default {
       this.writeToggle = true;
     },
     async updateComment() {
-      let vm = this;
       let config = {
         method: "get",
         url: "api/review/gameid/" + this.getCurrentGame.id,
       };
       this.comments = await this.axios(config)
         .then(function(response) {
-          console.log(response);
           return response.data;
         })
         .catch(function(error) {
@@ -142,9 +138,6 @@ export default {
     },
     hasReviewAlready() {
       //   this.comments.forEach((element) => {});
-    },
-    hasComments() {
-      return this.comments.length > 0 ? true : false;
     },
   },
 };

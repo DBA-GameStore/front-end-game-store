@@ -57,12 +57,8 @@
                         disabled
                         :value="checktLogin.displayName"
                       ></v-text-field>
-                      <v-text-field outlined label="地址一"></v-text-field>
-                      <v-text-field outlined label="地址二"></v-text-field>
-                      <v-text-field outlined label="國家"></v-text-field>
-                      <v-text-field outlined label="城市"></v-text-field>
-                      <v-text-field outlined label="Zip"></v-text-field>
-                      <v-text-field outlined label="聯絡電話"></v-text-field>
+                      <v-text-field outlined label="地址"></v-text-field>
+                      <v-text-field outlined label="電話"></v-text-field>
                       <v-toolbar elevation="0">
                         <v-spacer />
                         <v-btn text>

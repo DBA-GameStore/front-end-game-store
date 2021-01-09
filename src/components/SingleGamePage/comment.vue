@@ -76,7 +76,6 @@ export default {
   },
   methods: {
     async updateComment() {
-      let vm = this;
       let config = {
         method: "get",
         url: "api/review/gameid/" + this.getCurrentGame.id,

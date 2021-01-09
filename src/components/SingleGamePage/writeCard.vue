@@ -105,6 +105,7 @@ export default {
       let rep = await this.axios(config)
         .then(function(response) {
           console.log(response);
+          alert("評論成功");
           return 1;
         })
         .catch(function(error) {

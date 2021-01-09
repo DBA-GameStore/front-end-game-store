@@ -123,16 +123,44 @@ export default {
       this.$store.commit("storeCheckout", n);
     },
     async updateGames() {
-      let vm = this;
       let doc = await this.retrive("game");
       this.games = doc.data;
-      let test = [
-        {
-          tag: "熱門遊戲",
-          games: this.games,
-        },
-      ];
-      this.titles = test;
+      let configHot = {
+        method: "get",
+        url: "api/search/hot/5",
+      };
+      let t = [];
+      let docHot = await this.axios(configHot)
+        .then(function(response) {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
+      t.push({
+        tag: "熱門遊戲",
+        games: this.docHot,
+      });
+      let configStar = {
+        method: "get",
+        url: "api/search/starest/5",
+      };
+      let docStar = await this.axios(configStar)
+        .then(function(response) {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
+      t.push({
+        tag: "玩家好評",
+        games: this.docStar
+      })
+      this.titles = t;
     },
     async retrive(collection) {
       const snapshot = await this.axios
