@@ -102,33 +102,15 @@
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="2">
-                    <v-divider
-                      class="mx-4"
-                      vertical
-                      style="display: inline"
-                    ></v-divider>
-                  </v-col>
-                  <v-col cols="7">
-                    <h4>運費</h4>
-                  </v-col>
-                  <v-spacer />
-                  <v-col cols="2" style="left: -10px">
-                    <h4>{{ shipping }}</h4>
-                  </v-col>
-                </v-row>
-                <v-row>
                   <v-col cols="12">
-                    <v-select
-                      :items="coupon"
+                    <v-text-field
                       append-icon="mdi-ticket"
                       label="優惠券"
-                      :placeholder="coupon == [] ? '暫無優惠券' : '選擇優惠券'"
+                      placeholder="輸入折扣碼"
                       outlined
                       dense
-                      :disabled="coupon == []"
                       v-model="selectCoupon"
-                    ></v-select>
+                    ></v-text-field>
                   </v-col>
                 </v-row>
               </v-card>
@@ -166,10 +148,8 @@ export default {
     return {
       e6: 1,
       cart: [],
-      shipping: 100,
       totalPrice: 0,
-      coupon: [],
-      selectCoupon: null,
+      selectCoupon: "",
     };
   },
   computed: {
@@ -220,22 +200,12 @@ export default {
       this.cart = doc.data;
     },
     async updateCoupon() {
-      let c = [];
-      c.push("滿千折百");
-      // ....
-      if (c.length > 0) {
-        this.coupon = c;
-        this.coupon.unshift("不使用優惠券");
-        this.selectCoupon = this.coupon[0];
-        console.log(this.coupon);
-      }
     },
     async caculate() {
       this.totalPrice = 0;
       this.cart.forEach((element) => {
         this.totalPrice += parseInt(element.price);
       });
-      this.totalPrice += parseInt(this.shipping);
       googleprops.transactionInfo.totalPrice = this.totalPrice.toString();
       googleprops.paymentDataRequest.transactionInfo.totalPrice = this.totalPrice.toString();
       this.e6 = 3;

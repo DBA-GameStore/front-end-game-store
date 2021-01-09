@@ -8,7 +8,7 @@
       outlined
       label="Description"
     ></v-text-field>
-    <v-text-field v-model="tagid" outlined label="TagID"></v-text-field>
+    <v-text-field v-model="tagid" outlined label="TagName"></v-text-field>
     <!-- <v-file-input
       :rules="rules"
       accept="image/png, image/jpeg, image/bmp"

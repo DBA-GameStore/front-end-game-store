@@ -4,7 +4,15 @@
     <v-row justify="center">
       <v-col cols="10">
         <v-row justify="center">
-          <v-col cols="4" v-for="(g, i) in limitby" :key="i">
+          <v-col
+            cols="12"
+            sm="6"
+            md="6"
+            lg="4"
+            xl="4"
+            v-for="(g, i) in limitby"
+            :key="i"
+          >
             <v-card elevation="0" @click.native="select(g)">
               <v-hover
                 v-slot="{ hover }"
@@ -12,7 +20,7 @@
                 @click="hover = false"
               >
                 <v-row class="pa-0 ma-0">
-                  <v-col cols="6">
+                  <v-col cols="8">
                     <v-overlay :absolute="true" :value="hover" :z-index="100">
                       <v-img
                         style="position:relative;z-index:100"
@@ -22,7 +30,7 @@
                     </v-overlay>
                     <div
                       class="white"
-                      style="text-decoration: none; color: inherit;position:relative;left:10%"
+                      style="text-decoration: none; color: inherit;position:relative;left:-50px"
                     >
                       <br />
                       <br />
@@ -36,7 +44,7 @@
                         <div class="d-flex flex-no-wrap justify-space-between">
                           <v-card-title
                             class="headline"
-                            style="white-space: nowrap;z-index: 1;position:relative"
+                            style="white-space: nowrap;text-overflow: ellipsis;overflow: hidden;z-index: 1;position:relative"
                           >
                             <h3>{{ g.name }}</h3>
                           </v-card-title>
@@ -63,7 +71,7 @@
                       <v-avatar
                         class="ma-3"
                         size="150"
-                        style="position:relative;left:-20%;top:100px"
+                        style="position:relative;left:-100px;top:100px"
                       >
                         <v-img :src="g.picture"></v-img>
                       </v-avatar>
@@ -177,7 +185,7 @@ export default {
       this.games.forEach((element) => {
         this.expand.push(false);
       });
-      this.pageLength = parseInt((this.games.length % 9) + 1);
+      this.pageLength = parseInt(this.games.length / 9 + 1);
       if (this.pageLength == 0) this.pageLength++;
     },
   },

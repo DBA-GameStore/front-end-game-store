@@ -73,7 +73,7 @@
                   </v-card-text>
                 </v-card>
               </v-window-item>
-              <v-window-item :value="1">
+              <!-- <v-window-item :value="1">
                 <v-row class="mb-4" align="center">
                   <v-toolbar elevation="0">
                     <v-card-title>
@@ -114,7 +114,7 @@
                 </v-row>
                 <br />
                 <br />
-              </v-window-item>
+              </v-window-item> -->
               <!-- <v-window-item :value="2">
                 <v-row class="mb-4" align="center">
                   <v-toolbar elevation="0">
@@ -150,7 +150,7 @@ export default {
   name: "Home",
   data() {
     return {
-      length: 2,
+      length: 1,
       window: 0,
       coupons: ["滿千折百", "買一送醫"],
     };
