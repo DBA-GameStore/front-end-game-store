@@ -1,20 +1,23 @@
 <template>
-  <v-form>
-    <v-text-field outlined label="ID"></v-text-field>
-    <v-text-field outlined label="Name"></v-text-field>
-    <v-text-field outlined label="Description"></v-text-field>
-    <v-text-field outlined label="SoldOutNumber"></v-text-field>
-    <v-text-field outlined label="Price"></v-text-field>
-    <v-text-field outlined label="TagID"></v-text-field>
-    <v-file-input
+  <v-form ref="form">
+    <v-text-field v-model="name" outlined label="Name"></v-text-field>
+    <v-text-field v-model="price" outlined label="Price"></v-text-field>
+    <v-text-field v-model="picture" outlined label="Picture"></v-text-field>
+    <v-text-field
+      v-model="description"
+      outlined
+      label="Description"
+    ></v-text-field>
+    <v-text-field v-model="tagid" outlined label="TagID"></v-text-field>
+    <!-- <v-file-input
       :rules="rules"
       accept="image/png, image/jpeg, image/bmp"
       label="Pick an avatar"
       prepend-icon="mdi-camera"
-    ></v-file-input>
+    ></v-file-input> -->
     <v-toolbar elevation="0">
       <v-spacer />
-      <v-btn text>
+      <v-btn text @click="doupload">
         Upload
       </v-btn>
     </v-toolbar>
@@ -24,6 +27,11 @@
 <script>
 export default {
   data: () => ({
+    name: "",
+    price: "",
+    picture: "",
+    description: "",
+    tagid: "",
     rules: [
       (value) =>
         !value ||
@@ -31,6 +39,34 @@ export default {
         "Avatar size should be less than 2 MB!",
     ],
   }),
+  methods: {
+    async doupload() {
+      let config = {
+        method: "post",
+        url: "api/game",
+        data: {
+          name: this.name,
+          price: this.price,
+          picture: this.picture,
+          description: this.description,
+          tag: this.tagid,
+        },
+      };
+      let result = await this.axios(config)
+        .then(function(response) {
+          console.log(response);
+          alert("上傳成功")
+          return 1;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return -1;
+        });
+      if (result == 1) {
+        this.$refs.form.reset();
+      }
+    },
+  },
 };
 </script>
 

@@ -177,7 +177,7 @@ export default {
       this.games.forEach((element) => {
         this.expand.push(false);
       });
-      this.pageLength = parseInt(this.games.length / 8);
+      this.pageLength = parseInt((this.games.length % 9) + 1);
       if (this.pageLength == 0) this.pageLength++;
     },
   },
