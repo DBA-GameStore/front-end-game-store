@@ -3,7 +3,7 @@
     <template v-slot:activator>
       <v-list-item-content>
         <v-toolbar elevation="0" color="transparent">
-          <v-list-item-title>購買內容</v-list-item-title>
+          <v-list-item-action>購買內容 ({{ games.length }})</v-list-item-action>
           <v-spacer />
           <v-card-subtitle style="white-space: nowrap;">
             總金額： NT$ {{ totalprice }}
@@ -40,7 +40,7 @@ export default {
     };
   },
   mounted() {
-    // this.updateHistory();
+    this.updateHistory();
   },
   computed: {
     checktLogin: {
@@ -51,13 +51,12 @@ export default {
   },
   methods: {
     async updateHistory() {
-      let vm = this;
       let config = {
         method: "get",
-        url: "api/shoppinglist/" + this.listid,
+        url: "api/shoppinglist/listid/" + this.listid,
         headers: { uid: this.checktLogin.uid },
       };
-      this.history = await this.axios(config)
+      this.games = await this.axios(config)
         .then(function(response) {
           return response.data;
         })
@@ -65,6 +64,10 @@ export default {
           console.log(error);
           return [];
         });
+      this.games.forEach((element) => {
+        this.totalprice += parseInt(element.price);
+      });
+      console.log(this.games);
     },
   },
 };

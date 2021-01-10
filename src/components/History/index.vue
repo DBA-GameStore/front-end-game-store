@@ -15,6 +15,23 @@
             <v-spacer />
             <v-card-subtitle>{{ i.buyDatetime }}</v-card-subtitle>
           </v-toolbar>
+          <v-toolbar elevation="0" color="transparent">
+            <v-card-text v-if="i.stateId == 0">
+              訂單狀態: "購物車"
+            </v-card-text>
+            <v-card-text v-else-if="i.stateId == 1">
+              訂單狀態: "未付款"
+            </v-card-text>
+            <v-card-text v-else-if="i.stateId == 2">
+              訂單狀態: "運送中"
+            </v-card-text>
+            <v-card-text v-else-if="i.stateId == 3">
+              訂單狀態: "訂單完成"
+            </v-card-text>
+          </v-toolbar>
+          <v-toolbar elevation="0" color="transparent">
+            <v-card-text> 地址: "{{ i.address }}" </v-card-text>
+          </v-toolbar>
           <listgame :listid="i.id" />
         </v-card>
       </v-col>
