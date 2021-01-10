@@ -49,7 +49,7 @@
                     </td>
                     <td>
                       <v-checkbox
-                        v-model="item.recommend"
+                        v-model="item.recommend == 1"
                         @change="selectRecommend(item, $event)"
                         class="text-center"
                       ></v-checkbox>
@@ -115,6 +115,7 @@ export default {
   data() {
     return {
       games: [],
+      recommends: [],
       length: 2,
       window: 0,
     };
@@ -222,6 +223,6 @@ export default {
 
 <style>
 .v-application .primary--text {
-  color: black !important;
+  color: grey !important;
 }
 </style>

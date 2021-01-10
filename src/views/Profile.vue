@@ -57,11 +57,19 @@
                         disabled
                         :value="checktLogin.displayName"
                       ></v-text-field>
-                      <v-text-field outlined label="地址"></v-text-field>
-                      <v-text-field outlined label="電話"></v-text-field>
+                      <v-text-field
+                        outlined
+                        label="地址"
+                        v-model="profile[0].address"
+                      ></v-text-field>
+                      <v-text-field
+                        outlined
+                        label="電話"
+                        v-model="profile[0].phoneNum"
+                      ></v-text-field>
                       <v-toolbar elevation="0">
                         <v-spacer />
-                        <v-btn text>
+                        <v-btn text @click="saveProfile">
                           Save
                         </v-btn>
                       </v-toolbar>
@@ -148,7 +156,7 @@ export default {
     return {
       length: 1,
       window: 0,
-      coupons: ["滿千折百", "買一送醫"],
+      profile: [],
     };
   },
   components: {
@@ -168,11 +176,61 @@ export default {
       },
     },
   },
-  mounted() {},
+  mounted() {
+    this.updateProfile();
+  },
   methods: {
     logout() {
       this.$store.commit("logout");
       signout();
+    },
+    async updateProfile() {
+      let config = {
+        method: "get",
+        url: "api/member/",
+      };
+      let u = await this.axios(config)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      let config1 = {
+        method: "post",
+        url: "api/member/login",
+        headers: { uid: this.checktLogin.uid },
+        data: { uid: this.checktLogin.uid },
+      };
+      let user = await this.axios(config1)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      this.profile = u.filter((item) => {
+        return item.id == user.id;
+      });
+      console.log(this.profile);
+    },
+    saveProfile() {
+      let config = {
+        method: "patch",
+        url: "api/member",
+        headers: { uid: this.checktLogin.uid },
+        data: {
+          address: this.profile.address,
+          phoneNum: this.profile.phoneNum,
+        },
+      };
+      this.axios(config)
+        .then(function(response) {
+          alert("儲存成功");
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
     },
   },
 };

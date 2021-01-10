@@ -35,9 +35,9 @@
               <v-col cols="4">
                 <v-card-title class="headline">
                   <v-avatar>
-                    <img :src="item.picture" alt="John" />
+                    <img :src="users[0][index].picture" alt="John" />
                   </v-avatar>
-                  <v-card-subtitle>{{ item.name }}</v-card-subtitle>
+                  <v-card-subtitle>{{ users[0][index].name }}</v-card-subtitle>
                 </v-card-title>
               </v-col>
               <v-col cols="6">
@@ -130,20 +130,24 @@ export default {
       this.updateUser();
     },
     async updateUser() {
+      let config = {
+        method: "get",
+        url: "api/member",
+      };
+      let allUsers = await this.axios(config)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
       this.comments.forEach(async (u) => {
-        let config = {
-          method: "get",
-          url: "api/member/" + u.memberid,
-        };
-        this.user = await this.axios(config)
-          .then(function(response) {
-            return response.data;
+        this.users.push(
+          allUsers.filter((item) => {
+            return item.id == u.memberId;
           })
-          .catch(function(error) {
-            console.log(error);
-            return [];
-          });
-        this.users.push(user);
+        );
         console.log(this.users);
       });
     },

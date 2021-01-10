@@ -61,6 +61,7 @@
                     <v-text-field
                       class="white--text"
                       :label="data.label"
+                      v-model="data.model"
                       :rules="[(v) => !!v || '請輸入' + data.label]"
                       required
                       outlined
@@ -162,7 +163,11 @@ export default {
       totalPrice: 0,
       selectCoupon: "",
       validate: false,
-      formDatas: [{ label: "姓名" }, { label: "地址" }, { label: "電話" }],
+      formDatas: [
+        { label: "姓名", model: "" },
+        { label: "地址", model: "" },
+        { label: "電話", model: "" },
+      ],
     };
   },
   computed: {
@@ -177,9 +182,42 @@ export default {
       this.$router.push({ name: "Profile" });
     }
     this.updateCart();
-    this.updateCoupon();
+    this.updateProfile();
   },
   methods: {
+    async updateProfile() {
+      let config = {
+        method: "get",
+        url: "api/member/",
+      };
+      let u = await this.axios(config)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      let config1 = {
+        method: "post",
+        url: "api/member/login",
+        headers: { uid: this.checktLogin.uid },
+        data: { uid: this.checktLogin.uid },
+      };
+      let user = await this.axios(config1)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      let p = u.filter((item) => {
+        return item.id == user.id;
+      });
+      this.formDatas[0].model = p[0].name
+      this.formDatas[1].model = p[0].address
+      this.formDatas[2].model = p[0].phoneNum
+      console.log(p);
+    },
     remove(e) {
       let config = {
         method: "delete",
@@ -212,7 +250,6 @@ export default {
         });
       this.cart = doc.data;
     },
-    async updateCoupon() {},
     async caculate() {
       this.$refs.form.validate();
       if (this.$refs.form.validate() == false) return;
