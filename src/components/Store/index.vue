@@ -20,7 +20,7 @@
         <v-container>
           <v-row justify="center" class="pa-0 ma-0">
             <v-card-text>精選推薦</v-card-text>
-            <storeCarousel :games="games" />
+            <storeCarousel :games="recommends" />
           </v-row>
         </v-container>
 
@@ -99,6 +99,7 @@ export default {
       //     ],
       //   },
       // ],
+      recommends: [],
       top: [],
       titles: [],
       hot: [],
@@ -127,6 +128,19 @@ export default {
     async updateGames() {
       let doc = await this.retrive("game");
       this.games = doc.data;
+      let configRec = {
+        method: "get",
+        url: "api/search/recommend/5",
+      };
+      let docRec = await this.axios(configRec)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
+      this.recommends = docRec;
       let configHot = {
         method: "get",
         url: "api/search/hot/5",
