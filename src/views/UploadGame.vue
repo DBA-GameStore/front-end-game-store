@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row justify="center">
+    <v-row justify="center" v-if="checktLogin && checkAdmin">
       <v-col cols="12">
         <v-item-group v-model="window" class="text-right" mandatory>
           <v-item
@@ -48,11 +48,17 @@
                       </v-card-subtitle>
                     </td>
                     <td>
-                      <v-checkbox
-                        v-model="item.recommend == 1"
-                        @change="selectRecommend(item, $event)"
-                        class="text-center"
-                      ></v-checkbox>
+                      <v-card
+                        elevation="0"
+                        class="d-flex justify-center mb-6"
+                        color="transparent"
+                      >
+                        <v-checkbox
+                          v-model="item.recommend == 1"
+                          @change="selectRecommend(item, $event)"
+                          style="position:relative;top:13px"
+                        ></v-checkbox>
+                      </v-card>
                     </td>
                     <td style="white-space: nowrap;">
                       <v-text-field
@@ -60,8 +66,10 @@
                         :value="item.price"
                         v-model="item.price"
                         full-width
+                        flat
+                        solo
                         dense
-                        style="width:70px"
+                        style="width:100px;position:relative;top:13px"
                         @keydown.enter="changePrice(item, item.price)"
                       >
                       </v-text-field>
@@ -69,7 +77,7 @@
                     <td>
                       {{ item.description }}
                     </td>
-                    <td>{{ item.soldOutNumber }}</td>
+                    <td class="text-center">{{ item.soldOutNumber }}</td>
                     <td>
                       <v-btn icon @click="deleteGame(item)">
                         <v-icon>
@@ -101,6 +109,11 @@
         </v-window>
       </v-col>
     </v-row>
+    <v-row v-else>
+      <v-card-subtitle>
+        You have to login and be admin.
+      </v-card-subtitle>
+    </v-row>
   </v-container>
 </template>
 
@@ -121,6 +134,9 @@ export default {
     };
   },
   mounted() {
+    if (this.checktLogin == null) {
+      this.$router.push({ name: "Profile" });
+    }
     this.updateGames();
   },
   methods: {

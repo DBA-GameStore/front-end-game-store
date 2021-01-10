@@ -1,5 +1,5 @@
 <template>
-  <v-list-group no-action>
+  <v-list-group no-action v-if="replys.length > 0">
     <template v-slot:activator>
       <v-list-item-content>
         <v-list-item-title>回覆 ({{ counts }})</v-list-item-title>
@@ -80,6 +80,10 @@ export default {
       this.replys = comments.filter((item) => {
         return item.id === this.replyid;
       });
+      if (this.replys[0].replyid === "") {
+        this.replys = [];
+        this.counts = 0;
+      }
       this.counts = this.replys.length;
     },
     async doReply() {

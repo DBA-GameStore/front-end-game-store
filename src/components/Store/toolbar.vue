@@ -70,11 +70,32 @@
         hide-details
         rounded
         color="#efefef"
+        @change="searchFun(select)"
         return-object
         solo
         placeholder="搜尋"
         @keydown.enter="searchFun(select)"
       >
+        <template v-slot:item="data">
+          <template v-if="typeof data.item !== 'object'">
+            <v-list-item-content v-text="data.item"></v-list-item-content>
+          </template>
+          <template v-else>
+            <v-row align="center">
+              <v-col cols="3">
+                <img width="100%" :src="data.item.picture" />
+              </v-col>
+              <v-col cols="6">
+                <v-list-item-content>
+                  <v-list-item-title
+                    v-html="data.item.name"
+                  ></v-list-item-title>
+                </v-list-item-content>
+              </v-col>
+            </v-row>
+            <hr />
+          </template>
+        </template>
       </v-autocomplete>
     </v-card>
   </v-toolbar>
@@ -92,9 +113,9 @@ export default {
       ],
       loading: false,
       items: [],
+      games: [],
       search: null,
       select: null,
-      states: [],
     };
   },
   mounted() {
@@ -110,8 +131,10 @@ export default {
       this.$emit("checkout-page", n);
     },
     searchFun(e) {
-      console.log(e);
-
+      if (e == null) {
+        alert("404 Not Found");
+        return;
+      }
       this.$store.commit("gameCheckout", e);
       this.$router.push({ name: "Game" });
     },
@@ -120,17 +143,15 @@ export default {
       // Simulated ajax query
       setTimeout(() => {
         let newFilter = [];
-        this.items = this.states.filter((e) => {
+        this.items = this.games.filter((e) => {
           return (
-            (e.name || "").toLowerCase().indexOf((v.name || "").toLowerCase()) >
-            -1
+            (e.name || "").toLowerCase().indexOf((v || "").toLowerCase()) > -1
           );
         });
         this.loading = false;
       }, 500);
     },
     async updateGames() {
-      let vm = this;
       let config = {
         method: "get",
         url: "api/game",

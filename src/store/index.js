@@ -45,15 +45,10 @@ export default new Vuex.Store({
   mutations: {
     login(state, e) {
       postLogin(e);
-      if (e.email == "t107590017@ntut.org.tw") {
-        state.isAdmin = true;
-      } else {
-        state.isAdmin = false;
-      }
       state.user = e;
     },
-    setAdmin(state) {
-      state.isAdmin = true;
+    setAdmin(state, isAdomin) {
+      state.isAdmin = isAdomin;
     },
     logout(state) {
       state.user = null;

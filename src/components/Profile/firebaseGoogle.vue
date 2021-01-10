@@ -6,10 +6,12 @@ import firebase from "firebase";
 import * as firebaseui from "firebaseui";
 import "firebaseui/dist/firebaseui.css";
 import config from "@/firebaseConfig.js";
+import store from "../../store/index";
 
 export default {
   name: "auth",
   mounted() {
+    store.commit("storeCheckout", 0);
     var uiConfig = {
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -19,9 +21,8 @@ export default {
       callbacks: {
         signInSuccess: function(currentUser, credential, redirectUrl) {
           const userId = currentUser.uid;
-          this.$store.commit("storeCheckout", 0);
           // Manually redirect.
-          window.location.assign('/');
+          window.location.assign("/");
           // Do not automatically redirect.
           return false;
         },

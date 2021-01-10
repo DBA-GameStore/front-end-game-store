@@ -14,15 +14,15 @@
     <v-list-item class="pa-0" v-for="(j, index) in games" :key="index">
       <v-list-item-content class="pa-0 list-comment">
         <v-row justify="center" align="center">
-          <v-col cols="3"></v-col>
+          <v-col cols="1"></v-col>
           <v-col cols="4">
             <v-img :src="j.picture" max-width="100%"> </v-img>
           </v-col>
-          <v-col cols="3"></v-col>
-          <v-col cols="4">
+          <v-col cols="6">
             <p class="p-comment-title">{{ j.name }}</p>
             <p class="p-comment-title">NT$ {{ j.price }}</p>
           </v-col>
+          <v-col cols="1"></v-col>
         </v-row>
       </v-list-item-content>
     </v-list-item>

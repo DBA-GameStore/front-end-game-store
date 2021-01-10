@@ -185,6 +185,23 @@ export default {
     this.updateProfile();
   },
   methods: {
+    async updateCart() {
+      let config = {
+        method: "get",
+        url: "api/shoppinglist/cart",
+        headers: { uid: this.checktLogin.uid },
+      };
+      let doc = await this.axios(config)
+        .then(function(response) {
+          console.log(response.data);
+          return response;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return this.cart;
+        });
+      this.cart = doc.data;
+    },
     async updateProfile() {
       let config = {
         method: "get",
@@ -213,10 +230,9 @@ export default {
       let p = u.filter((item) => {
         return item.id == user.id;
       });
-      this.formDatas[0].model = p[0].name
-      this.formDatas[1].model = p[0].address
-      this.formDatas[2].model = p[0].phoneNum
-      console.log(p);
+      this.formDatas[0].model = p[0].name;
+      this.formDatas[1].model = p[0].address;
+      this.formDatas[2].model = p[0].phoneNum;
     },
     remove(e) {
       let config = {
@@ -232,23 +248,6 @@ export default {
           return this.cart;
         });
       this.cart = this.cart.filter((item) => item != e);
-    },
-    async updateCart() {
-      let config = {
-        method: "get",
-        url: "api/shoppinglist/cart",
-        headers: { uid: this.checktLogin.uid },
-      };
-      let doc = await this.axios(config)
-        .then(function(response) {
-          console.log(response);
-          return response;
-        })
-        .catch(function(error) {
-          console.log(error);
-          return this.cart;
-        });
-      this.cart = doc.data;
     },
     async caculate() {
       this.$refs.form.validate();

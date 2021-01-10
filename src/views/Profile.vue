@@ -212,7 +212,6 @@ export default {
       this.profile = u.filter((item) => {
         return item.id == user.id;
       });
-      console.log(this.profile);
     },
     saveProfile() {
       let config = {

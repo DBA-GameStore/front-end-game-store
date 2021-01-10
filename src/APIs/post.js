@@ -16,14 +16,17 @@ export async function postLogin(e) {
     .catch(function(error) {
       console.log(error);
     });
-  if (user.isManager) store.commit("setAdmin");
+  if (user.isManager == 1) {
+    store.commit("setAdmin", true);
+  } else {
+    store.commit("setAdmin", false);
+  }
   let c = {
     method: "patch",
     url: "api/member",
     headers: { uid: e.uid },
     data: { picture: e.photoURL, name: e.displayName },
   };
-  
   axios(c)
     .then(function(reponse) {})
     .catch(function(error) {
