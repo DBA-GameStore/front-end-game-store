@@ -109,8 +109,22 @@ export default {
           return [];
         });
     },
-    async deleteGame() {
+    async deleteGame(e) {
       if (this.checkAdmin == false) return;
+      console.log(e);
+      let config = {
+        method: "delete",
+        url: "api/coupon/" + e.hash,
+      };
+      let result = await this.axios(config)
+        .then(function(response) {
+          return 1;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return -1;
+        });
+      this.updateCoupon();
     },
   },
   computed: {
