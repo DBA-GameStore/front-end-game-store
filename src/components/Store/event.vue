@@ -9,7 +9,7 @@
             </u>
           </v-card-title>
         </v-row>
-        <v-row v-for="(item, index) in test" :key="index">
+        <v-row v-for="(item, index) in coupon" :key="index">
           <v-col cols="2">
             <v-divider
               class="mx-4"
@@ -87,10 +87,28 @@ export default {
           end: "",
         },
       ],
+      coupon: [],
     };
   },
+  mounted() {
+    this.updateCoupon();
+  },
   methods: {
-    async updateCoupon() {},
+    async updateCoupon() {
+      let config = {
+        method: "get",
+        url: "api/coupon",
+      };
+      this.coupon = await this.axios(config)
+        .then(function(response) {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
+    },
     async deleteGame() {
       if (this.checkAdmin == false) return;
     },

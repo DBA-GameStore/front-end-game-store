@@ -2,23 +2,19 @@
   <v-container>
     <v-row justify="center">
       <v-col cols="9">
-        <v-card color="#385F73" dark id="comment">
+        <v-card color="#385F73" dark id="comment" class="pa-0 ma-0">
           <v-card-title class="headline">
             <v-btn text @click="$vuetify.goTo('#comment')">
               <h2 class="pa-0 ma-0">顧客評論 ({{ comments.length }})</h2>
             </v-btn>
             <v-spacer />
-            <v-row
-              justify="end"
-              class="pa-0 ma-0"
-              style="position:relative;top:50px"
-            >
+            <v-row justify="end" style="position:absolute;top:0px;right:50px;">
               <v-col
                 cols="1"
                 v-for="(item, index) in iconSelect(getCurrentGame.star)"
                 :key="index"
                 color="#fff3e0"
-                class="pa-0 ma-0"
+                style="position:relative;"
                 large
               >
                 <v-icon style="position:relative;z-index:100" class="pa-0 ma-0">
@@ -169,6 +165,7 @@ export default {
       return parseInt(e);
     },
     iconSelect(n) {
+      console.log(this.getCurrentGame.star);
       let icon = [];
       for (let i = 0; i < parseInt(n); i++) {
         icon.push({ icon: "mdi-star" });

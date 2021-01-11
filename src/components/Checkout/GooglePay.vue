@@ -118,7 +118,9 @@ export default {
         method: "patch",
         url: "api/shoppinglist/finish",
         headers: { uid: this.checktLogin.uid },
-        
+        data: {
+          address: this.address,
+        },
       };
       let _rp = await this.axios(config)
         .then(function(response) {

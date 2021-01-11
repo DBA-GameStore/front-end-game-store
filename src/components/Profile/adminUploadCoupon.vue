@@ -49,9 +49,28 @@ export default {
     },
   },
   methods: {
-    dopost() {
-      let start = new Date(this.dates[0] + " 00:00:00");
-      let end = new Date(this.dates[1] + " 00:00:00");
+    async dopost() {
+      //   let start = new Date(this.dates[0] + " 00:00:00");
+      //   let end = new Date(this.dates[1] + " 00:00:00");
+      let config = {
+        method: "post",
+        url: "api/coupon",
+        data: {
+          discount: this.discount,
+          context: this.context,
+          startdate: this.dates[0],
+          enddate: this.dates[1],
+        },
+      };
+      await this.axios(config)
+        .then(function(response) {
+          alert("新增優惠券");
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
     },
   },
 };

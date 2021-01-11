@@ -1,15 +1,62 @@
 <template>
   <v-container>
-    <!-- <tagChip style="position:relative;top:80px" /> -->
     <v-row justify="center">
-      <v-col cols="10">
+      <v-col cols="2">
+        <v-row>
+          <v-card
+            class="mx-auto pa-2 ma-2"
+            max-width="500"
+            elevation="0"
+            style="position:relative;top:80px"
+          >
+            <v-container class="py-0">
+              <v-row align="center" justify="start">
+                <v-col
+                  v-for="(selection, i) in selections"
+                  :key="selection.text"
+                  class="shrink"
+                >
+                  <v-chip
+                    :disabled="loading"
+                    close
+                    @click:close="selected.splice(i, 1)"
+                  >
+                    <v-icon left v-text="selection.icon"></v-icon>
+                    {{ selection.text }}
+                  </v-chip>
+                </v-col>
+              </v-row>
+            </v-container>
+
+            <v-divider v-if="!allSelected"></v-divider>
+
+            <v-list>
+              <template v-for="item in categories">
+                <v-list-item
+                  v-if="!selected.includes(item)"
+                  :key="item.text"
+                  :disabled="loading"
+                  @click="selected.push(item)"
+                >
+                  <v-list-item-avatar>
+                    <v-icon :disabled="loading" v-text="item.icon"></v-icon>
+                  </v-list-item-avatar>
+                  <v-list-item-title v-text="item.text"></v-list-item-title>
+                </v-list-item>
+              </template>
+            </v-list>
+          </v-card>
+        </v-row>
+      </v-col>
+      <v-col cols="1"></v-col>
+      <v-col cols="9">
         <v-row justify="center">
           <v-col
             cols="12"
             sm="6"
             md="6"
-            lg="4"
-            xl="4"
+            lg="6"
+            xl="6"
             v-for="(g, i) in limitby"
             :key="i"
           >
@@ -140,18 +187,84 @@ export default {
     //   },
     // ],
     platform: ["mdi-microsoft-windows", "mdi-apple"],
+    tagChips: [
+      {
+        text: "Action",
+        icon: "mdi-numeric-0-box-outline",
+        id: 1,
+      },
+      {
+        text: "Battle",
+        icon: "mdi-numeric-1-box-outline",
+        id: 2,
+      },
+      {
+        text: "Co-op",
+        icon: "mdi-numeric-2-box-outline",
+        id: 3,
+      },
+      {
+        text: "Difficult",
+        icon: "mdi-numeric-3-box-outline",
+        id: 4,
+      },
+      {
+        text: "Exploration",
+        icon: "mdi-numeric-4-box-outline",
+        id: 7,
+      },
+      {
+        text: "First-Person",
+        icon: "mdi-numeric-5-box-outline",
+        id: 9,
+      },
+      {
+        text: "God Game",
+        icon: "mdi-numeric-6-box-outline",
+        id: 11,
+      },
+    ],
+    loading: false,
+    search: "",
+    selected: [],
   }),
 
   computed: {
-    getGames: {
-      get() {
-        return this.$store.getters.getGames;
-      },
-    },
     limitby() {
-      let start = (this.page - 1) * 9;
-      let end = start + 9;
+      let start = (this.page - 1) * 8;
+      let end = start + 8;
       return this.games.slice(start, end);
+    },
+    allSelected() {
+      return this.selected.length === this.tagChips.length;
+    },
+    categories() {
+      const search = this.search.toLowerCase();
+
+      if (!search) return this.tagChips;
+
+      return this.tagChips.filter((item) => {
+        const text = item.text.toLowerCase();
+
+        return text.indexOf(search) > -1;
+      });
+    },
+    selections() {
+      const selections = [];
+
+      for (const selection of this.selected) {
+        selections.push(selection);
+      }
+      let tags = [];
+
+      selections.forEach((element) => {
+        tags.push(element.id);
+      });
+
+      if (tags.length > 0) this.searchGames(tags);
+      else this.updateGames();
+
+      return selections;
     },
   },
 
@@ -162,6 +275,25 @@ export default {
   },
 
   methods: {
+    async searchGames(tags) {
+      let config = {
+        method: "post",
+        url: "api/search",
+        data: {
+          tag: tags,
+        },
+      };
+      this.games = await this.axios(config)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
+      this.pageLength = parseInt(this.games.length / 8 + 1);
+      if (this.pageLength == 0) this.pageLength++;
+    },
     select(e) {
       this.$store.commit("gameCheckout", e);
       this.$router.push({ name: "Game" });
@@ -174,7 +306,6 @@ export default {
       };
       let doc = await this.axios(config)
         .then(function(response) {
-          console.log(response);
           return response;
         })
         .catch(function(error) {
@@ -185,7 +316,7 @@ export default {
       this.games.forEach((element) => {
         this.expand.push(false);
       });
-      this.pageLength = parseInt(this.games.length / 9 + 1);
+      this.pageLength = parseInt(this.games.length / 8 + 1);
       if (this.pageLength == 0) this.pageLength++;
     },
   },

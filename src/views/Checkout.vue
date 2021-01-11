@@ -94,7 +94,15 @@
                     <h2 class="Half-Grey">Total Price:</h2>
                   </v-col>
                   <v-col cols="4">
-                    <h3 class="pa-0 ma-0">${{ totalPrice }}</h3>
+                    <h3
+                      class="pa-0 ma-0"
+                      v-if="hasDiscount"
+                      style="white-space:nowrap"
+                    >
+                      NT$<del>{{ totalPrice }}</del>
+                      {{ hasDiscount }}
+                    </h3>
+                    <h3 class="pa-0 ma-0" v-else>${{ totalPrice }}</h3>
                   </v-col>
                   <v-col cols="2"> </v-col>
                 </v-row>
@@ -116,12 +124,21 @@
                 </v-row>
                 <v-row>
                   <v-col cols="12">
+                    <v-card-subtitle v-if="hasCouponContext">
+                      使用優券: {{ hasCouponContext }}
+                      <v-btn color="white" icon @click="removeCurrentCoupon">
+                        <v-icon color="grey">
+                          mdi-close
+                        </v-icon>
+                      </v-btn>
+                    </v-card-subtitle>
                     <v-text-field
                       append-icon="mdi-ticket"
                       label="優惠券"
                       placeholder="輸入折扣碼"
                       outlined
                       dense
+                      v-show="hasDiscount == null"
                       @keydown.enter="checkCoupon"
                       v-model="selectCoupon"
                     ></v-text-field>
@@ -168,6 +185,8 @@ export default {
         { label: "地址", model: "" },
         { label: "電話", model: "" },
       ],
+      hasDiscount: null,
+      hasCouponContext: null,
     };
   },
   computed: {
@@ -263,17 +282,30 @@ export default {
     async checkCoupon() {
       let config = {
         method: "get",
-        url: "api//havecoupon/",
+        url: "api/coupon/" + this.selectCoupon,
         headers: { uid: this.checktLogin.uid },
       };
-      // let doc = await this.axios(config)
-      //   .then(function(response) {
-      //     console.log(response);
-      //     return response;
-      //   })
-      //   .catch(function(error) {
-      //     console.log(error);
-      //   });
+      let result = await this.axios(config)
+        .then(function(response) {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return -1;
+        });
+      if (result == -1) {
+        alert("代碼錯誤");
+        return;
+      }
+      result = result[0];
+      this.hasDiscount = 0;
+      this.hasDiscount = this.totalPrice * result.discount;
+      this.hasCouponContext = result.context;
+    },
+    removeCurrentCoupon() {
+      this.hasDiscount = null;
+      this.hasCouponContext = "";
     },
   },
 };
