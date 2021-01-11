@@ -60,12 +60,12 @@
                       <v-text-field
                         outlined
                         label="地址"
-                        v-model="profile[0].address"
+                        v-model="address"
                       ></v-text-field>
                       <v-text-field
                         outlined
                         label="電話"
-                        v-model="profile[0].phoneNum"
+                        v-model="phoneNum"
                       ></v-text-field>
                       <v-toolbar elevation="0">
                         <v-spacer />
@@ -156,13 +156,13 @@ export default {
     return {
       length: 1,
       window: 0,
-      profile: [],
+      profile: [{ address: "1", phoneNum: "2" }],
+      address: "",
+      phoneNum: "",
     };
   },
   components: {
     firebaseSingn,
-    // googleSignInBtn,
-    // facebookSignInBtn,
   },
   computed: {
     checktLogin: {
@@ -178,6 +178,7 @@ export default {
   },
   mounted() {
     this.updateProfile();
+    console.log(this.profile.address);
   },
   methods: {
     logout() {
@@ -212,6 +213,9 @@ export default {
       this.profile = u.filter((item) => {
         return item.id == user.id;
       });
+      this.phoneNum = this.profile[0].phoneNum;
+      this.address = this.profile[0].address;
+      console.log(this.profile);
     },
     saveProfile() {
       let config = {
@@ -219,8 +223,8 @@ export default {
         url: "api/member",
         headers: { uid: this.checktLogin.uid },
         data: {
-          address: this.profile.address,
-          phoneNum: this.profile.phoneNum,
+          address: this.address,
+          phoneNum: this.phoneNum,
         },
       };
       this.axios(config)

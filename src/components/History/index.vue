@@ -80,14 +80,12 @@ export default {
       };
       this.history = await this.axios(config)
         .then(function(response) {
-          console.log(response);
           return response.data;
         })
         .catch(function(error) {
           console.log(error);
           return [];
         });
-      console.log(this.history);
     },
   },
 };

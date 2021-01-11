@@ -21,11 +21,13 @@ export async function postLogin(e) {
   } else {
     store.commit("setAdmin", false);
   }
+  console.log(e);
   let c = {
     method: "patch",
     url: "api/member",
     headers: { uid: e.uid },
-    data: { picture: e.photoURL, name: e.displayName },
+    data: { 
+        picture: e.photoURL, name: e.displayName },
   };
   axios(c)
     .then(function(reponse) {})

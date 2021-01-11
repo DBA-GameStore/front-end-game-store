@@ -261,15 +261,9 @@ export default {
       this.e6 = 3;
     },
     async checkCoupon() {
-      console.log(213218094);
       let config = {
         method: "get",
-        url:
-          "api//havecoupon/" +
-          this.selectCoupon +
-          "/" +
-          this.checktLogin.id +
-          "/",
+        url: "api//havecoupon/",
         headers: { uid: this.checktLogin.uid },
       };
       // let doc = await this.axios(config)

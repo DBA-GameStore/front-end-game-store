@@ -98,13 +98,23 @@
                   <u>Upload New Product</u>
                 </h2>
                 <br />
-                <uploadGame @parentUpdate="updateGames"/>
+                <uploadGame @parentUpdate="updateGames" />
               </v-col>
               <v-col cols="2"></v-col>
             </v-row>
           </v-window-item>
           <v-window-item :value="2">
-            2
+            <v-row justify="center">
+              <v-col cols="2"></v-col>
+              <v-col cols="8">
+                <h2>
+                  <u>Upload New Coupon</u>
+                </h2>
+                <br />
+                <uploadCoupon />
+              </v-col>
+              <v-col cols="2"></v-col>
+            </v-row>
           </v-window-item>
         </v-window>
       </v-col>
@@ -119,17 +129,19 @@
 
 <script>
 import uploadGame from "@/components/Profile/adminUploadGame";
+import uploadCoupon from "@/components/Profile/adminUploadCoupon";
 
 export default {
   name: "Home",
   components: {
     uploadGame,
+    uploadCoupon,
   },
   data() {
     return {
       games: [],
       recommends: [],
-      length: 2,
+      length: 3,
       window: 0,
     };
   },
@@ -226,11 +238,6 @@ export default {
     checkAdmin: {
       get() {
         return this.$store.getters.getAdmin;
-      },
-    },
-    isRecommend: {
-      get() {
-        return 1;
       },
     },
   },

@@ -67,7 +67,6 @@ export default {
       this.games.forEach((element) => {
         this.totalprice += parseInt(element.price);
       });
-      console.log(this.games);
     },
   },
 };

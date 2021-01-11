@@ -7,6 +7,32 @@
             <v-btn text @click="$vuetify.goTo('#comment')">
               <h2 class="pa-0 ma-0">顧客評論 ({{ comments.length }})</h2>
             </v-btn>
+            <v-spacer />
+            <v-row
+              justify="end"
+              class="pa-0 ma-0"
+              style="position:relative;top:50px"
+            >
+              <v-col
+                cols="1"
+                v-for="(item, index) in iconSelect(getCurrentGame.star)"
+                :key="index"
+                color="#fff3e0"
+                class="pa-0 ma-0"
+                large
+              >
+                <v-icon style="position:relative;z-index:100" class="pa-0 ma-0">
+                  {{ item.icon }}
+                </v-icon>
+                <v-icon
+                  x-large
+                  color="#000a12"
+                  class="pa-0 ma-0"
+                  style="position:relative;left:-8px;z-index:5;top:-20px"
+                  >mdi-bookmark</v-icon
+                >
+              </v-col>
+            </v-row>
           </v-card-title>
           <v-card-subtitle
             >Thanks for being so honest with us about how this is impacting
@@ -35,7 +61,7 @@
               <v-col cols="4">
                 <v-card-title class="headline">
                   <v-avatar>
-                    <img :src="item.memberpicture"/>
+                    <img :src="item.memberpicture" />
                   </v-avatar>
                   <v-card-subtitle>{{ item.membername }}</v-card-subtitle>
                 </v-card-title>
@@ -89,6 +115,7 @@ export default {
     return {
       comments: [],
       toggle: false,
+      star: 0,
     };
   },
   computed: {
@@ -110,6 +137,7 @@ export default {
   },
   mounted() {
     this.updateComment();
+    this.star = this.getCurrentGame.star;
   },
   methods: {
     async updateComment() {
@@ -139,6 +167,16 @@ export default {
     },
     toint(e) {
       return parseInt(e);
+    },
+    iconSelect(n) {
+      let icon = [];
+      for (let i = 0; i < parseInt(n); i++) {
+        icon.push({ icon: "mdi-star" });
+      }
+      if (Number(n) === n && n % 1 !== 0) {
+        icon.push({ icon: "mdi-star-half" });
+      }
+      return icon;
     },
   },
 };
