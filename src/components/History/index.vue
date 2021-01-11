@@ -1,6 +1,11 @@
 <template>
   <v-container>
     <v-row justify="center">
+      <v-card-title>
+        購買紀錄
+      </v-card-title>
+    </v-row>
+    <v-row justify="center" v-if="history.length > 0">
       <v-col
         cols="12"
         md="9"
@@ -35,6 +40,11 @@
           <listgame :listid="i.id" />
         </v-card>
       </v-col>
+    </v-row>
+    <v-row v-else justify="center">
+      <v-card-subtitle>
+        查無購買紀錄
+      </v-card-subtitle>
     </v-row>
   </v-container>
 </template>

@@ -35,7 +35,7 @@
               <v-col cols="4">
                 <v-card-title class="headline">
                   <v-avatar>
-                    <img :src="item.memberpicture" alt="John" />
+                    <img :src="item.memberpicture"/>
                   </v-avatar>
                   <v-card-subtitle>{{ item.membername }}</v-card-subtitle>
                 </v-card-title>

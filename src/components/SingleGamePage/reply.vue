@@ -1,5 +1,5 @@
 <template>
-  <v-list-group no-action v-if="replys.length > 0">
+  <v-list-group no-action>
     <template v-slot:activator>
       <v-list-item-content>
         <v-list-item-title>回覆 ({{ counts }})</v-list-item-title>

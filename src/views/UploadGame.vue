@@ -98,7 +98,7 @@
                   <u>Upload New Product</u>
                 </h2>
                 <br />
-                <uploadGame />
+                <uploadGame @parentUpdate="updateGames"/>
               </v-col>
               <v-col cols="2"></v-col>
             </v-row>

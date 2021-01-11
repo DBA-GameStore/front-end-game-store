@@ -1,5 +1,12 @@
 <template lang="html">
-  <div id="firebaseui-auth-container"></div>
+  <div>
+    <div id="firebaseui-auth-container"></div>
+    <div id="loader">
+      <v-overlay :value="true">
+        Loading...
+      </v-overlay>
+    </div>
+  </div>
 </template>
 <script>
 import firebase from "firebase";
@@ -41,6 +48,11 @@ export default {
           // ...
           // Finish sign-in after data is copied.
           return firebase.auth().signInWithCredential(cred);
+        },
+        uiShown: function() {
+          // The widget is rendered.
+          // Hide the loader.
+          document.getElementById("loader").style.display = "none";
         },
       },
     };

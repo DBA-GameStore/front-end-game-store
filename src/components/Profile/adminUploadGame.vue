@@ -50,12 +50,13 @@ export default {
           picture: this.picture,
           description: this.description,
           tag: this.tagid,
+          recommend: 0,
         },
       };
       let result = await this.axios(config)
         .then(function(response) {
           console.log(response);
-          alert("上傳成功")
+          alert("上傳成功");
           return 1;
         })
         .catch(function(error) {
@@ -63,6 +64,7 @@ export default {
           return -1;
         });
       if (result == 1) {
+        this.$emit("parentUpdate");
         this.$refs.form.reset();
       }
     },
