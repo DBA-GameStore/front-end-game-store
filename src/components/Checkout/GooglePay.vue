@@ -5,7 +5,7 @@
 <script>
 import props from "@/GooglePaySettings";
 export default {
-  props: ["address"],
+  props: ["address", "coupon"],
   data() {
     return {
       ...props,
@@ -120,6 +120,7 @@ export default {
         headers: { uid: this.checktLogin.uid },
         data: {
           address: this.address,
+          coupon: this.coupon,
         },
       };
       let _rp = await this.axios(config)

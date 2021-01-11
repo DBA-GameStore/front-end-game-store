@@ -13,7 +13,7 @@
               <v-row align="center" justify="start">
                 <v-col
                   v-for="(selection, i) in selections"
-                  :key="selection.text"
+                  :key="selection.name"
                   class="shrink"
                 >
                   <v-chip
@@ -21,8 +21,8 @@
                     close
                     @click:close="selected.splice(i, 1)"
                   >
-                    <v-icon left v-text="selection.icon"></v-icon>
-                    {{ selection.text }}
+                    <v-icon left v-text="'mdi-google-controller'"></v-icon>
+                    {{ selection.name }}
                   </v-chip>
                 </v-col>
               </v-row>
@@ -34,14 +34,17 @@
               <template v-for="item in categories">
                 <v-list-item
                   v-if="!selected.includes(item)"
-                  :key="item.text"
+                  :key="item.name"
                   :disabled="loading"
                   @click="selected.push(item)"
                 >
+                  <v-list-item-title v-text="item.name"></v-list-item-title>
                   <v-list-item-avatar>
-                    <v-icon :disabled="loading" v-text="item.icon"></v-icon>
+                    <v-icon
+                      :disabled="loading"
+                      v-text="'mdi-google-controller'"
+                    ></v-icon>
                   </v-list-item-avatar>
-                  <v-list-item-title v-text="item.text"></v-list-item-title>
                 </v-list-item>
               </template>
             </v-list>
@@ -137,12 +140,8 @@
 </template>
 
 <script>
-import tagChip from "@/components/Store/tagChip";
-
 export default {
-  components: {
-    tagChip,
-  },
+  components: {},
   data: () => ({
     expand: [],
     games: [],
@@ -272,6 +271,7 @@ export default {
 
   mounted() {
     this.updateGames();
+    this.updateTags();
   },
 
   methods: {
@@ -299,7 +299,6 @@ export default {
       this.$router.push({ name: "Game" });
     },
     async updateGames() {
-      let vm = this;
       let config = {
         method: "get",
         url: "api/game",
@@ -318,6 +317,22 @@ export default {
       });
       this.pageLength = parseInt(this.games.length / 8 + 1);
       if (this.pageLength == 0) this.pageLength++;
+    },
+    async updateTags() {
+      let config = {
+        method: "get",
+        url: "api/tag",
+      };
+      let doc = await this.axios(config)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
+      this.tagChips = doc;
+      console.log(doc);
     },
   },
   filteredStart() {

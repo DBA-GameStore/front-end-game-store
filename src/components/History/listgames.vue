@@ -5,8 +5,11 @@
         <v-toolbar elevation="0" color="transparent">
           <v-list-item-action>購買內容 ({{ games.length }})</v-list-item-action>
           <v-spacer />
+          <v-card-subtitle style="white-space: nowrap;" v-if="coupon.couponid">
+            使用優惠券 {{ coupon.hash }}, 享 {{ coupon.discount }} 折
+          </v-card-subtitle>
           <v-card-subtitle style="white-space: nowrap;">
-            總金額： NT$ {{ totalprice }}
+            總金額： NT$ {{ coupon.total }}
           </v-card-subtitle>
         </v-toolbar>
       </v-list-item-content>
@@ -31,11 +34,10 @@
 
 <script>
 export default {
-  props: ["listid"],
+  props: ["listid", "coupon"],
   components: {},
   data() {
     return {
-      totalprice: 0.0,
       games: [],
     };
   },
@@ -64,9 +66,6 @@ export default {
           console.log(error);
           return [];
         });
-      this.games.forEach((element) => {
-        this.totalprice += parseInt(element.price);
-      });
     },
   },
 };

@@ -146,7 +146,7 @@
                 </v-row>
               </v-card>
               <v-row>
-                <googlePay :address="formDatas[1].model" />
+                <googlePay :address="formDatas[1].model" :coupon="selectCoupon" />
                 <v-divider
                   class="mx-4"
                   vertical

@@ -37,7 +37,7 @@
           <v-toolbar elevation="0" color="transparent">
             <v-card-text> 地址: "{{ i.address }}" </v-card-text>
           </v-toolbar>
-          <listgame :listid="i.id" />
+          <listgame :listid="i.id" :coupon="i" />
         </v-card>
       </v-col>
     </v-row>
