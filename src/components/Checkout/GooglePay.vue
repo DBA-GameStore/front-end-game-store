@@ -5,7 +5,7 @@
 <script>
 import props from "@/GooglePaySettings";
 export default {
-  props: ["address", "phoneNum"],
+  props: ["address"],
   data() {
     return {
       ...props,

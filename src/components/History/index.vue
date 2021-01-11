@@ -86,6 +86,7 @@ export default {
           console.log(error);
           return [];
         });
+      console.log(this.history);
     },
   },
 };
