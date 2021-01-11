@@ -104,6 +104,7 @@ export default {
       titles: [],
       hot: [],
       star: [],
+      newest: [],
       // top: [
       //   {
       //     url: "https://cdn.vuetifyjs.com/images/carousel/planet.jpg",
@@ -146,6 +147,22 @@ export default {
         url: "api/search/hot/5",
       };
       let t = [];
+      let configNew = {
+        method: "get",
+        url: "api/search/newest/5",
+      };
+      let docNew = await this.axios(configNew)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return [];
+        });
+      t.push({
+        tag: "最新上架",
+        games: docNew,
+      });
       let docHot = await this.axios(configHot)
         .then(function(response) {
           return response.data;
