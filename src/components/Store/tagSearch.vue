@@ -3,6 +3,30 @@
     <v-row justify="center">
       <v-col cols="2">
         <v-row>
+          <v-card class="mx-auto pa-2 ma-2"
+            max-width="500"
+            elevation="0"
+            style="position:relative;top:80px">
+            <v-container>
+              <v-row justify="center">
+                <v-col>
+                  <v-btn text @click="pricesort" class="text--center">
+                    價格排序
+                  </v-btn>
+                  <br />
+                  <br />
+                  <v-btn text @click="datesort" class="text--center">
+                    上架日期
+                  </v-btn>
+                  <br />
+                  <br />
+                  <v-btn text @click="scoresort" class="text--center">
+                    玩家評分
+                  </v-btn>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-card>
           <v-card
             class="mx-auto pa-2 ma-2"
             max-width="500"
@@ -10,7 +34,8 @@
             style="position:relative;top:80px"
           >
             <v-container class="py-0">
-              <v-row align="center" justify="start">
+              <h6 class="text--center">標籤</h6>
+              <v-row align="center" justify="center">
                 <v-col
                   v-for="(selection, i) in selections"
                   :key="selection.name"
@@ -48,6 +73,7 @@
                 </v-list-item>
               </template>
             </v-list>
+            <v-divider />
           </v-card>
         </v-row>
       </v-col>
@@ -226,6 +252,7 @@ export default {
     loading: false,
     search: "",
     selected: [],
+    radioGroup: 0,
   }),
 
   computed: {
@@ -275,6 +302,27 @@ export default {
   },
 
   methods: {
+    pricesort() {
+      this.games.sort((a, b) => {
+        if (parseInt(a.price) < parseInt(b.price)) return -1;
+        if (parseInt(a.price) > parseInt(b.price)) return 1;
+        return 0;
+      });
+    },
+    datesort() {
+      this.games.sort((a, b) => {
+        if (parseInt(a.id) > parseInt(b.id)) return -1;
+        if (parseInt(a.id) < parseInt(b.id)) return 1;
+        return 0;
+      });
+    },
+    scoresort() {
+      this.games.sort((a, b) => {
+        if (parseInt(a.star) > parseInt(b.star)) return -1;
+        if (parseInt(a.star) < parseInt(b.star)) return 1;
+        return 0;
+      });
+    },
     async searchGames(tags) {
       let config = {
         method: "post",
