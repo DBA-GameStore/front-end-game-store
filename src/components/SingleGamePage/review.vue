@@ -11,7 +11,7 @@
             <v-row justify="end" style="position:absolute;top:0px;right:50px;">
               <v-col
                 cols="1"
-                v-for="(item, index) in iconSelect(getCurrentGame.star)"
+                v-for="(item, index) in iconSelect(star)"
                 :key="index"
                 color="#fff3e0"
                 style="position:relative;"
@@ -133,7 +133,6 @@ export default {
   },
   mounted() {
     this.updateComment();
-    this.star = this.getCurrentGame.star;
   },
   methods: {
     async updateComment() {
@@ -157,6 +156,9 @@ export default {
         return unique;
       }, []);
       this.comments.filter((item) => (item.star = parseInt(item.star)));
+      this.comments.forEach(element => {
+        this.star += element.star;
+      });
     },
     dowrite() {
       this.toggle = !this.toggle;

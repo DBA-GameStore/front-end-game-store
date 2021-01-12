@@ -17,14 +17,30 @@
         <v-window v-model="window" class="elevation-1">
           <v-window-item :value="0">
             <v-container>
-              <v-card-title>日報表</v-card-title>
-              <v-row justify="center"> </v-row>
-              <v-card-title>總報表</v-card-title>
-              <v-row justify="center"> </v-row>
-              <v-card-title>獲利報表</v-card-title>
-              <v-row justify="center"> </v-row>
-              <v-card-title>銷售量</v-card-title>
-              <v-row justify="center"> </v-row>
+              <v-card-title>日銷售量報表</v-card-title>
+              <v-row justify="center"> 
+                <v-col cols="5">
+                  <v-img src="http://localhost:80/SQLProject/soldout/day/" sizes="10%"></v-img>
+                </v-col>
+              </v-row>
+              <v-card-title>總銷售量報表</v-card-title>
+              <v-row justify="center"> 
+                <v-col cols="5">
+                  <v-img src="http://localhost:80/SQLProject/soldout/all/" sizes="10%"></v-img>
+                </v-col>
+              </v-row>
+              <v-card-title>日獲利報表</v-card-title>
+              <v-row justify="center"> 
+                <v-col cols="5">
+                  <v-img src="http://localhost:80/SQLProject/soldout/day/price" sizes="10%"></v-img>
+                </v-col>
+              </v-row>
+              <v-card-title>總獲利報表</v-card-title>
+              <v-row justify="center"> 
+                <v-col cols="5">
+                  <v-img src="http://localhost:80/SQLProject/soldout/all/price" sizes="10%"></v-img>
+                </v-col>
+              </v-row>
             </v-container>
           </v-window-item>
           <v-window-item :value="1">
@@ -155,6 +171,7 @@ export default {
       recommends: [],
       length: 4,
       window: 0,
+      images:[]
     };
   },
   mounted() {
@@ -167,6 +184,22 @@ export default {
     select(e) {
       this.$store.commit("gameCheckout", e);
       this.$router.push({ name: "Game" });
+    },
+    async updateImage(){
+      let config = {
+        method: "get",
+        url: "api/soldout/all/price",
+      };
+      let doc = await this.axios(config)
+        .then(function(response) {
+          console.log(response);
+          return response;
+        })
+        .catch(function(error) {
+          console.log(error);
+          return this.cart;
+        });
+      this.images = doc.data;
     },
     async updateGames() {
       let config = {
