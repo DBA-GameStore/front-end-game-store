@@ -16,6 +16,18 @@
 
         <v-window v-model="window" class="elevation-1">
           <v-window-item :value="0">
+            <v-container>
+              <v-card-title>日報表</v-card-title>
+              <v-row justify="center"> </v-row>
+              <v-card-title>總報表</v-card-title>
+              <v-row justify="center"> </v-row>
+              <v-card-title>獲利報表</v-card-title>
+              <v-row justify="center"> </v-row>
+              <v-card-title>銷售量</v-card-title>
+              <v-row justify="center"> </v-row>
+            </v-container>
+          </v-window-item>
+          <v-window-item :value="1">
             <v-simple-table>
               <template v-slot:default>
                 <thead>
@@ -90,7 +102,7 @@
               </template>
             </v-simple-table>
           </v-window-item>
-          <v-window-item :value="1">
+          <v-window-item :value="2">
             <v-row justify="center">
               <v-col cols="2"></v-col>
               <v-col cols="8">
@@ -103,7 +115,7 @@
               <v-col cols="2"></v-col>
             </v-row>
           </v-window-item>
-          <v-window-item :value="2">
+          <v-window-item :value="3">
             <v-row justify="center">
               <v-col cols="2"></v-col>
               <v-col cols="8">
@@ -141,7 +153,7 @@ export default {
     return {
       games: [],
       recommends: [],
-      length: 3,
+      length: 4,
       window: 0,
     };
   },
