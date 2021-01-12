@@ -33,7 +33,7 @@
           <v-col cols="2">
             <v-row>
               <h5>折</h5>
-              <h4>{{ item.discount }}</h4>
+              <h4>{{ item.discount.substring(2) }}</h4>
             </v-row>
           </v-col>
           <v-col cols="2">

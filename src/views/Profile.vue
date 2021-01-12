@@ -77,7 +77,7 @@
                   </v-card-text>
                 </v-card>
               </v-window-item>
-              <!-- <v-window-item :value="1">
+              <v-window-item :value="1">
                 <v-row class="mb-4" align="center">
                   <v-toolbar elevation="0">
                     <v-card-title>
@@ -94,14 +94,13 @@
                   <v-col>
                     <v-card-title>
                       <u>
-                        現有優惠券
+                        願望清單
                       </u>
                     </v-card-title>
                   </v-col>
                 </v-row>
-                <v-row v-for="(item, index) in coupons" :key="index">
-                  <v-col cols="1"></v-col>
-                  <v-col cols="1">
+                <v-row v-for="(item, index) in wishlist" :key="index">
+                  <v-col cols="2">
                     <v-divider
                       class="mx-4"
                       vertical
@@ -109,16 +108,15 @@
                     ></v-divider>
                   </v-col>
                   <v-col cols="7">
-                    <h4>{{ item }}</h4>
+                    <h4 @click="select(item)">{{ item.name }}</h4>
                   </v-col>
                   <v-spacer />
                   <v-col cols="2" style="left: -10px">
-                    <h4>x1</h4>
+                    <h4>{{ item.price }}</h4>
                   </v-col>
                 </v-row>
                 <br />
-                <br />
-              </v-window-item> -->
+              </v-window-item>
               <!-- <v-window-item :value="2">
                 <v-row class="mb-4" align="center">
                   <v-toolbar elevation="0">
@@ -154,11 +152,12 @@ export default {
   name: "Home",
   data() {
     return {
-      length: 1,
+      length: 2,
       window: 0,
       profile: [{ address: "1", phoneNum: "2" }],
       address: "",
       phoneNum: "",
+      wishlist: [],
     };
   },
   components: {
@@ -177,10 +176,29 @@ export default {
     },
   },
   mounted() {
+    this.updatewishlist();
     this.updateProfile();
     console.log(this.profile.address);
   },
   methods: {
+    async select(e) {
+      let config = {
+        method: "get",
+        url: "api/game/" + e.gameid,
+      };
+      let u = await this.axios(config)
+        .then(function(response) {
+          console.log(response.data);
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      if (u) {
+        this.$store.commit("gameCheckout", u[0]);
+        this.$router.push({ name: "Game" });
+      }
+    },
     logout() {
       this.$store.commit("logout");
       signout();
@@ -234,6 +252,21 @@ export default {
         .catch(function(error) {
           console.log(error);
         });
+    },
+    async updatewishlist() {
+      let config1 = {
+        method: "get",
+        url: "api/wishlist",
+        headers: { uid: this.checktLogin.uid },
+      };
+      this.wishlist = await this.axios(config1)
+        .then(function(response) {
+          return response.data;
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+      console.log(this.wishlist);
     },
   },
 };

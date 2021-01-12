@@ -6,7 +6,7 @@
           <v-list-item-action>購買內容 ({{ games.length }})</v-list-item-action>
           <v-spacer />
           <v-card-subtitle style="white-space: nowrap;" v-if="coupon.couponid">
-            使用優惠券 {{ coupon.hash }}, 享 {{ coupon.discount }} 折
+            使用優惠券 {{ coupon.hash }}, 享 {{ coupon.discount.substring(2) }} 折
           </v-card-subtitle>
           <v-card-subtitle style="white-space: nowrap;">
             總金額： NT$ {{ coupon.total }}
